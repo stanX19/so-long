@@ -1,7 +1,9 @@
 SRCDIR	= srcs/
 FUNC	= functions/
 UTILS	= utils/
+MLXUTILS	= mlx_utils/
 SHARED	= shared/
+MAP		= map/
 SRCS	=	$(addsuffix .c, \
 		$(addprefix $(SRCDIR)ft_, \
 			) \
@@ -10,7 +12,11 @@ SRCS	=	$(addsuffix .c, \
 		$(addprefix $(SRCDIR)$(SHARED)ft_, \
 			)\
 		$(addprefix $(SRCDIR)$(UTILS)ft_, \
-			))
+			)\
+		$(addprefix $(SRCDIR)$(MAP)ft_, \
+			is_valid_map)\
+		$(addprefix $(SRCDIR)$(MLXUTILS)ft_, \
+			mlx_pixel_put))
 
 OBJS	=	$(subst .c,.o,$(SRCS))
 
@@ -22,14 +28,14 @@ TESTGIT = https://github.com/augustobecker/so_long_tester.git
 NAME	= so_long
 
 run: all
-	$(CC) -I./srcs $(CFLAGS) main.c $(NAME) && ./a.out
-bonus: all
+	./$(NAME) data/map1
+
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-%.o:%.c
-	$(CC) -I. $(CFLAGS) $< -c -o $@
+$(NAME): $(SRCS)
+	$(CC) $(SRCS) -lmlx -I. -framework OpenGL -framework AppKit main.c -o $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -Imlx -I. -c $< -o $@
 	@echo "\033[1A\033[2K\033[1A"
 clean:
 	@$(RM) $(OBJS)

@@ -27,7 +27,7 @@ TESTDIR = so_long_tester
 TESTGIT = https://github.com/augustobecker/so_long_tester.git
 NAME	= so_long
 
-run: all
+run: re
 	./$(NAME) data/map1
 
 all: $(NAME)

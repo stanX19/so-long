@@ -23,6 +23,12 @@ typedef struct	s_square {
 	unsigned int color;
 } square_t;
 
+typedef struct s_map {
+	char**tab;
+	int height;
+	int width;
+} map_t;
+
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 int		is_valid_map(const char *path);

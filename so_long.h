@@ -23,10 +23,17 @@ typedef struct	s_square {
 	unsigned int color;
 } square_t;
 
+typedef struct	s_player {
+	int x;
+	int y;
+	unsigned int color;
+} player_t;
+
 typedef struct s_map {
 	char**tab;
 	int height;
 	int width;
+	player_t player;
 } map_t;
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);

@@ -12,6 +12,8 @@ int	main(void)
 		printf("failed to mlx_init\n");
 		return 0;
 	}
+	else
+		printf("initialized\n");
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
 	mlx_loop(mlx);
 	(void)mlx_win;

@@ -43,9 +43,9 @@ clean:
 	@$(RM) $(OBJS)
 	
 fclean:	clean
-	$(RM) $(NAME)
-	$(RM) $(TESTDIR)
-	$(RM) ./a.out
+	@$(RM) $(NAME)
+	@$(RM) $(TESTDIR)
+	@$(RM) ./a.out
 re:	fclean $(NAME)
 
 test: $(TESTDIR)

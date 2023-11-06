@@ -1,41 +1,58 @@
 #include "so_long.h"
 
-static int count_lines(int fd)
-{
-	int ret;
-	char c;
+t_tile** ft_malloc_2d(size_t width, size_t height){
+    t_tile** map = (t_tile **)malloc(height * sizeof(int *));
+    if (map == NULL) {
+        return NULL;
+    }
 
-	ret = 1;
-	while (read(fd, &c, 1))
-	{
-		if (c == '\n')
-			ret++;
-	}
-	return ret;
+    for (int i = 0; i < height; i++) {
+        map[i] = (int *)malloc(width * sizeof(int));
+        if (map[i] == NULL) {
+			return NULL;
+        }
+    }
+
+    return map;
 }
 
-char **initialize_map(const char* path)
-{
-	char	buffer[32000];
-	char	**ret;
-	int		idx;
-	int		lc;
-	int		fd;
+t_map* ft_initialize_map(const char* path){
+	t_map*	map;
+	char**	raw_map;
+	size_t	width;
+	size_t	height;
 
-	fd = open(path, O_RDONLY);
-	ret = malloc(sizeof(char*) * count_lines(fd));
-	idx = 0;
-	lc = 0;
-	while (read(fd, buffer + idx, 1))
-	{
-		if (buffer[idx++] == '\n')
-		{
-			buffer[idx] = 0;
-			ret[lc++] = ft_strdup(buffer);
-			idx = 0;
+
+	raw_map = ft_generate_raw_map(path, &width, &height);
+	map->grid = ft_malloc_2d(width, height);
+	for (int x = 0; x < width; x++) {
+		for (int y = 0; y < height; y++) {
+			switch (raw_map[y][x])
+			{
+			case '0':
+				map->grid[y][x] = PATH;
+				break;
+			case '1':
+				map->grid[y][x] = WALL;
+				break;
+			case '2':
+				map->grid[y][x] = WATER;
+				break;
+			case 'P': // player
+				// initialize interactable sprite
+				break;
+			case 'C': // slime
+				// count number
+				break;
+			case 'E': // exit
+				// initialize interactable sprite
+				break;
+			default:
+				map->grid[y][x] = PATH;
+				break;
+			}
 		}
 	}
-	buffer[++idx] = 0;
-	ret[lc] = ft_strdup(buffer);
-	return ret;
+	// initialize interactable sprite for slime
+	return map;
 }

@@ -1,13 +1,13 @@
 #include "so_long.h"
 
-t_tile** ft_malloc_2d(size_t width, size_t height){
-    t_tile** map = (t_tile **)malloc(height * sizeof(int *));
+t_tile** ft_malloc_2d(int width, int height){
+    t_tile** map = (t_tile**)malloc(height * sizeof(int *));
     if (map == NULL) {
         return NULL;
     }
 
     for (int i = 0; i < height; i++) {
-        map[i] = (int *)malloc(width * sizeof(int));
+        map[i] = (t_tile *)malloc(width * sizeof(int));
         if (map[i] == NULL) {
 			return NULL;
         }
@@ -24,9 +24,10 @@ t_map* ft_initialize_map(const char* path){
 
 
 	raw_map = ft_generate_raw_map(path, &width, &height);
+	map = malloc(sizeof(t_map));
 	map->grid = ft_malloc_2d(width, height);
-	for (int x = 0; x < width; x++) {
-		for (int y = 0; y < height; y++) {
+	for (size_t x = 0; x < width; x++) {
+		for (size_t y = 0; y < height; y++) {
 			switch (raw_map[y][x])
 			{
 			case '0':

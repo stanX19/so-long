@@ -18,7 +18,7 @@ sprite_t ft_sprite_init(void *mlx_ptr, char *path, size_t x, size_t y, size_t ti
     size_t cropped_height = tile_height;
 
     // Get the pixel data for the image
-    new_sprite.data = (char *)mlx_get_data_addr(new_sprite.img, &new_sprite.width, &new_sprite.height, 0);
+    new_sprite.addr = (char *)mlx_get_data_addr(new_sprite.img, &new_sprite.width, &new_sprite.height, 0);
 
     // Calculate the start index for the cropped portion
     size_t start_index = (y * new_sprite.width + x) * 4; // Assuming 32-bit RGBA image (4 bytes per pixel)
@@ -28,7 +28,7 @@ sprite_t ft_sprite_init(void *mlx_ptr, char *path, size_t x, size_t y, size_t ti
     new_sprite.height = cropped_height;
 
     // Update data to point to the start of the cropped portion
-    new_sprite.data += start_index;
+    new_sprite.addr += start_index;
 
     return new_sprite;
 }

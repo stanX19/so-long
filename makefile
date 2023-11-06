@@ -1,22 +1,19 @@
 SRCDIR	= srcs/
-FUNC	= functions/
+SPRITE	= sprite/
+MAP		= map/
 UTILS	= utils/
 MLXUTILS	= mlx_utils/
-SHARED	= shared/
-MAP		= map/
 SRCS	=	$(addsuffix .c, \
 		$(addprefix $(SRCDIR)ft_, \
 			) \
-		$(addprefix $(SRCDIR)$(FUNC)ft_, \
-			)\
-		$(addprefix $(SRCDIR)$(SHARED)ft_, \
-			)\
-		$(addprefix $(SRCDIR)$(UTILS)ft_, \
-			)\
+		$(addprefix $(SRCDIR)$(SPRITE)ft_, \
+			init_sprite)\
 		$(addprefix $(SRCDIR)$(MAP)ft_, \
-			is_valid_map)\
+			is_valid_map generate_raw_map initialize_map)\
+		$(addprefix $(SRCDIR)$(UTILS)ft_, \
+			memcpy strdup)\
 		$(addprefix $(SRCDIR)$(MLXUTILS)ft_, \
-			mlx_pixel_put))
+			mlx_init mlx_pixel_put))
 
 OBJS		=	$(subst .c,.o,$(SRCS))
 

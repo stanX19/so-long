@@ -51,7 +51,7 @@ int main(void)
     t_window_data data;
 
     // Initialize the MiniLibX context
-    data = ft_mlx_init()
+    data = ft_mlx_init(1000, 1000, "Hello");
     mlx_loop(data.mlx); // Enter the event loop
 
     // Clean up and close the window when you're done

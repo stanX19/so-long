@@ -3,6 +3,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <math.h>
 
 typedef struct s_vector2 {
@@ -24,9 +25,10 @@ typedef struct	s_window_data {
 }				t_window_data;
 
 typedef struct	s_sprite {
-	void *img;
-	size_t	width;
-	size_t	height;
+	void*	img;
+	int		width;
+	int		height;
+	char*	addr;
 } sprite_t;
 
 typedef struct	s_animated_sprite {
@@ -75,10 +77,10 @@ void			*ft_memcpy(void *dst, const void *src, size_t n);
 char			*ft_strdup(char *src);
 
 void			ft_mlx_pixel_put(t_window_data *window_data, int x, int y, int color);
-t_window_data	ft_mlx_init(int window_width, int window_height, const char *window_title);
+t_window_data	ft_mlx_init(int window_width, int window_height, char *window_title);
 
-int				is_valid_map(const char *path);
-char**			generate_raw_map(const char* path, size_t *width, size_t *height);
+int				ft_is_valid_map(const char *path);
+char**			ft_generate_raw_map(const char* path, size_t *width, size_t *height);
 t_map*			ft_initialize_map(const char* path);
 
 #endif

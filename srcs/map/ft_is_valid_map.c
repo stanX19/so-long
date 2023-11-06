@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int	is_valid_map(const char *path)
+int	ft_is_valid_map(const char *path)
 {
 	int prev;
 	int cur;

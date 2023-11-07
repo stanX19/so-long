@@ -10,13 +10,13 @@ SRCS	=	$(addsuffix .c, \
 		$(addprefix $(SRCDIR)$(IMAGE)ft_, \
 			read_xpm new_image fill_image)\
 		$(addprefix $(SRCDIR)$(SPRITE)ft_, \
-			init_sprite)\
+			init_sprite mlx_put_sprite)\
 		$(addprefix $(SRCDIR)$(MAP)ft_, \
 			is_valid_map generate_raw_map initialize_map)\
 		$(addprefix $(SRCDIR)$(UTILS)ft_, \
 			memcpy strdup)\
 		$(addprefix $(SRCDIR)$(MLXUTILS)ft_, \
-			mlx_init mlx_pixel_put mlx_put_sprite))
+			mlx_init mlx_pixel_put))
 
 OBJS		=	$(subst .c,.o,$(SRCS))
 

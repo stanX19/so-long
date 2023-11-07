@@ -44,20 +44,41 @@
 // 	printf("worked!");
 
 
-// #include "so_long.h"
-
 int main(void)
 {
-    t_window_data data;
+    t_window_data	data;
+	t_image			base_img;
+	t_image			xpm_img;
+	t_sprite		sprite;
 
     // Initialize the MiniLibX context
-    data = ft_mlx_init(1000, 1000, "Hello");
+    data = ft_mlx_init(500, 500, "Hello");
+	base_img = ft_new_image(&data, 500, 500);
+	xpm_img = ft_read_xpm(&data, "./assets/sprites/bee/D_Death.xpm");
+	sprite = ft_sprite_init(&xpm_img, 0, 0, 3, 1);
+	ft_mlx_put_sprite(&base_img, &sprite, 0, 0);
+	
+	mlx_put_image_to_window(data.mlx, data.mlx_win, base_img.img, 0, 0);
     mlx_loop(data.mlx); // Enter the event loop
 
+	(void)xpm_img;
     // Clean up and close the window when you're done
-    mlx_destroy_window(data.mlx, data.mlx_win);
-    mlx_destroy_image(data.mlx, data.img);
+    //mlx_destroy_window(data.mlx, data.mlx_win);
+    //mlx_destroy_image(data.mlx, img->img);
 
     return (0);
 }
 
+// int	main(void)
+// {
+// 	void	*mlx;
+// 	void	*img;
+// 	char	*relative_path = "./assets/sprites/bee/D_Death.xpm";
+// 	int		img_width;
+// 	int		img_height;
+
+// 	mlx = mlx_init();
+// 	img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
+
+// 	(void)img;
+// }

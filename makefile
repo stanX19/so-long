@@ -1,11 +1,14 @@
 SRCDIR	= srcs/
 SPRITE	= sprite/
+IMAGE	= image/
 MAP		= map/
 UTILS	= utils/
 MLXUTILS	= mlx_utils/
 SRCS	=	$(addsuffix .c, \
 		$(addprefix $(SRCDIR)ft_, \
 			) \
+		$(addprefix $(SRCDIR)$(IMAGE)ft_, \
+			read_xpm new_image fill_image)\
 		$(addprefix $(SRCDIR)$(SPRITE)ft_, \
 			init_sprite)\
 		$(addprefix $(SRCDIR)$(MAP)ft_, \
@@ -13,7 +16,7 @@ SRCS	=	$(addsuffix .c, \
 		$(addprefix $(SRCDIR)$(UTILS)ft_, \
 			memcpy strdup)\
 		$(addprefix $(SRCDIR)$(MLXUTILS)ft_, \
-			mlx_init mlx_pixel_put))
+			mlx_init mlx_pixel_put mlx_put_sprite))
 
 OBJS		=	$(subst .c,.o,$(SRCS))
 
@@ -24,18 +27,19 @@ TESTDIR		= so_long_tester
 TESTGIT		= https://github.com/augustobecker/so_long_tester.git
 MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 MLX_MACOS	= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
-MLX			= $(MLX_MACOS)
+MLX			= $(MLX_LINUX)
 NAME		= so_long
 
 run: re
 	./$(NAME)
 all: $(NAME)
 
-$(NAME): $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) main.c -I. $(MLX) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) main.c -I. $(MLX) -o $(NAME)
+
 	
 %.o: %.c
-	$(CC) $(CFLAGS) -Imlx -I. -c $< -o $@
+	$(CC) $(CFLAGS) $(MLX) -I. -c $< -o $@
 	@echo "\033[1A\033[2K\033[1A"
 clean:
 	@$(RM) $(OBJS)

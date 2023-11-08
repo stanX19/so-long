@@ -43,23 +43,44 @@
 // 	mlx_loop(data.mlx);
 // 	printf("worked!");
 
+typedef struct s_vars {
+    t_window_data*	data;
+	t_image*		base_img;
+	t_ani_sprite*	animated;
+} t_vars;
+int update(t_vars* vars){
+	static int idx = 0;
 
+	if (idx >= vars->animated->length)
+		idx = 0;
+
+	ft_fill_image(vars->base_img, (0 << 24 | 0xFF << 16 | 0xFF << 8 | 0xFF));
+	ft_mlx_put_sprite(vars->base_img, vars->animated->sprites_arr[idx], 0, 0);
+	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
+
+	++idx;
+	return 0;
+}
 int main(void)
 {
     t_window_data	data;
-	t_image			base_img;
-	t_image			xpm_img;
-	t_sprite		sprite;
+	t_image*		base_img;
+	t_image*		xpm_img;
+	t_ani_sprite*	animated;
 
     // Initialize the MiniLibX context
     data = ft_mlx_init(500, 500, "Hello");
 	base_img = ft_new_image(&data, 500, 500);
-	xpm_img = ft_read_xpm(&data, "./assets/sprites/bee/D_Death.xpm");
-	sprite = ft_sprite_init(&xpm_img, 0, 0, 3, 1);
-	ft_mlx_put_sprite(&base_img, &sprite, 0, 0);
+	xpm_img = ft_read_xpm(&data, "./assets/sprites/S_Walk.xpm");
+	// sprite = ft_init_sprite(xpm_img, 0, 0, (t_vector2){6, 1});
+	// ft_mlx_put_sprite(base_img, sprite, 0, 0);
+	t_sprite** sprites = ft_generate_sprites_array(xpm_img, (t_vector2){0, 0}, (t_vector2){6, 1}, (t_vector2){6, 1});
+	animated = ft_init_animated_sprite(sprites, 6, 1);
+
 	
-	mlx_put_image_to_window(data.mlx, data.mlx_win, base_img.img, 0, 0);
-    mlx_loop(data.mlx); // Enter the event loop
+	mlx_put_image_to_window(data.mlx, data.mlx_win, base_img->img, 0, 0);
+    mlx_loop_hook(data.mlx, &update, &(t_vars){&data, base_img, animated});
+	mlx_loop(data.mlx); // Enter the event loop
 
 	(void)xpm_img;
     // Clean up and close the window when you're done

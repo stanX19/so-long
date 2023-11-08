@@ -6,7 +6,7 @@ int get_sprite_pixel_color(t_sprite* sprite, int x, int y) {
 }
 
 void ft_mlx_put_sprite(t_image* image, t_sprite* sprite,int img_x, int img_y){
-	int color;
+	unsigned int color;
 
     for (int x = 0; x < sprite->width; x++) {
         for (int y = 0; y < sprite->height; y++) {

@@ -6,7 +6,6 @@ t_sprite**	ft_generate_sprites_array(t_image *image, t_vector2 start, t_vector2 
 	t_sprite**	ret;
 
 	total_length = (end.x - start.x) * (end.y - start.y);
-	printf("%zu", total_length);
 	ret = malloc(sizeof(t_sprite*) * total_length);
 	idx = 0;
 	for (int y = start.y; y < end.y; y++) {

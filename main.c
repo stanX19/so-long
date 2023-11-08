@@ -77,7 +77,6 @@ int main(void)
 	t_sprite** sprites = ft_generate_sprites_array(xpm_img, (t_vector2){0, 0}, (t_vector2){6, 1}, (t_vector2){6, 1});
 	animated = ft_init_animated_sprite(sprites, 6, 1);
 
-	
 	mlx_put_image_to_window(data.mlx, data.mlx_win, base_img->img, 0, 0);
     mlx_loop_hook(data.mlx, &update, &(t_vars){&data, base_img, animated});
 	mlx_loop(data.mlx); // Enter the event loop

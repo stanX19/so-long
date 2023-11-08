@@ -1,5 +1,5 @@
 #include "so_long.h"
-#include <stdio.h>
+
 t_sprite**	ft_generate_sprites_array(t_image *image, t_vector2 start, t_vector2 end, t_vector2 grid_size){
 	size_t		total_length;
 	int			idx;

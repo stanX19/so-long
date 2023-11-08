@@ -23,10 +23,10 @@ typedef struct s_vector2 {
 typedef union s_color {
 	unsigned int trgb;
 	struct {
-		char b;
-		char g;
-		char r;
-		char t;
+		unsigned char b;
+		unsigned char g;
+		unsigned char r;
+		unsigned char t;
 	};
 } t_color;
 

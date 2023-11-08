@@ -54,7 +54,7 @@ int update(t_vars* vars){
 	if (idx >= vars->animated->length)
 		idx = 0;
 
-	ft_fill_image(vars->base_img, (0 << 24 | 0xFF << 16 | 0xFF << 8 | 0xFF));
+	ft_fill_image(vars->base_img, 0x00FF00FF);
 	ft_mlx_put_sprite(vars->base_img, vars->animated->sprites_arr[idx], 0, 0);
 	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
 

@@ -54,7 +54,7 @@ int update(t_vars* vars){
 	if (idx >= vars->animated->length)
 		idx = 0;
 
-	ft_fill_image(vars->base_img, 0x00FF00FF);
+	//ft_fill_image(vars->base_img, 0x00FF00FF);
 	ft_mlx_put_sprite(vars->base_img, vars->animated->sprites_arr[idx], 0, 0);
 	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
 
@@ -70,11 +70,11 @@ int main(void)
 
     // Initialize the MiniLibX context
     data = ft_mlx_init(500, 500, "Hello");
-	base_img = ft_new_image(&data, 500, 500);
-	xpm_img = ft_read_xpm(&data, "./assets/sprites/S_Walk.xpm");
-	// sprite = ft_init_sprite(xpm_img, 0, 0, (t_vector2){6, 1});
+	base_img = ft_read_xpm(&data, "assets/sprites/overworld_tileset_grass.xpm");
+	xpm_img = ft_read_xpm(&data, "assets/sprites/bee/S_Walk.xpm");
+	// sprite = ft_init_sprite(xpm_img, 0, 0, (t_vec2){6, 1});
 	// ft_mlx_put_sprite(base_img, sprite, 0, 0);
-	t_sprite** sprites = ft_generate_sprites_array(xpm_img, (t_vector2){0, 0}, (t_vector2){6, 1}, (t_vector2){6, 1});
+	t_sprite** sprites = ft_generate_sprites_array(xpm_img, (t_vec2){0, 0}, (t_vec2){6, 1}, (t_vec2){6, 1});
 	animated = ft_init_animated_sprite(sprites, 6, 1);
 
 	mlx_put_image_to_window(data.mlx, data.mlx_win, base_img->img, 0, 0);

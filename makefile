@@ -34,7 +34,7 @@ TESTDIR		= so_long_tester
 TESTGIT		= https://github.com/augustobecker/so_long_tester.git
 MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 MLX_MACOS	= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
-MLX			= $(MLX_LINUX)
+MLX			= $(MLX_MACOS)
 NAME		= so_long
 
 run: re
@@ -46,8 +46,8 @@ $(NAME): $(OBJS)
 	
 $(OBJDIRS):
 	mkdir -p $@
-objs/%.o: srcs/%.c | $(OBJDIRS)
-	$(CC) $(CFLAGS) $(MLX) -I. -c $< -o $@
+$(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIRS)
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 	@echo -e "\033[1A\033[2K\033[1A"
 clean:
 	@$(RM) $(OBJS)

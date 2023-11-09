@@ -6,10 +6,10 @@
 # include <stdlib.h>
 # include <math.h>
 
-typedef struct s_vector2 {
+typedef struct s_vec2 {
 	int x;
 	int y;
-} t_vector2;
+} t_vec2;
 
 // typedef union s_vector3 {
 // 	int xyz[3];
@@ -62,25 +62,41 @@ typedef struct	s_animated_sprite {
 } t_ani_sprite;
 
 typedef enum {
+	UP,
+	DOWN,
 	LEFT,
 	RIGHT,
-	UP,
-	DOWN
 } t_direction;
 
 typedef enum {
-	DEAD,
-	ALIVE,
+	DEATH,
+	WALK,
 	ATTACK,
+} t_sprite_status;
+
+typedef enum {
+	DEAD,
+	IDLE,
+	MOVING,
+	ATTACKING,
 } t_interactable_status;
 
+typedef struct	s_stats{
+	int	damage;
+	int	health;
+	int max_health;
+	int	speed;
+	int atk_cd;
+} t_stats;
+// sprite_tab[direction][status]
 typedef struct	s_interactable {
-	t_vector2				loc;
-	t_vector2				relative_loc;
+	t_vec2				loc;
+	t_vec2				rel_cords;
 	t_direction				direction;
 	t_interactable_status	status;
-	t_ani_sprite*			sprites[3][4];
-	int						idx;
+	t_ani_sprite***			sprite_tab;
+	int						sprite_idx;
+	t_stats					stats;
 } t_interactable;
 
 typedef enum {
@@ -98,8 +114,9 @@ typedef struct s_map {
 	t_interactable*	slimes;
 } t_map;
 
-void			*ft_memcpy(void *dst, const void *src, size_t n);
-char			*ft_strdup(char *src);
+void*			ft_memcpy(void *dst, const void *src, size_t n);
+char*			ft_strdup(char *src);
+void**			ft_malloc_2d(size_t height, size_t width, size_t pointerSize, size_t elementSize) {
 
 t_image*		ft_read_xpm(t_window_data* data, char* relative_path);
 t_image*		ft_new_image(t_window_data* data, int width, int height);
@@ -113,9 +130,11 @@ int				ft_is_valid_map(const char *path);
 char**			ft_generate_raw_map(const char* path, size_t *width, size_t *height);
 t_map*			ft_initialize_map(const char* path);
 
-t_sprite*		ft_init_sprite(t_image *img, int x, int y, t_vector2 grid_size);
-t_sprite**		ft_generate_sprites_array(t_image *image, t_vector2 start, t_vector2 end, t_vector2 grid_size);
+t_sprite*		ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
+t_sprite**		ft_generate_sprites_array(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);
 t_ani_sprite*	ft_init_animated_sprite(t_sprite** sprites, int length, int frame_interval);
 void			ft_mlx_put_sprite(t_image* image, t_sprite* sprite,int x, int y);
+
+t_ani_sprite*** ft_get_bee_ani_sprites(t_window_data* data);
 
 #endif

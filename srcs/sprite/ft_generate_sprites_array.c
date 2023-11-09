@@ -1,10 +1,13 @@
 #include "so_long.h"
 
-t_sprite**	ft_generate_sprites_array(t_image *image, t_vector2 start, t_vector2 end, t_vector2 grid_size){
+t_sprite ** ft_generate_sprites_array(t_image *image, t_vec2 start,
+										t_vec2 end, t_vec2 grid_size){
 	size_t		total_length;
 	int			idx;
 	t_sprite**	ret;
 
+	if (image == NULL || start.x > end.x || start.y > end.y || end.x > grid_size.x || end.y > grid_size.y)
+		return 0;
 	total_length = (end.x - start.x) * (end.y - start.y);
 	ret = malloc(sizeof(t_sprite*) * total_length);
 	idx = 0;

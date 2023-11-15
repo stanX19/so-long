@@ -6,6 +6,8 @@ t_sprite* ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size) {
 	if (img == NULL)
 		return 0;
 	new_sprite = malloc(sizeof(t_sprite));
+	if (new_sprite == NULL)
+		return 0;
 	new_sprite->width = img->width / grid_size.x;
 	new_sprite->height = img->height / grid_size.y;
 	x *= new_sprite->width;

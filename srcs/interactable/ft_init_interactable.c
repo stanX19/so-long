@@ -12,20 +12,24 @@ t_stats ft_init_stats(void) {
 	return stats;
 }
 
-t_interactable * ft_init_interactable(t_ani_sprite*** sprite_tab){
-	t_interactable *	ret;
+t_itbl * ft_init_interactable(t_ani_sprite *** ani_sprite_tab){
+	t_itbl *	ret;
 
-	if (sprite_tab == NULL)
+	if (ani_sprite_tab == NULL)
 		return NULL;
-	ret = malloc(sizeof(t_interactable));
+	ret = malloc(sizeof(t_itbl));
 	if (ret == NULL)
 		return NULL;
 	ret->loc = (t_vec2){0, 0};
 	ret->rel_cords = (t_vec2){0, 0};
 	ret->direction = DOWN;
-	ret->status = IDLE;
-	ret->sprite_tab = sprite_tab;
+	ret->status = IDLING;
+	ret->animation = ani_sprite_tab[DOWN][IDLE];
+	ret->flip = 0;
+	ret->sprite_tab = ani_sprite_tab;
+	ret->sp_status = IDLE;
 	ret->sprite_idx = 0;
+	ret->frame_tick = 0;
 	ret->stats = ft_init_stats();
 
 	return ret;

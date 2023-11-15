@@ -26,7 +26,7 @@ int update(t_vars2* vars)
 	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
 	int *x = vars->s2->keyboard;
 
-	ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
+	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
 	if (x['w'])
 		update2(vars->itbl, UP);
 	else if (x['a'])

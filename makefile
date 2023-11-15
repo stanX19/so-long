@@ -75,18 +75,14 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER) | $(OBJDIRS) $(PRINTF_LIB)
 	@echo "\033[1A\033[2K\033[1A"
 
 $(PRINTF_LIB):
-	@echo entering printf
-	cd $(PRINTF_DIR)
-	@echo making printf
-	make --directory=$(PRINTF_DIR)
-	cd ..
-	@echo done printf
+	@make --directory=$(PRINTF_DIR) all
 clean:
 	@$(RM) $(OBJS)
 fclean:	clean
 	@$(RM) $(NAME)
 	@$(RM) $(TESTDIR)
 	@$(RM) ./a.out
+	@make --directory=$(PRINTF_DIR) fclean
 re:	fclean $(NAME)
 
 test: $(TESTDIR)

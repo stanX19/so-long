@@ -172,9 +172,9 @@ typedef struct s_map {
 	t_tile **	grid;
 	size_t		grid_height;
 	size_t		grid_width;
-	t_image *	img;
-	size_t		img_height;
-	size_t		img_width;
+	t_image *	bkg_img;
+	size_t		bkg_img_height;
+	size_t		bkg_img_width;
 	t_itbl *	player1;
 	t_itbl *	exit;
 	t_itbl **	coins;
@@ -193,6 +193,7 @@ void *				ft_memcpy(void *dst, const void *src, size_t n);
 char *				ft_strdup(char *src);
 void *				ft_memset(void *b, int c, size_t len);
 void **				ft_malloc_2d(size_t height, size_t width, size_t pointerSize, size_t elementSize);
+int					ft_2d_count_val(char ** map, int width, int height, char target);
 
 t_image *			ft_read_xpm(t_mlx_data* data, char* relative_path);
 t_image *			ft_new_image(t_mlx_data* data, int width, int height);
@@ -218,12 +219,12 @@ void				ft_mlx_put_sprite(t_image* image, t_sprite* sprite,int x, int y);
 void				ft_sprite_destory(t_sprite * sprite);
 void				ft_ani_sprite_destory(t_ani_sprite * animated);
 
-
 void				init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite ***	ft_get_bee_ani_sprites(t_mlx_data * data);
 t_ani_sprite ***	ft_get_slime_ani_sprites(t_mlx_data * data);
 t_ani_sprite ***	ft_get_slime2_ani_sprites(t_mlx_data * data);
 t_ani_sprite ***	ft_get_player_ani_sprites(t_mlx_data * data);
+t_ani_sprite ***	ft_get_coin_ani_sprites(t_mlx_data * data);
 
 t_itbl *			ft_init_interactable(t_ani_sprite*** sprite_tab);
 void				ft_put_interactable_to_img(t_image * base_img, t_itbl * itbl, int x, int y);

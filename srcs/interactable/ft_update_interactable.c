@@ -33,7 +33,7 @@ static void	update_frame_tick(t_itbl * itbl, t_ani_sprite * animated)
 {
 	if (!animated)
 	{
-		ft_printf("update frame tick: animated is null\n");
+		itbl->status = get_next_state(itbl);
 		return ;
 	}
 	if (itbl->frame_tick >= animated->frame_interval)
@@ -51,8 +51,10 @@ static void	update_frame_tick(t_itbl * itbl, t_ani_sprite * animated)
 
 static void check_flip(t_itbl * itbl)
 {
-	if (itbl->direction == RIGHT && !itbl->animation &&
-		itbl->sprite_tab[LEFT][itbl->sp_status])
+	if ((itbl->direction == RIGHT && !itbl->animation &&
+		itbl->sprite_tab[LEFT][itbl->sp_status]) ||
+		(itbl->direction == LEFT && !itbl->animation &&
+		itbl->sprite_tab[RIGHT][itbl->sp_status]))
 	{
 		itbl->animation = itbl->sprite_tab[LEFT][itbl->sp_status];
 		itbl->flip = 1;

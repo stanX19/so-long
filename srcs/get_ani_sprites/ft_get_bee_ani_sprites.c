@@ -35,8 +35,10 @@ t_ani_sprite*** ft_get_bee_ani_sprites(t_mlx_data * data) {
                         		sizeof(t_ani_sprite**), sizeof(t_ani_sprite*));
 	init_sp_data(sp_data);
     get_bee_rel_paths(sp_data);
-    for (int y = 0; y < NUM_DIRECTIONS; y++) {
-        for (int x = 0; x < NUM_ACTIONS; x++) {
+    for (int y = 0; y < NUM_DIRECTIONS; y++)
+	{
+        for (int x = 0; x < NUM_ACTIONS; x++)
+		{
             ret[y][x] = get_animated_sprite(data, sp_data[y][x]);
 		}
     }

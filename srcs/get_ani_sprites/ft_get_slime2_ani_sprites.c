@@ -1,12 +1,12 @@
 #include "so_long.h"
 
-static void get_bee_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]) {
-    sp_data[UP][DEATH] = (t_sp_data){"assets/sprites/bee/U_Death.xpm", {6, 1}};
-    sp_data[UP][WALK] = (t_sp_data){"assets/sprites/bee/U_Walk.xpm", {6, 1}};
-    sp_data[DOWN][DEATH] = (t_sp_data){"assets/sprites/bee/D_Death.xpm", {6, 1}};
-    sp_data[DOWN][WALK] = (t_sp_data){"assets/sprites/bee/D_Walk.xpm", {6, 1}};
-    sp_data[LEFT][DEATH] = (t_sp_data){"assets/sprites/bee/S_Death.xpm", {6, 1}};
-    sp_data[LEFT][WALK] = (t_sp_data){"assets/sprites/bee/S_Walk.xpm", {6, 1}};
+static void get_slime2_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]) {
+    sp_data[UP][DEATH] = (t_sp_data){"assets/sprites/slime/U_Death2.xpm", {0, 0}, {6, 1}, {6, 1}};
+    sp_data[UP][WALK] = (t_sp_data){"assets/sprites/slime/U_Walk2.xpm", {0, 0}, {6, 1}, {6, 1}};
+    sp_data[DOWN][DEATH] = (t_sp_data){"assets/sprites/slime/D_Death2.xpm", {0, 0}, {6, 1}, {6, 1}};
+    sp_data[DOWN][WALK] = (t_sp_data){"assets/sprites/slime/D_Walk2.xpm", {0, 0}, {6, 1}, {6, 1}};
+    sp_data[LEFT][DEATH] = (t_sp_data){"assets/sprites/slime/S_Death2.xpm", {0, 0}, {6, 1}, {6, 1}};
+    sp_data[LEFT][WALK] = (t_sp_data){"assets/sprites/slime/S_Walk2.xpm", {0, 0}, {6, 1}, {6, 1}};
 }
 
 static t_ani_sprite* get_animated_sprite(t_mlx_data * data, char * rel_path, t_vec2 size){
@@ -18,7 +18,7 @@ static t_ani_sprite* get_animated_sprite(t_mlx_data * data, char * rel_path, t_v
 		return 0;
 	if (size.x * size.y <= 0)
 	{
-		ft_printf("ERROR: Bee animated sprites: Invalid grid range for %s", rel_path);
+		ft_printf("ERROR: Slime2 animated sprites: Invalid grid range for %s", rel_path);
 		return 0;
 	}
 	img = ft_read_xpm(data, rel_path);
@@ -27,14 +27,14 @@ static t_ani_sprite* get_animated_sprite(t_mlx_data * data, char * rel_path, t_v
 	return ret;
 }
 
-t_ani_sprite*** ft_get_bee_ani_sprites(t_mlx_data * data) {
+t_ani_sprite*** ft_get_slime2_ani_sprites(t_mlx_data * data) {
 	t_ani_sprite*** ret;
     t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS];
 
     ret = (t_ani_sprite ***)ft_malloc_2d(NUM_DIRECTIONS, NUM_ACTIONS,
                         		sizeof(t_ani_sprite**), sizeof(t_ani_sprite*));
 	init_sp_data(sp_data);
-    get_bee_rel_paths(sp_data);
+    get_slime2_rel_paths(sp_data);
     for (int y = 0; y < NUM_DIRECTIONS; y++) {
         for (int x = 0; x < NUM_ACTIONS; x++) {
             ret[y][x] = get_animated_sprite(data, sp_data[y][x].rel_path, sp_data[y][x].size);

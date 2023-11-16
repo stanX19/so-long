@@ -6,7 +6,7 @@ void init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
 	{
 		for (int j = 0; j < NUM_ACTIONS; j++)
 		{
-			sp_data[i][j] = (t_sp_data){0, {0, 0}};
+			sp_data[i][j] = (t_sp_data){0, {0, 0}, {0, 0}, {0, 0}};
 		}
 	}
 }

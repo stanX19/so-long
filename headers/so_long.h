@@ -8,6 +8,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <string.h>
 # include <math.h>
 
 typedef struct s_vec2 {
@@ -96,8 +97,9 @@ typedef struct	s_stats{
 typedef struct s_sp_data
 {
 	char *	rel_path;
+	t_vec2	start;
+	t_vec2	end;
 	t_vec2  size;
-
 } t_sp_data;
 // sprite_tab[direction][status]
 typedef struct	s_itbl {
@@ -216,11 +218,16 @@ void				ft_mlx_put_sprite(t_image* image, t_sprite* sprite,int x, int y);
 void				ft_sprite_destory(t_sprite * sprite);
 void				ft_ani_sprite_destory(t_ani_sprite * animated);
 
+
+void				init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite ***	ft_get_bee_ani_sprites(t_mlx_data * data);
+t_ani_sprite ***	ft_get_slime_ani_sprites(t_mlx_data * data);
+t_ani_sprite ***	ft_get_slime2_ani_sprites(t_mlx_data * data);
+t_ani_sprite ***	ft_get_player_ani_sprites(t_mlx_data * data);
+
 t_itbl *			ft_init_interactable(t_ani_sprite*** sprite_tab);
 void				ft_put_interactable_to_img(t_image * base_img, t_itbl * itbl, int x, int y);
 void				ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, int img_y);
-void				init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 void				ft_itbl_reset_ani(t_itbl * itbl);
 void				ft_update_itbl_status(t_itbl * itbl);
 void				ft_itbl_destory(t_itbl *itbl);

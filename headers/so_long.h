@@ -117,9 +117,13 @@ typedef struct	s_itbl {
 } t_itbl;
 
 typedef enum {
-    PATH,
-    WALL,
-    WATER
+    PATH = 1,
+    WALL = 2,
+    WATER = 4,
+	EXIT = 8,
+	PLAYER1 = 16,
+	COIN = 32,
+	ENEMY = 64,
 } t_tile;
 
 enum s_event_type {
@@ -236,4 +240,7 @@ void				ft_itbl_destory(t_itbl *itbl);
 t_input				ft_init_input(void);
 int					ft_on_key_press(int keycode, t_vars * param);
 int					ft_on_key_release(int keycode, t_vars * param);
+int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
+int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
+void				ft_hook_listeners(t_vars *vars);
 #endif

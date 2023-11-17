@@ -14,6 +14,28 @@ typedef struct s_loc_data {
 	t_idx_data		idx;
 } t_loc_data;
 
+static void assign_itbl_locs(t_map *map, t_itbl **itbl, t_tile val)
+{
+	int idx;
+	int x;
+	int y;
+
+	idx = 0;
+	y = 0;
+	x = 0;
+	while (y < map->grid_height)
+	{
+		while (x < map->grid_width)
+		{
+			if (map->grid[y][x] | val)
+				itbl[idx++]->loc = (t_vec2){x, y};
+			++x;
+		}
+		++y;
+	}
+	
+}
+
 void assign_sprites_loc(t_loc_data * d)
 {
 	switch (d->raw_map[d->y][d->x])
@@ -33,21 +55,24 @@ void assign_sprites_loc(t_loc_data * d)
 	}	
 }
 
-void assign_grid_loc(t_loc_data * d)
+static t_tile get_grid_val(char c)
 {
-	switch (d->raw_map[d->y][d->x])
+	switch (c)
 	{
-	case '0':
-		d->map->grid[d->y][d->x] = PATH;
-		break;
 	case '1':
-		d->map->grid[d->y][d->x] = WALL;
-		break;
+		return WALL;
 	case '2':
-		d->map->grid[d->y][d->x] = WATER;
-		break;
+		return WATER;
+	case 'E':
+		return PATH | EXIT;
+	case 'C':
+		return PATH | COIN;
+	case 'P':
+		return PATH | PLAYER1;
+	case 'S':
+		return PATH | ENEMY;
 	default:
-		assign_sprites_loc(d);
+		return PATH;
 	}
 }
 
@@ -60,7 +85,8 @@ void ft_map_init_cords(t_map* map, char** raw_map, int width, int height)
         for (int y = 0; y < height; y++) {
 			loc_data.x = x;
 			loc_data.y = y;
-			assign_grid_loc(&loc_data);
+			map->grid[y][x] = get_grid_val(raw_map[y][x]);
+			assign_sprites_loc(&loc_data);
 		}
 	}
 }

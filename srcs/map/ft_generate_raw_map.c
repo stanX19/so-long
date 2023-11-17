@@ -16,7 +16,7 @@ static int count_lines(int fd)
 
 char **	ft_generate_raw_map(const char* path, size_t *width, size_t *height)
 {
-	char	buffer[32000];
+	char	buffer[3200];
 	char**	ret;
 	int		idx;
 	int		lc;

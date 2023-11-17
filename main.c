@@ -61,6 +61,7 @@ int update(t_vars2* vars)
 	int *kb = vars->s2->keyboard;
 
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
+	ft_printf("left: %i | right: %i\n", vars->s2->mouse_left, vars->s2->mouse_right);
 	if (kb['l'])
 		vars->itbl->stats.speed += 1;
 	if (kb['k'] && vars->itbl->stats.speed > 1)
@@ -98,8 +99,7 @@ int main(void)
     mlx_loop_hook(data->mlx, update, &(t_vars2){data, base_img, background, itbl, &input});
 	mlx_clear_window(data->mlx, data->mlx_win);
 	mlx_do_key_autorepeatoff(data->mlx);
-	mlx_hook(data->mlx_win, ON_KEYDOWN, KEY_PRESS_MASK, ft_on_key_press, &(t_vars){data, 0, &input});
-	mlx_hook(data->mlx_win, ON_KEYUP, KEY_RELEASE_MASK, ft_on_key_release, &(t_vars){data, 0, &input});
+	ft_hook_listeners(&(t_vars){data, 0, &input});
 	ft_printf("running...\n");
 	mlx_loop(data->mlx); // Enter the event loop
 	

@@ -9,6 +9,19 @@ typedef struct s_vars2 {
 	t_input*		s2;
 } t_vars2;
 
+int ending_loop(t_vars2* vars)
+{
+	int *kb = vars->s2->keyboard;
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb[vars->s2->esc_code] == 0)
+	{
+		ft_printf("loop ended\n");
+		ft_mlx_destory(vars->data);
+		ft_itbl_destory(vars->itbl);
+		exit(0);
+	}
+	return 1;
+}
+
 void update2(t_itbl * itbl, t_direction direction, int*x, int*y)
 {
 	// if (itbl->direction != direction)
@@ -61,6 +74,8 @@ int update(t_vars2* vars)
 		update2(vars->itbl, DOWN, &x, &y);
 	else if (kb['d'])
 		update2(vars->itbl, RIGHT, &x, &y);
+	if (kb[27])
+		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
 	return 0;
 }
 int main(void)
@@ -87,9 +102,7 @@ int main(void)
 	mlx_hook(data->mlx_win, ON_KEYUP, KEY_RELEASE_MASK, ft_on_key_release, &(t_vars){data, 0, &input});
 	ft_printf("running...\n");
 	mlx_loop(data->mlx); // Enter the event loop
-	ft_printf("loop ended\n");
-	ft_mlx_destory(data);
-	ft_itbl_destory(itbl);
+	
 
     return (0);
 }

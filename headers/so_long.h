@@ -226,7 +226,7 @@ t_ani_sprite ***	ft_get_slime2_ani_sprites(t_mlx_data * data);
 t_ani_sprite ***	ft_get_player_ani_sprites(t_mlx_data * data);
 t_ani_sprite ***	ft_get_coin_ani_sprites(t_mlx_data * data);
 
-t_itbl *			ft_init_interactable(t_ani_sprite*** sprite_tab);
+t_itbl *			ft_init_interactable(t_ani_sprite *** sprite_tab);
 void				ft_put_interactable_to_img(t_image * base_img, t_itbl * itbl, int x, int y);
 void				ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, int img_y);
 void				ft_itbl_reset_ani(t_itbl * itbl);

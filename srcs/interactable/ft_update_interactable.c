@@ -24,7 +24,7 @@ static t_itbl_status get_next_state(t_itbl * itbl)
 	case DYING:
 		return DEAD;
 	case ATTACKING:
-		return IDLE;
+		return IDLING;
 	default:
 		return itbl->status;
 	}

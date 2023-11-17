@@ -57,10 +57,10 @@ PRINTF_LIB	= $(PRINTF_DIR)/libftprintf.a
 
 MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 MLX_MACOS	= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
-MLX			= $(MLX_LINUX)
 NAME		= so_long
 
-IFLAGS		= -I. -I$(HEADER_DIR) $(MLX) $(PRINTF_LIB)
+IFLAGS		= -I. -I$(HEADER_DIR) -Imlx
+LINKERS		= $(MLX_MACOS) $(PRINTF_LIB)
 
 UP			= \033[1A
 FLUSH		= \033[2K
@@ -70,8 +70,8 @@ run: all
 all: $(NAME)
 
 $(NAME): main.c $(OBJS) $(PRINTF_LIB) $(HEADER)
-	@$(CC) $(CFLAGS) $(OBJS) main.c $(IFLAGS) -o $(NAME)
-	@echo "$(CC) $(CFLAGS) objs/*.o main.c $(IFLAGS) -o $(NAME)"
+	@$(CC) $(CFLAGS) $(OBJS) main.c $(IFLAGS) $(LINKERS) -o $(NAME)
+	@echo "$(CC) $(CFLAGS) objs/*.o main.c $(IFLAGS) $(LINKERS) -o $(NAME)"
 
 $(OBJDIRS):
 	mkdir -p $@

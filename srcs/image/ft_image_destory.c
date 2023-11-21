@@ -1,8 +1,8 @@
 #include "so_long.h"
 
-void	ft_image_destory(t_mlx_data * data, t_image * image)
+void	ft_image_destory(t_assets * assets, t_image * image)
 {
-	if (data == 0 || data->mlx == 0)
+	if (assets == 0 || assets->mlx == 0)
 	{
 		ft_printf("Null data passed to ft_image_destory\n");
 		return ;
@@ -12,6 +12,6 @@ void	ft_image_destory(t_mlx_data * data, t_image * image)
 		ft_printf("Null image passed to ft_image_destory\n");
 		return ;
 	}
-	mlx_destroy_image(data->mlx, image->img);
+	mlx_destroy_image(assets->mlx, image->img);
 	free(image);
 }

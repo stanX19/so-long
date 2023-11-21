@@ -91,7 +91,7 @@ int main(void)
     data = ft_mlx_init(500, 500, "Hello");
 	base_img = ft_new_image(data, 500, 500);
 	background = ft_read_xpm(data, "assets/sprites/player/U_Idle.xpm");
-	itbl = ft_init_interactable(ft_get_coin_ani_sprites(data));
+	itbl = ft_init_interactable(ft_init_coin_ani_sprites(data));
 	itbl->direction = DOWN;
 	itbl->status = IDLING;
 	itbl->stats.speed = 1;

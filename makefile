@@ -60,7 +60,9 @@ MLX_MACOS	= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
 NAME		= so_long
 
 IFLAGS		= -I. -I$(HEADER_DIR) -Imlx
-LINKERS		= $(MLX_MACOS) $(PRINTF_LIB)
+LINKERS		= $(MLX_LINUX) $(PRINTF_LIB)
+
+MAIN		= main1.c
 
 UP			= \033[1A
 FLUSH		= \033[2K
@@ -69,14 +71,13 @@ run: all
 	./so_long
 all: $(NAME)
 
-$(NAME): main.c $(OBJS) $(PRINTF_LIB) $(HEADER)
-	@$(CC) $(CFLAGS) $(OBJS) main.c $(IFLAGS) $(LINKERS) -o $(NAME)
-	@echo "$(CC) $(CFLAGS) objs/*.o main.c $(IFLAGS) $(LINKERS) -o $(NAME)"
+$(NAME): $(MAIN) $(OBJS) $(PRINTF_LIB) $(HEADER)
+	$(CC) $(CFLAGS) $(OBJS) $(MAIN) $(IFLAGS) $(LINKERS) -o $(NAME)
 
 $(OBJDIRS):
 	mkdir -p $@
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER) | $(OBJDIRS) $(PRINTF_LIB)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) $(LINKERS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
 $(PRINTF_LIB):
@@ -86,6 +87,7 @@ clean:
 fclean:	clean
 	@$(RM) $(NAME)
 	@$(RM) $(TESTDIR)
+	@$(RM) $(OBJDIRS)
 	@$(RM) ./a.out
 	@make --directory=$(PRINTF_DIR) fclean
 re:	fclean $(NAME)

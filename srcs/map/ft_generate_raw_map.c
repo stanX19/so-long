@@ -14,19 +14,18 @@ static int count_lines(int fd)
 	return ret;
 }
 
-char **	ft_generate_raw_map(const char* path, size_t *width, size_t *height)
+static void	read_and_set(int fd, char **ret, size_t *width, size_t *height)
 {
 	char	buffer[3200];
-	char**	ret;
 	int		idx;
 	int		lc;
-	int		fd;
+	int x;
 
-	fd = open(path, O_RDONLY);
-	ret = (char**)malloc(sizeof(char*) * count_lines(fd));
 	idx = 0;
 	lc = 0;
-	while (read(fd, buffer + idx, 1))
+	ft_memset(buffer, 0, sizeof(buffer));
+	x = read(fd, buffer + idx, 1);
+	while (x)
 	{
 		if (buffer[idx++] == '\n')
 		{
@@ -35,10 +34,39 @@ char **	ft_generate_raw_map(const char* path, size_t *width, size_t *height)
 			ret[lc++] = ft_strdup(buffer);
 			idx = 0;
 		}
-
+		x = read(fd, buffer + idx, 1);
 	}
-	buffer[++idx] = 0;
-	*height = idx;
+	buffer[idx] = 0;
 	ret[lc] = ft_strdup(buffer);
+	*height = lc + 1;
+}
+
+static char **failed(char* msg, size_t *width, size_t *height)
+{
+	*width = 0;
+	*height = 0;
+	ft_printf("ERROR: Generate raw map: %s\n", msg);
+	return 0;
+}
+
+char **	ft_generate_raw_map(const char* path, size_t *width, size_t *height)
+{
+	char**	ret;
+	int		fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		return failed(strerror(errno), width, height);
+	}
+	ret = (char**)malloc(sizeof(char*) * count_lines(fd));
+	close(fd);
+	if (!ret)
+	{
+		return failed("failed to malloc", width, height);
+	}
+	fd = open(path, O_RDONLY);
+	read_and_set(fd, ret, width, height);
+	close(fd);
 	return ret;
 }

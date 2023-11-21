@@ -46,8 +46,6 @@ typedef struct	s_mlx_data {
 	void *		mlx_win;
 	size_t		width;
 	size_t		height;
-	t_free_arr	all_img;
-	t_free_arr	all_ani_sprite;
 }				t_mlx_data;
 
 typedef struct	s_sprite {
@@ -63,6 +61,32 @@ typedef struct	s_animated_sprite {
 	int			length;
 	int			frame_interval;
 } t_ani_sprite;
+
+typedef struct s_grouped_sp
+{
+	t_sprite *	hill_land[3][3];
+	t_sprite *	land_hill[3][3];
+	t_sprite *	land_water[3][3];
+	t_sprite *	water_land[3][3];
+	t_sprite *	land_tree[3][3];
+	t_sprite *	tree_land[3][3];
+} t_grouped_sp;
+
+typedef struct s_assets
+{
+	void *			mlx;
+	t_free_arr		all_img;
+	t_free_arr		all_ani_sprite;
+	t_ani_sprite ***enemy;
+	t_ani_sprite ***coin;
+	t_ani_sprite ***player;
+	t_ani_sprite ***exit;
+	t_sprite **		all_tile;
+	size_t			all_tile_len;
+	t_grouped_sp	tiles;
+	t_vec2			tile_size;
+} t_assets;
+
 
 typedef enum s_direction {
 	UP,
@@ -117,13 +141,13 @@ typedef struct	s_itbl {
 } t_itbl;
 
 typedef enum {
-    PATH = 1,
-    WALL = 2,
-    WATER = 4,
-	EXIT = 8,
-	PLAYER1 = 16,
-	COIN = 32,
-	ENEMY = 64,
+    PATH = (1 << 0),
+    WALL = (1 << 1),
+    WATER = (1 << 2),
+	EXIT = (1 << 3),
+	PLAYER1 = (1 << 4),
+	COIN = (1 << 5),
+	ENEMY = (1 << 6),
 } t_tile;
 
 enum s_event_type {
@@ -174,15 +198,15 @@ typedef struct s_input {
 
 typedef struct s_map {
 	t_tile **	grid;
-	size_t		grid_height;
-	size_t		grid_width;
+	t_vec2		grid_size;
 	t_image *	bkg_img;
-	size_t		bkg_img_height;
-	size_t		bkg_img_width;
 	t_itbl *	player1;
 	t_itbl *	exit;
 	t_itbl **	coins;
-	t_itbl **	slimes;
+	t_itbl **	enemy;
+	size_t		coin_len;
+	size_t		enemy_len;
+	t_assets *	assets;
 } t_map;
 
 typedef struct s_vars {
@@ -198,12 +222,17 @@ char *				ft_strdup(char *src);
 void *				ft_memset(void *b, int c, size_t len);
 void **				ft_malloc_2d(size_t height, size_t width, size_t pointerSize, size_t elementSize);
 int					ft_2d_count_val(char ** map, int width, int height, char target);
+void				ft_free_2d(void **ptr, size_t len);
+void				ft_free_ptr_arr(void **arr, size_t len, void(*free_func)(void*));
+int					max(int a, int b);
+int					min(int a, int b);
 
-t_image *			ft_read_xpm(t_mlx_data* data, char* relative_path);
-t_image *			ft_new_image(t_mlx_data* data, int width, int height);
+t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
+t_image *			ft_new_image(t_assets * assets, int width, int height);
 void				ft_fill_image(t_image* img, int color);
 int					ft_mlx_put_image_to_win(t_mlx_data* data, t_image* img, int x, int y);
-void				ft_image_destory(t_mlx_data * data, t_image * image);
+void				ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y);
+void				ft_image_destory(t_assets * assets, t_image * image);
 
 void				ft_mlx_pixel_put(t_image* img, int x, int y, unsigned int color);
 t_mlx_data *		ft_mlx_init(int window_width, int window_height, char *window_title);
@@ -213,22 +242,25 @@ int					ft_add_to_free_arr(t_free_arr * free_arr, void * target);
 int					ft_is_valid_map(const char *path);
 char **				ft_generate_raw_map(const char* path, size_t *width, size_t *height);
 void				ft_map_init_cords(t_map* map, char** raw_map, int width, int height);
-t_map *				ft_map_init(const char* path);
+void				ft_map_init_itbl(t_map *map, t_assets *assets);
+t_image *			ft_map_bg_gen(t_map *map, t_assets *assets);
+t_map *				ft_map_init(const char* path, t_assets * assets);
+void				ft_map_destory(t_map *map);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_rows(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);
-t_ani_sprite *		ft_init_animated_sprite(t_mlx_data * data, t_sprite** sprites, int length, int frame_interval);
+t_ani_sprite *		ft_init_animated_sprite(t_assets * assets, t_sprite** sprites, int length, int frame_interval);
 void				ft_mlx_put_sprite(t_image* image, t_sprite* sprite,int x, int y);
 void				ft_sprite_destory(t_sprite * sprite);
 void				ft_ani_sprite_destory(t_ani_sprite * animated);
 
 void				init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
-t_ani_sprite ***	ft_get_bee_ani_sprites(t_mlx_data * data);
-t_ani_sprite ***	ft_get_slime_ani_sprites(t_mlx_data * data);
-t_ani_sprite ***	ft_get_slime2_ani_sprites(t_mlx_data * data);
-t_ani_sprite ***	ft_get_player_ani_sprites(t_mlx_data * data);
-t_ani_sprite ***	ft_get_coin_ani_sprites(t_mlx_data * data);
+t_ani_sprite ***	ft_init_bee_ani_sprites(t_assets * assets);
+t_ani_sprite ***	ft_init_slime_ani_sprites(t_assets * assets);
+t_ani_sprite ***	ft_init_slime2_ani_sprites(t_assets * assets);
+t_ani_sprite ***	ft_init_player_ani_sprites(t_assets * assets);
+t_ani_sprite ***	ft_init_coin_ani_sprites(t_assets * assets);
 
 t_itbl *			ft_init_interactable(t_ani_sprite *** sprite_tab);
 void				ft_put_interactable_to_img(t_image * base_img, t_itbl * itbl, int x, int y);
@@ -243,4 +275,9 @@ int					ft_on_key_release(int keycode, t_vars * param);
 int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
 int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
+
+void				ft_set_grouped_tiles(t_assets *assets);
+t_sprite**			ft_init_grass_tileset(t_assets *assets);
+t_assets *			ft_init_assets(t_mlx_data *data);
+void				ft_destory_assets(t_assets *assets);
 #endif

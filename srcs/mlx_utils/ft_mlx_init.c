@@ -21,8 +21,6 @@ t_mlx_data * ft_mlx_init(int window_width, int window_height, char *window_title
 										window_height, window_title);
     mlx_data->width = window_width;
     mlx_data->height = window_height;
-	mlx_data->all_img.idx = 0;
-	mlx_data->all_ani_sprite.idx = 0;
 
     return mlx_data;
 }

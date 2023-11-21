@@ -2,11 +2,17 @@
 
 void init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
 {
-	for (int i = 0; i < NUM_DIRECTIONS; i++)
+	int i;
+	int j;
+
+	i = 0;
+	while (i < NUM_DIRECTIONS)
 	{
-		for (int j = 0; j < NUM_ACTIONS; j++)
+		j = 0;
+		while (j < NUM_ACTIONS)
 		{
-			sp_data[i][j] = (t_sp_data){0, {0, 0}, {0, 0}, {0, 0}};
+			sp_data[i][j++] = (t_sp_data){0, {0, 0}, {0, 0}, {0, 0}};
 		}
+		i++;
 	}
 }

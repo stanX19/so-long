@@ -76,6 +76,7 @@ $(NAME): $(MAIN) $(OBJS) $(PRINTF_LIB) $(HEADER)
 
 $(OBJDIRS):
 	mkdir -p $@
+	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER) | $(OBJDIRS) $(PRINTF_LIB)
 	$(CC) $(CFLAGS) $(IFLAGS) $(LINKERS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"

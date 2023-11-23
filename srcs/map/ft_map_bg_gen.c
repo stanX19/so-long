@@ -2,6 +2,11 @@
 #define TILE_SIZE(x) (x * 2 - 1)
 #define BINARY_4BIT(num4, num3, num2, num1) \
     ((num4 << 3) | (num3 << 2) | (num2 << 1) | (num1))
+#define MAP_EQL_TO(c, val)\
+	c[0] = ((c[0] & val) == val);\
+	c[1] = ((c[1] & val) == val);\
+	c[2] = ((c[2] & val) == val);\
+	c[3] = ((c[3] & val) == val);\
 
 static t_image *	init_base_image(t_assets *assets, t_vec2 map_size, t_vec2 tile_size)
 {
@@ -25,18 +30,12 @@ t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
 	if (((c[0] | c[1] | c[2] | c[3]) & (PATH | WALL)))
 	{
 		type = assets->tiles.path_wall;
-		c[0] = ((c[0] & WALL) == WALL);
-		c[1] = ((c[1] & WALL) == WALL);
-		c[2] = ((c[2] & WALL) == WALL);
-		c[3] = ((c[3] & WALL) == WALL);
+		MAP_EQL_TO(c, WALL);
 	}
 	else if (((c[0] | c[1] | c[2] | c[3]) & (PATH | WATER)))
 	{
 		type = assets->tiles.water_path;
-		c[0] = ((c[0] & PATH) == PATH);
-		c[1] = ((c[1] & PATH) == PATH);
-		c[2] = ((c[2] & PATH) == PATH);
-		c[3] = ((c[3] & PATH) == PATH);
+		MAP_EQL_TO(c, PATH);
 	}
 	else
 	{
@@ -51,36 +50,11 @@ static void	process_cord(t_image *	img, t_map *map, t_assets *assets, t_vec2 cor
 {
 	t_tile c[4];
 
-	if (cord.x % 2 == 0 && cord.y % 2 == 0)
-	{
-		ft_memset(c, map->grid[cord.y / 2][cord.x / 2], sizeof(c));
-	}
-	else if (cord.x % 2 == 1 && cord.y % 2 == 0)
-	{
-		c[0] = map->grid[cord.y / 2][cord.x / 2];
-		c[1] = map->grid[cord.y / 2][cord.x / 2 + 1];
-		c[2] = map->grid[cord.y / 2][cord.x / 2];
-		c[3] = map->grid[cord.y / 2][cord.x / 2 + 1];
-	}
-	else if (cord.x % 2 == 0 && cord.y % 2 == 1)
-	{
-		c[0] = map->grid[cord.y / 2][cord.x / 2];
-		c[1] = map->grid[cord.y / 2][cord.x / 2];
-		c[2] = map->grid[cord.y / 2 + 1][cord.x / 2];
-		c[3] = map->grid[cord.y / 2 + 1][cord.x / 2];
-	}
-	else if (cord.x % 2 == 1 && cord.y % 2 == 1)
-	{
-		c[0] = map->grid[cord.y / 2][cord.x / 2];
-		c[1] = map->grid[cord.y / 2][cord.x / 2 + 1];
-		c[2] = map->grid[cord.y / 2 + 1][cord.x / 2];
-		c[3] = map->grid[cord.y / 2 + 1][cord.x / 2 + 1];
-	}
-	else
-	{
-		ft_printf("ASSERTION ERROR: Map bg gen: cord out of range");
-		return ;
-	}
+	c[0] = map->grid[cord.y / 2][cord.x / 2];
+	c[1] = map->grid[cord.y / 2][cord.x / 2 + (cord.x % 2)];
+	c[2] = map->grid[cord.y / 2 + (cord.y % 2)][cord.x / 2];
+	c[3] = map->grid[cord.y / 2 + (cord.y % 2)][cord.x / 2 + (cord.x % 2)];
+
 	cord.x *= assets->tile_size.x;
 	cord.y *= assets->tile_size.y;
 	ft_mlx_put_sprite(img, get_corres_sprite(c, assets), cord.x, cord.y);
@@ -109,3 +83,7 @@ t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 
 	return ret;
 }
+
+#undef TILE_SIZE
+#undef BINARY_4BIT
+#undef MAP_EQL_TO

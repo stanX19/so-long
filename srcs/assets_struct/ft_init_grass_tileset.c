@@ -45,3 +45,7 @@ t_sprite** ft_init_connected_grass_tileset(t_assets *assets)
 	set_grouped_tiles(assets, ret);
 	return ret;
 }
+
+#undef START
+#undef END
+#undef SIZE

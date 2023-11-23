@@ -1,4 +1,7 @@
 #include "so_long.h"
+#define TILE_SIZE(x) (x * 2 - 1)
+#define BINARY_4BIT(num4, num3, num2, num1) \
+    ((num4 << 3) | (num3 << 2) | (num2 << 1) | (num1))
 
 static t_image *	init_base_image(t_assets *assets, t_vec2 map_size, t_vec2 tile_size)
 {
@@ -7,122 +10,102 @@ static t_image *	init_base_image(t_assets *assets, t_vec2 map_size, t_vec2 tile_
 	size_t		height;
 
 	ft_printf("Map grid size: (%i, %i)\n", map_size.x, map_size.y);
-	width = (map_size.x * 2 - 1) * tile_size.x;
-	height = (map_size.y * 2 - 1) * tile_size.y;
+	width = TILE_SIZE(map_size.x) * tile_size.x;
+	height = TILE_SIZE(map_size.y) * tile_size.y;
 	ft_printf("Background size: (%i, %i)\n", width, height);
 	ret = ft_new_image(assets, width, height);
 
 	return ret;
 }
 
+t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
+{
+	t_sprite ** type;
+
+	if (((c[0] | c[1] | c[2] | c[3]) & (PATH | WALL)))
+	{
+		type = assets->tiles.path_wall;
+		c[0] = ((c[0] & WALL) == WALL);
+		c[1] = ((c[1] & WALL) == WALL);
+		c[2] = ((c[2] & WALL) == WALL);
+		c[3] = ((c[3] & WALL) == WALL);
+	}
+	else if (((c[0] | c[1] | c[2] | c[3]) & (PATH | WATER)))
+	{
+		type = assets->tiles.water_path;
+		c[0] = ((c[0] & PATH) == PATH);
+		c[1] = ((c[1] & PATH) == PATH);
+		c[2] = ((c[2] & PATH) == PATH);
+		c[3] = ((c[3] & PATH) == PATH);
+	}
+	else
+	{
+		ft_printf("ERROR: Map bg gen: no matching tiles: %i %i %i %i\n", c[0], c[1], c[2], c[3]);
+		return 0;
+	}
+
+	return type[BINARY_4BIT(c[0], c[1], c[2], c[3])];
+}
+
+static void	process_cord(t_image *	img, t_map *map, t_assets *assets, t_vec2 cord)
+{
+	t_tile c[4];
+
+	if (cord.x % 2 == 0 && cord.y % 2 == 0)
+	{
+		ft_memset(c, map->grid[cord.y / 2][cord.x / 2], sizeof(c));
+	}
+	else if (cord.x % 2 == 1 && cord.y % 2 == 0)
+	{
+		c[0] = map->grid[cord.y / 2][cord.x / 2];
+		c[1] = map->grid[cord.y / 2][cord.x / 2 + 1];
+		c[2] = map->grid[cord.y / 2][cord.x / 2];
+		c[3] = map->grid[cord.y / 2][cord.x / 2 + 1];
+	}
+	else if (cord.x % 2 == 0 && cord.y % 2 == 1)
+	{
+		c[0] = map->grid[cord.y / 2][cord.x / 2];
+		c[1] = map->grid[cord.y / 2][cord.x / 2];
+		c[2] = map->grid[cord.y / 2 + 1][cord.x / 2];
+		c[3] = map->grid[cord.y / 2 + 1][cord.x / 2];
+	}
+	else if (cord.x % 2 == 1 && cord.y % 2 == 1)
+	{
+		c[0] = map->grid[cord.y / 2][cord.x / 2];
+		c[1] = map->grid[cord.y / 2][cord.x / 2 + 1];
+		c[2] = map->grid[cord.y / 2 + 1][cord.x / 2];
+		c[3] = map->grid[cord.y / 2 + 1][cord.x / 2 + 1];
+	}
+	else
+	{
+		ft_printf("ASSERTION ERROR: Map bg gen: cord out of range");
+		return ;
+	}
+	cord.x *= assets->tile_size.x;
+	cord.y *= assets->tile_size.y;
+	ft_mlx_put_sprite(img, get_corres_sprite(c, assets), cord.x, cord.y);
+}
+
 t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 {
 	t_image *	ret;
 	t_vec2		cord;
+	t_vec2		end;
 
 	ret = init_base_image(assets, map->grid_size, assets->tile_size);
 	cord = (t_vec2){0, 0};
-	while (cord.y < map->grid_size.y * 2 - 1)
+	end = (t_vec2){TILE_SIZE(map->grid_size.x), TILE_SIZE(map->grid_size.y)};
+
+	while (cord.y < end.y)
 	{
 		cord.x = 0;
-		while (cord.x < map->grid_size.x * 2 - 1)
+		while (cord.x < end.x)
 		{
-			int x;
-			int y;
-			t_sprite *sprite;
-			t_vec2 mod2;
-			mod2 = (t_vec2){cord.x / 2, cord.y / 2};
-			
-			ft_printf("(%i, %i), (%i, %i)\n", cord.x, cord.y, mod2.x, mod2.y);
-			if (cord.x % 2 == 0 && cord.y % 2 == 0)
-				sprite = assets->tiles.path_hill[1][1];
-			else if (cord.x % 2 == 0 && cord.y % 2 == 1) // top core down core
-			{
-				x = 1;
-				if (map->grid[mod2.y + 1][mod2.x] & map->grid[mod2.y][mod2.x] & (PATH | WALL))
-					y = 1;
-				else if (map->grid[mod2.y + 1][mod2.x] & WALL) // not same level, down is WALL
-					y = 2;
-				else
-					y = 0;
-				sprite = assets->tiles.path_hill[y][x];
-			}
-			else if (cord.x % 2 == 1 && cord.y % 2 == 0)
-			{
-				y = 1;
-				if (map->grid[mod2.y][mod2.x + 1] & map->grid[mod2.y][mod2.x] & (PATH | WALL))
-					x = 1;
-				else if (map->grid[mod2.y][mod2.x + 1] & WALL) // not same level, right is WALL
-					x = 2;
-				else
-					x = 0;
-				sprite = assets->tiles.path_hill[y][x];
-			}
-			else // corner base
-			{
-				int c1, c2, c3, c4;
-				int	path_hill = 1;
-
-				c1 = map->grid[mod2.y][mod2.x];
-				c2 = map->grid[mod2.y][mod2.x + 1];
-				c3 = map->grid[mod2.y + 1][mod2.x];
-				c4 = map->grid[mod2.y + 1][mod2.x + 1];
-				
-				if (c1 & c2 & c3 & c4 & (WALL | PATH))
-				{
-					x = 1;
-					y = 1;
-				}
-				else if ((c1 & c2 & (WALL | PATH)) && (c3 & c4 & (WALL | PATH)))
-				{
-					x = 1;
-					if (c1 & c2 & WALL) // top is wall
-						y = 0;
-					else
-						y = 2;
-				}
-				else if ((c1 & c3 & (WALL | PATH)) && (c2 & c4 & (WALL | PATH)))
-				{
-					y = 1;
-					if (c1 & c3 & WALL) // left is wall
-						x = 0;
-					else
-						x = 2;
-				}
-				else
-				{
-					path_hill = 0;
-				}
-				if (path_hill)
-					sprite = assets->tiles.path_hill[y][x];
-				else
-				{
-					++cord.x;
-					continue;
-				}
-
-			}
-			ft_mlx_put_sprite(ret, sprite,
-				cord.x * assets->tile_size.x, cord.y * assets->tile_size.y);
-
+			process_cord(ret, map, assets, cord);
 			++cord.x;
 		}
 		++cord.y;
 	}
-	// cord = (t_vec2){0, 0};
-	// while (cord.y < map->grid_size.y * 3)
-	// {
-	// 	cord.x = 0;
-	// 	while (cord.x < map->grid_size.x * 3)
-	// 	{
-	// 		int pattern[4] = {0, 1, 2 ,1};
-	// 		ft_mlx_put_sprite(ret,
-	// 			assets->tiles.path_hill[pattern[cord.y % 4]][pattern[cord.x % 4]],
-	// 			cord.x * assets->tile_size.x, cord.y * assets->tile_size.y);
-	// 		++cord.x;
-	// 	}
-	// 	++cord.y;
-	// }
 
 	return ret;
 }

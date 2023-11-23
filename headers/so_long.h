@@ -64,12 +64,18 @@ typedef struct	s_animated_sprite {
 
 typedef struct s_grouped_sp
 {
-	t_sprite *	hill_land[3][3];
-	t_sprite *	land_hill[3][3];
-	t_sprite *	land_water[3][3];
-	t_sprite *	water_land[3][3];
-	t_sprite *	land_tree[3][3];
-	t_sprite *	tree_land[3][3];
+	t_sprite * path_hill[16];
+	t_sprite * water_path[16];
+	t_sprite * path_tree[16];
+	// t_sprite *	hill_path[3][3];
+	// t_sprite *	path_hill[3][3];
+	// t_sprite *	hill_hill[3][3];
+	// t_sprite *	path_water[3][3];
+	// t_sprite *	water_path[3][3];
+	// t_sprite *	water_water[3][3];
+	// t_sprite *	path_tree[3][3];
+	// t_sprite *	tree_path[3][3];
+	// t_sprite *	tree_tree[3][3];
 } t_grouped_sp;
 
 typedef struct s_assets
@@ -140,7 +146,8 @@ typedef struct	s_itbl {
 	t_stats				stats;
 } t_itbl;
 
-typedef enum {
+typedef enum s_tile
+{
     PATH = (1 << 0),
     WALL = (1 << 1),
     WATER = (1 << 2),
@@ -150,7 +157,8 @@ typedef enum {
 	ENEMY = (1 << 6),
 } t_tile;
 
-enum s_event_type {
+enum s_event_type
+{
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
@@ -276,8 +284,7 @@ int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
 int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
 
-void				ft_set_grouped_tiles(t_assets *assets);
-t_sprite**			ft_init_grass_tileset(t_assets *assets);
+t_sprite**			ft_init_connected_grass_tileset(t_assets *assets);
 t_assets *			ft_init_assets(t_mlx_data *data);
 void				ft_destory_assets(t_assets *assets);
 #endif

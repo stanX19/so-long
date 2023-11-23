@@ -35,7 +35,7 @@ t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 			
 			ft_printf("(%i, %i), (%i, %i)\n", cord.x, cord.y, mod2.x, mod2.y);
 			if (cord.x % 2 == 0 && cord.y % 2 == 0)
-				sprite = assets->tiles.land_hill[1][1];
+				sprite = assets->tiles.path_hill[1][1];
 			else if (cord.x % 2 == 0 && cord.y % 2 == 1) // top core down core
 			{
 				x = 1;
@@ -45,7 +45,7 @@ t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 					y = 2;
 				else
 					y = 0;
-				sprite = assets->tiles.land_hill[y][x];
+				sprite = assets->tiles.path_hill[y][x];
 			}
 			else if (cord.x % 2 == 1 && cord.y % 2 == 0)
 			{
@@ -56,12 +56,12 @@ t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 					x = 2;
 				else
 					x = 0;
-				sprite = assets->tiles.land_hill[y][x];
+				sprite = assets->tiles.path_hill[y][x];
 			}
 			else // corner base
 			{
 				int c1, c2, c3, c4;
-				int	land_hill = 1;
+				int	path_hill = 1;
 
 				c1 = map->grid[mod2.y][mod2.x];
 				c2 = map->grid[mod2.y][mod2.x + 1];
@@ -91,10 +91,10 @@ t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 				}
 				else
 				{
-					land_hill = 0;
+					path_hill = 0;
 				}
-				if (land_hill)
-					sprite = assets->tiles.land_hill[y][x];
+				if (path_hill)
+					sprite = assets->tiles.path_hill[y][x];
 				else
 				{
 					++cord.x;
@@ -117,7 +117,7 @@ t_image *	ft_map_bg_gen(t_map *map, t_assets *assets)
 	// 	{
 	// 		int pattern[4] = {0, 1, 2 ,1};
 	// 		ft_mlx_put_sprite(ret,
-	// 			assets->tiles.land_hill[pattern[cord.y % 4]][pattern[cord.x % 4]],
+	// 			assets->tiles.path_hill[pattern[cord.y % 4]][pattern[cord.x % 4]],
 	// 			cord.x * assets->tile_size.x, cord.y * assets->tile_size.y);
 	// 		++cord.x;
 	// 	}

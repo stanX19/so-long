@@ -17,8 +17,7 @@ t_assets *	ft_init_assets(t_mlx_data *data)
 	assets->enemy = ft_init_slime_ani_sprites(assets);
 	assets->exit = ft_init_bee_ani_sprites(assets);
 	assets->player = ft_init_player_ani_sprites(assets);
-	assets->all_tile = ft_init_grass_tileset(assets);
-	ft_set_grouped_tiles(assets);
+	assets->all_tile = ft_init_connected_grass_tileset(assets);
 
 	return assets;
 }

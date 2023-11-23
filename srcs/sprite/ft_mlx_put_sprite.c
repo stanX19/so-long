@@ -43,6 +43,11 @@ void ft_mlx_put_sprite(t_image* image, t_sprite* sprite, int img_x, int img_y){
 		ft_printf("mlx put sprite: empty base image passed in");
 		return ;
 	}
+	else if (!sprite)
+	{
+		ft_printf("mlx put sprite: empty base image passed in");
+		return ;
+	}
 	x = (img_x > 0)? 0: -img_x;
 	while (x < min(sprite->width, image->width))
 	{

@@ -3,7 +3,7 @@
 t_sprite* ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size) {
     t_sprite* new_sprite;
 	
-	if (img == NULL)
+	if (!img)
 		return 0;
 	new_sprite = malloc(sizeof(t_sprite));
 	if (new_sprite == NULL)

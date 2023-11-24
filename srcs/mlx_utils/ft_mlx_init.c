@@ -1,9 +1,8 @@
 #include "so_long.h"
 
-t_mlx_data * ft_mlx_init(int window_width, int window_height, char *window_title)
+t_mlx_data * ft_mlx_init(void)
 {
     t_mlx_data * mlx_data;
-
 	mlx_data = malloc(sizeof(t_mlx_data));
 	if (!mlx_data)
 	{
@@ -17,10 +16,14 @@ t_mlx_data * ft_mlx_init(int window_width, int window_height, char *window_title
 		free(mlx_data);
 		return 0;
 	}
-    mlx_data->mlx_win = mlx_new_window(mlx_data->mlx, window_width,
-										window_height, window_title);
-    mlx_data->width = window_width;
-    mlx_data->height = window_height;
+	return mlx_data;
+}
+
+t_mlx_data * ft_mlx_win_init(t_mlx_data * mlx_data, int width, int height, char *title)
+{	
+    mlx_data->mlx_win = mlx_new_window(mlx_data->mlx, width, height, title);
+    mlx_data->width = width;
+    mlx_data->height = height;
 
     return mlx_data;
 }

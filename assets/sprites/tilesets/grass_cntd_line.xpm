@@ -1,5 +1,5 @@
 /* XPM */
-static char *tileset_grass_cntd_line_png[] = {
+static char *grass_cntd_line[] = {
 /* columns rows colors chars-per-pixel */
 "256 48 27 1 ",
 "  c #24161A",

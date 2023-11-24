@@ -22,12 +22,12 @@ static void set_grouped_tiles(t_assets *assets, t_sprite**src)
 	}
 }
 
-t_sprite** ft_init_connected_grass_tileset(t_assets *assets)
+static t_sprite** init_line_format_tileset(t_assets *assets, char * path)
 {
 	t_image *	img;
 	t_sprite **	ret;
 	
-	img = ft_read_xpm(assets, "./assets/sprites/tileset_grass_cntd_line.xpm");
+	img = ft_read_xpm(assets, path);
 	if (!img)
 	{
 		assets->tile_size.y = 0;
@@ -44,6 +44,18 @@ t_sprite** ft_init_connected_grass_tileset(t_assets *assets)
 	assets->tile_size.x = ret[0]->width;
 	set_grouped_tiles(assets, ret);
 	return ret;
+}
+
+t_sprite** ft_init_connected_grass_tileset(t_assets *assets)
+{
+	return init_line_format_tileset(assets,
+		"assets/sprites/tilesets/grass_cntd_line.xpm");
+}
+
+t_sprite** ft_init_seperated_grass_tileset(t_assets *assets)
+{
+	return init_line_format_tileset(assets,
+		"assets/sprites/tilesets/grass_sprtd_line.xpm");
 }
 
 #undef START

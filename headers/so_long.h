@@ -243,7 +243,8 @@ void				ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y);
 void				ft_image_destory(t_assets * assets, t_image * image);
 
 void				ft_mlx_pixel_put(t_image* img, int x, int y, unsigned int color);
-t_mlx_data *		ft_mlx_init(int window_width, int window_height, char *window_title);
+t_mlx_data *		ft_mlx_init(void);
+t_mlx_data *		ft_mlx_win_init(t_mlx_data * data, int width, int height, char *title);
 void				ft_mlx_destory(t_mlx_data * data);
 int					ft_add_to_free_arr(t_free_arr * free_arr, void * target);
 
@@ -285,6 +286,7 @@ int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
 
 t_sprite**			ft_init_connected_grass_tileset(t_assets *assets);
+t_sprite**			ft_init_seperated_grass_tileset(t_assets *assets);
 t_assets *			ft_init_assets(t_mlx_data *data);
 void				ft_destory_assets(t_assets *assets);
 #endif

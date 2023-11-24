@@ -1,5 +1,5 @@
 /* XPM */
-static char *tileset_grass_original[] = {
+static char *grass_original[] = {
 /* columns rows colors chars-per-pixel */
 "192 336 77 1 ",
 "  c #121111",

@@ -96,7 +96,8 @@ re:	fclean $(NAME)
 test: $(TESTDIR)
 	cd $(TESTDIR) && make && make fclean
 xpm:
-	mogrify -format xpm ./assets/*/*.png
+	find . -type f -name "*.xpm" -exec $(RM) {} \;
+	mogrify -format xpm ./assets/*/*/*.png
 $(TESTDIR):
 	git clone $(TESTGIT)
 .PHONY:			all clean fclean re .c.o xpm

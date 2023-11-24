@@ -15,9 +15,9 @@ int ending_loop(t_vars2* vars)
 	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb[vars->s2->esc_code] == 0)
 	{
 		ft_printf("loop ended\n");
+		ft_destory_assets(vars->assets);
 		ft_mlx_destory(vars->data);
 		ft_map_destory(vars->map);
-		ft_destory_assets(vars->assets);
 		exit(0);
 	}
 	return 1;
@@ -71,7 +71,14 @@ int update(t_vars2* vars)
 	if (!vars->s2->mouse_right)
 		vars->map->player1->stats.speed = 1;
 	if (vars->s2->mouse_left)
+	{
+		// if (vars->map->player1->status != ATTACKING)
+		// {
+		// 	vars->map->player1->frame_tick = 0;
+		// 	vars->map->player1->sprite_idx = 0;
+		// }
 		vars->map->player1->status = ATTACKING;
+	}
 	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
 	if (kb['w'])
 		update2(vars->map->player1, UP, &x, &y);
@@ -81,7 +88,7 @@ int update(t_vars2* vars)
 		update2(vars->map->player1, DOWN, &x, &y);
 	else if (kb['d'])
 		update2(vars->map->player1, RIGHT, &x, &y);
-	else
+	else if (vars->map->player1->status != ATTACKING)
 		vars->map->player1->status = IDLING;
 	if (kb[27])
 		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
@@ -97,12 +104,13 @@ int main(void)
 	t_input 		input = ft_init_input();
 
     // Initialize the MiniLibX context
-    data = ft_mlx_init(1100, 180, "Hello");
+    data = ft_mlx_init();
 	assets = ft_init_assets(data);
 	base_img = ft_new_image(assets, 2500, 1500);
-	map = ft_map_init("./assets/map/map1.ber", assets);
+	map = ft_map_init("./assets/map/map2.ber", assets);
+	ft_mlx_win_init(data, map->bkg_img->width, map->bkg_img->height, "so long");
 	ft_mlx_put_img_to_img(base_img, map->bkg_img, 0, 0);
-
+	
 	ft_printf("running...\n");
 	// ft_mlx_put_sprite(base_img, assets->player[LEFT][WALK]->sprites_arr[0], -10, -10);
 	// ft_mlx_put_image_to_win(data, base_img, 0, 0);

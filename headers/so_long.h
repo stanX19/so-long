@@ -255,6 +255,8 @@ void				ft_map_init_itbl(t_map *map, t_assets *assets);
 t_image *			ft_map_bg_gen(t_map *map, t_assets *assets);
 t_map *				ft_map_init(const char* path, t_assets * assets);
 void				ft_map_destory(t_map *map);
+void				ft_map_put_itbl(t_image *bg, t_map *map);
+void				ft_map_update_itbl(t_map *map);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);

@@ -26,13 +26,16 @@ static t_image *	init_base_image(t_assets *assets, t_vec2 map_size, t_vec2 tile_
 t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
 {
 	t_sprite ** type;
+	int			val;
 
-	if (((c[0] | c[1] | c[2] | c[3]) & (PATH | WALL)))
+
+	val = ((c[0] | c[1] | c[2] | c[3]) & (PATH | WALL | WATER));
+	if (val == (PATH | WALL) || val == (PATH) || val == (WALL))
 	{
 		type = assets->tiles.path_wall;
 		MAP_EQL_TO(c, WALL);
 	}
-	else if (((c[0] | c[1] | c[2] | c[3]) & (PATH | WATER)))
+	else if (val == (PATH | WATER) || val == WATER)
 	{
 		type = assets->tiles.water_path;
 		MAP_EQL_TO(c, PATH);

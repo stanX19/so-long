@@ -8,6 +8,10 @@ t_stats ft_init_stats(void) {
 	stats.max_health = 1;
 	stats.speed = 1;
 	stats.atk_cd = 10;
+	stats.steps = 0;
+	stats.stamina = 10;
+	stats.max_stamina = stats.stamina;
+	stats.velocity = (t_vec2){0, 0};
 
 	return stats;
 }
@@ -20,8 +24,9 @@ t_itbl * ft_init_interactable(t_ani_sprite *** ani_sprite_tab){
 	ret = malloc(sizeof(t_itbl));
 	if (ret == NULL)
 		return NULL;
-	ret->loc = (t_vec2){0, 0};
-	ret->rel_cords = (t_vec2){0, 0};
+	ret->cord = (t_vec2){0, 0};
+	ret->offset = (t_vec2){0, 0};
+	ret->rel_cord = (t_vec2){0, 0};
 	ret->direction = DOWN;
 	ret->status = IDLING;
 	ret->animation = ani_sprite_tab[DOWN][IDLE];
@@ -30,6 +35,7 @@ t_itbl * ft_init_interactable(t_ani_sprite *** ani_sprite_tab){
 	ret->sp_status = IDLE;
 	ret->sprite_idx = 0;
 	ret->frame_tick = 0;
+	ret->blocking = 0;
 	ret->stats = ft_init_stats();
 
 	return ret;

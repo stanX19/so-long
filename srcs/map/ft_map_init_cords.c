@@ -40,16 +40,16 @@ void assign_sprites_loc(t_loc_data * d)
 	switch (d->raw_map[d->y][d->x])
 	{
 	case 'P':
-		d->map->player1->loc = (t_vec2){d->x, d->y};
+		d->map->player1->cord = (t_vec2){d->x, d->y};
 		break;
 	case 'E':
-		d->map->exit->loc = (t_vec2){d->x, d->y};
+		d->map->exit->cord = (t_vec2){d->x, d->y};
 		break;
 	case 'C':
-		d->map->coins[(d->idx.coin)++]->loc = (t_vec2){d->x, d->y};
+		d->map->coins[(d->idx.coin)++]->cord = (t_vec2){d->x, d->y};
 		break;
 	case 'S':
-		d->map->enemy[(d->idx.enemy)++]->loc = (t_vec2){d->x, d->y};
+		d->map->enemy[(d->idx.enemy)++]->cord = (t_vec2){d->x, d->y};
 		break;
 	}
 }

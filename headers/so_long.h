@@ -122,6 +122,10 @@ typedef struct	s_stats{
 	int max_health;
 	int	speed;
 	int atk_cd;
+	int steps;
+	int stamina;
+	int max_stamina;
+	t_vec2	velocity;
 } t_stats;
 
 typedef struct s_sp_data
@@ -132,19 +136,6 @@ typedef struct s_sp_data
 	t_vec2  size;
 } t_sp_data;
 // sprite_tab[direction][status]
-typedef struct	s_itbl {
-	t_vec2				loc;
-	t_vec2				rel_cords;
-	t_direction			direction;
-	t_ani_sprite *		animation;
-	t_sprite_status		sp_status;
-	t_itbl_status		status;
-	int					flip;
-	t_ani_sprite ***	sprite_tab;
-	int					sprite_idx;
-	int					frame_tick;
-	t_stats				stats;
-} t_itbl;
 
 typedef enum s_tile
 {
@@ -156,6 +147,23 @@ typedef enum s_tile
 	COIN = (1 << 5),
 	ENEMY = (1 << 6),
 } t_tile;
+
+typedef struct	s_itbl {
+	t_vec2				cord;
+	t_vec2				offset;
+	t_vec2				rel_cord;
+	t_direction			direction;
+	t_ani_sprite *		animation;
+	t_sprite_status		sp_status;
+	t_itbl_status		status;
+	int					flip;
+	t_tile				blocking;
+	t_ani_sprite ***	sprite_tab;
+	int					sprite_idx;
+	int					frame_tick;
+	t_stats				stats;
+} t_itbl;
+
 
 enum s_event_type
 {
@@ -234,6 +242,7 @@ void				ft_free_2d(void **ptr, size_t len);
 void				ft_free_ptr_arr(void **arr, size_t len, void(*free_func)(void*));
 int					max(int a, int b);
 int					min(int a, int b);
+int					sign(int x);
 
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
@@ -257,6 +266,7 @@ t_map *				ft_map_init(const char* path, t_assets * assets);
 void				ft_map_destory(t_map *map);
 void				ft_map_put_itbl(t_image *bg, t_map *map);
 void				ft_map_update_itbl(t_map *map);
+void				ft_map_update_itbl_pos(t_map *map);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);

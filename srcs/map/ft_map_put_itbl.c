@@ -3,8 +3,8 @@
 static void	put_itbl_by_cord(t_image *img, t_vec2 tile_size, t_itbl *itbl)
 {
 	ft_put_interactable_to_img(img, itbl,
-		2 * itbl->loc.x * tile_size.x + itbl->rel_cords.x,
-		2 * itbl->loc.y * tile_size.y + itbl->rel_cords.y
+		2 * itbl->cord.x * tile_size.x + itbl->offset.x + itbl->rel_cord.x,
+		2 * itbl->cord.y * tile_size.y + itbl->offset.y + itbl->rel_cord.y
 	);
 }
 

@@ -27,43 +27,24 @@ void update2(t_itbl * itbl, t_direction direction)
 {
 	if (itbl->status != ATTACKING)
 		itbl->status = MOVING;
-	// if (itbl->direction != direction)
-	// {
-	// 	itbl->frame_tick = 0;
-	// 	itbl->sprite_idx = 0;
-	// }
 	itbl->direction = direction;
-	switch (direction)
-	{
-	case LEFT:
-		itbl->loc.x -= itbl->stats.speed;
-		break;
-	case RIGHT:
-		itbl->loc.x += itbl->stats.speed;
-		break;
-	case UP:
-		itbl->loc.y -= itbl->stats.speed;
-		break;
-	case DOWN:
-		itbl->loc.y += itbl->stats.speed;
-		break;
-	default:
-		break;
-	}
 }
 int update(t_vars2* vars)
 {
 	//ft_fill_image(vars->base_img, 0);
 	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
 	ft_map_update_itbl(vars->map);
+	ft_map_update_itbl_pos(vars->map);
 	ft_map_put_itbl(vars->base_img, vars->map);
 	//ft_put_interactable_to_img(vars->base_img, vars->map->player1, x, y);
 	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
-	//ft_mlx_put_image_to_win(vars->data, vars->background, 0, 0);
+
+	t_itbl *player = vars->map->player1;
 	int *kb = vars->s2->keyboard;
 	//ft_printf("direction: %i | status: %i\n", vars->map->player1->direction, vars->map->player1->status);
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
 	//ft_printf("left: %i | right: %i\n", vars->s2->mouse_left, vars->s2->mouse_right);
+	ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
 	if (vars->s2->mouse_right)
 		vars->map->player1->stats.speed = 10;
 	if (!vars->s2->mouse_right)

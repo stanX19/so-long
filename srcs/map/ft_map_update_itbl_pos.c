@@ -1,4 +1,5 @@
 #include "so_long.h"
+#define BORDER_RATIO 1 / 2
 
 static void	update_rel_cord(t_itbl *itbl)
 {
@@ -26,17 +27,23 @@ static void	update_rel_cord(t_itbl *itbl)
 static void check_rel_cord(t_map *map, t_itbl *itbl)
 {
 	t_vec2 new;
+	t_vec2 border;
 
-	new = (t_vec2){itbl->cord.x + sign(itbl->rel_cord.x), itbl->cord.y + sign(itbl->rel_cord.y)};
+	border = (t_vec2){map->assets->tile_size.x * BORDER_RATIO,
+		map->assets->tile_size.y * BORDER_RATIO};
+	new = (t_vec2){itbl->cord.x + sign(itbl->rel_cord.x),
+		itbl->cord.y + sign(itbl->rel_cord.y)};
 	if (new.x < 0 || new.x >= map->grid_size.x ||
 		(map->grid[itbl->cord.y][new.x] & itbl->blocking))
 	{
-		itbl->rel_cord.x = 0; //sign(itbl->rel_cord.x) * (map->assets->tile_size.x * 3 / 4);
+		if (abs(itbl->rel_cord.x) > border.x)
+			itbl->rel_cord.x = sign(itbl->rel_cord.x) * (border.x);
 	}
 	if (new.y < 0 || new.y >= map->grid_size.y ||
 		(map->grid[new.y][itbl->cord.x] & itbl->blocking))
 	{
-		itbl->rel_cord.y = 0; //sign(itbl->rel_cord.y) * (map->assets->tile_size.y * 3 / 4);
+		if (abs(itbl->rel_cord.y) > border.y)
+			itbl->rel_cord.y = sign(itbl->rel_cord.y) * border.y;
 	}
 }
 
@@ -44,6 +51,7 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 {
 	while (abs(itbl->rel_cord.x) > map->assets->tile_size.x)
 	{
+		check_rel_cord(map, itbl);
 		itbl->cord.x += sign(itbl->rel_cord.x);
 		++itbl->stats.steps;
 		itbl->rel_cord.x = itbl->rel_cord.x -\
@@ -51,6 +59,7 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 	}
 	while (abs(itbl->rel_cord.y) > map->assets->tile_size.y)
 	{
+		check_rel_cord(map, itbl);
 		itbl->cord.y += sign(itbl->rel_cord.y);
 		++itbl->stats.steps;
 		itbl->rel_cord.y = itbl->rel_cord.y -\

@@ -6,7 +6,8 @@ t_stats ft_init_stats(void) {
 	stats.damage = 1;
 	stats.health = 1;
 	stats.max_health = 1;
-	stats.speed = 1;
+	stats.speed = 5;
+	stats.base_speed = stats.speed;
 	stats.atk_cd = 10;
 	stats.steps = 0;
 	stats.stamina = 10;

@@ -7,8 +7,7 @@ int get_sprite_pixel_color(t_sprite* sprite, int x, int y) {
 
 void ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, int img_y){
 	unsigned int color;
-	int x;
-	int y;
+	t_vec2 cord;
 
 	if (!sprite || !image)
 		return ;
@@ -17,24 +16,23 @@ void ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, int 
 		ft_printf("mlx put sprite: empty base image passed in");
 		return ;
 	}
-    x = (img_x > 0)? 0: -img_x;
-	while (x < min(sprite->width, image->width - img_x))
+    cord.x = (img_x > 0)? 0: -img_x;
+	while (cord.x < min(sprite->width, image->width - img_x + 1))
 	{
-		y = (img_y > 0)? 0: -img_y;
-		while(y < min(sprite->height, image->height - img_y))
+		cord.y = (img_y > 0)? 0: -img_y;
+		while(cord.y < min(sprite->height, image->height - img_y + 1))
 		{
-            color = get_sprite_pixel_color(sprite, sprite->width - x - 1, y);
-            ft_mlx_pixel_put(image, img_x + x, img_y + y, color);
-			++y;
+            color = get_sprite_pixel_color(sprite, sprite->width - cord.x - 1, cord.y);
+            ft_mlx_pixel_put(image, img_x + cord.x, img_y + cord.y, color);
+			++cord.y;
 		}
-		++x;
+		++cord.x;
 	}
 }
 
 void ft_mlx_put_sprite(t_image* image, t_sprite* sprite, int img_x, int img_y){
 	unsigned int color;
-	int x;
-	int y;
+	t_vec2 cord;
 
 	if (!sprite || !image)
 		return ;
@@ -48,16 +46,16 @@ void ft_mlx_put_sprite(t_image* image, t_sprite* sprite, int img_x, int img_y){
 		ft_printf("mlx put sprite: empty base image passed in");
 		return ;
 	}
-	x = (img_x > 0)? 0: -img_x;
-	while (x < min(sprite->width, image->width))
+	cord.x = (img_x > 0)? 0: -img_x;
+	while (cord.x < min(sprite->width, image->width - img_x + 1))
 	{
-		y = (img_y > 0)? 0: -img_y;
-		while(y < min(sprite->height, image->height))
+		cord.y = (img_y > 0)? 0: -img_y;
+		while(cord.y < min(sprite->height, image->height - img_y + 1))
 		{
-			color = get_sprite_pixel_color(sprite, x, y);
-			ft_mlx_pixel_put(image, img_x + x, img_y + y, color);
-			++y;
+			color = get_sprite_pixel_color(sprite, cord.x, cord.y);
+			ft_mlx_pixel_put(image, img_x + cord.x, img_y + cord.y, color);
+			++cord.y;
 		}
-		++x;
+		++cord.x;
 	}
 }

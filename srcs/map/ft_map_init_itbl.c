@@ -38,6 +38,7 @@ void	ft_map_init_itbl(t_map *map, t_assets *assets)
 	map->coins = init_itbl_arr(assets->coin, map->coin_len, offset, blocking);
 	offset = (t_vec2){-24, -32};
 	map->player1 = init_itbl_with_rel(assets->player, offset, blocking);
+	map->player1->stats.speed = 5;
 	offset = (t_vec2){-16, -16};
 	map->exit = init_itbl_with_rel(assets->exit, offset, blocking);
 	map->enemy = init_itbl_arr(assets->enemy, map->enemy_len, offset, blocking);

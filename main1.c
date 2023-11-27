@@ -46,9 +46,9 @@ int update(t_vars2* vars)
 	//ft_printf("left: %i | right: %i\n", vars->s2->mouse_left, vars->s2->mouse_right);
 	ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
 	if (vars->s2->mouse_right)
-		vars->map->player1->stats.speed = 10;
+		vars->map->player1->stats.speed = 10 * vars->map->player1->stats.base_speed;
 	if (!vars->s2->mouse_right)
-		vars->map->player1->stats.speed = 1;
+		vars->map->player1->stats.speed = vars->map->player1->stats.base_speed;
 	if (vars->s2->mouse_left)
 	{
 		if (vars->map->player1->status != ATTACKING)
@@ -86,7 +86,7 @@ int main(void)
     data = ft_mlx_init();
 	assets = ft_init_assets(data);
 	base_img = ft_new_image(assets, 2500, 1500);
-	map = ft_map_init("./assets/map/map1.ber", assets);
+	map = ft_map_init("./assets/map/map2.ber", assets);
 	ft_mlx_win_init(data, map->bkg_img->width, map->bkg_img->height, "so long");
 
 	map->player1->status = ATTACKING;

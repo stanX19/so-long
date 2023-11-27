@@ -121,6 +121,7 @@ typedef struct	s_stats{
 	int	health;
 	int max_health;
 	int	speed;
+	int base_speed;
 	int atk_cd;
 	int steps;
 	int stamina;

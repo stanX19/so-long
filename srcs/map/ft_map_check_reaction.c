@@ -20,12 +20,18 @@ void ft_map_check_reaction(t_map *map, t_vec2 cord)
 	t_tile val;
 
 	val = map->grid[cord.y][cord.x];
-	if ((val & (PLAYER1 | COIN)) == (PLAYER1 | COIN))
-		val &= ~COIN;
-	if ((val & (PLAYER1 | EXIT)) == (PLAYER1 | EXIT)
+	if ((val & (TILE_PLAYER1 | TILE_COIN)) == (TILE_PLAYER1 | TILE_COIN))
+		val &= ~TILE_COIN;
+	if ((val & (TILE_PLAYER1 | TILE_EXIT)) == (TILE_PLAYER1 | TILE_EXIT)
 		&& all_dead(map->coins, map->coin_len))
-		val &= ~EXIT;
-	if ((val & (PLAYER1 | ENEMY)) == (PLAYER1 | ENEMY))
-		val &= ~PLAYER1;
+		val &= ~TILE_EXIT;
+	if ((val & (TILE_PLAYER1 | TILE_ENEMY)) == (TILE_PLAYER1 | TILE_ENEMY))
+		val &= ~TILE_PLAYER1;
+	if (val & TILE_ATTACKED)
+	{
+		if (val & TILE_ENEMY)
+			val &= ~TILE_ENEMY;
+		val &= ~TILE_ATTACKED;
+	}
 	map->grid[cord.y][cord.x] = val;
 }

@@ -29,16 +29,16 @@ t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
 	int			val;
 
 
-	val = ((c[0] | c[1] | c[2] | c[3]) & (PATH | WALL | WATER));
-	if (val == (PATH | WALL) || val == (PATH) || val == (WALL))
+	val = ((c[0] | c[1] | c[2] | c[3]) & (TILE_PATH | TILE_WALL | TILE_WATER));
+	if (val == (TILE_PATH | TILE_WALL) || val == (TILE_PATH) || val == (TILE_WALL))
 	{
 		type = assets->tiles.path_wall;
-		MAP_EQL_TO(c, WALL);
+		MAP_EQL_TO(c, TILE_WALL);
 	}
-	else if (val == (PATH | WATER) || val == WATER)
+	else if (val == (TILE_PATH | TILE_WATER) || val == TILE_WATER)
 	{
 		type = assets->tiles.water_path;
-		MAP_EQL_TO(c, PATH);
+		MAP_EQL_TO(c, TILE_PATH);
 	}
 	else
 	{

@@ -15,7 +15,7 @@ static t_sprite_status get_sprite_status(t_itbl_status status)
 static t_itbl_status get_next_state(t_itbl_status status)
 {
 	if (status & DYING)
-		return (status | DEAD) & (~DYING);
+		return ((status | DEAD) & (~DYING));
 	else if (status & ATTACKING)
 		return (status & (~ATTACKING));
 	else
@@ -51,11 +51,11 @@ static void set_animation(t_itbl *itbl)
 void ft_update_itbl_status(t_itbl * itbl)
 {
 	set_animation(itbl);
-	++itbl->frame_tick;
 	if (!itbl->animation)
 	{
 		return ;
 	}
+	++itbl->frame_tick;
 	if (itbl->frame_tick >= itbl->animation->frame_interval)
 	{
 		itbl->frame_tick = 0;
@@ -64,7 +64,7 @@ void ft_update_itbl_status(t_itbl * itbl)
 	if (itbl->sprite_idx >= itbl->animation->length)
 	{
 		itbl->sprite_idx = 0;
-		itbl->status = get_next_state(itbl->status);
+		ft_itbl_set_status(itbl, get_next_state(itbl->status));
 		set_animation(itbl);
 	}
 }

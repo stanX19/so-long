@@ -43,13 +43,13 @@ void ft_map_init_itbl(t_map *map, t_assets *assets)
 {
 	s_itbl_iv params;
 	
-	params = (s_itbl_iv){ assets->coin, map->coin_len, {0, 0}, COIN, WALL | WATER };
+	params = (s_itbl_iv){ assets->coin, map->coin_len, {0, 0}, TILE_COIN, TILE_WALL | TILE_WATER };
 	map->coins = init_itbl_arr(&params);
-	params = (s_itbl_iv){ assets->player, 1, {-24, -32}, PLAYER1, WALL | WATER };
+	params = (s_itbl_iv){ assets->player, 1, {-24, -32}, TILE_PLAYER1, TILE_WALL | TILE_WATER };
 	map->player1 = init_itbl_with_rel(&params);
 	map->player1->stats.base_speed = 1;
-	params = (s_itbl_iv){ assets->exit, 1, {-4, -8}, EXIT, WALL | WATER };
+	params = (s_itbl_iv){ assets->exit, 1, {-4, -8}, TILE_EXIT, TILE_WALL | TILE_WATER };
 	map->exit = init_itbl_with_rel(&params);
-	params = (s_itbl_iv){ assets->enemy, map->enemy_len, {-16, -16}, ENEMY, WALL | WATER };
+	params = (s_itbl_iv){ assets->enemy, map->enemy_len, {-16, -16}, TILE_ENEMY, TILE_WALL | TILE_WATER };
 	map->enemy = init_itbl_arr(&params);
 }

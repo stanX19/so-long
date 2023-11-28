@@ -59,19 +59,19 @@ static t_tile get_grid_val(char c)
 	switch (c)
 	{
 	case '1':
-		return WALL;
+		return TILE_WALL;
 	case '2':
-		return WATER;
+		return TILE_WATER;
 	case 'E':
-		return PATH | EXIT;
+		return TILE_PATH | TILE_EXIT;
 	case 'C':
-		return PATH | COIN;
+		return TILE_PATH | TILE_COIN;
 	case 'P':
-		return PATH | PLAYER1;
+		return TILE_PATH | TILE_PLAYER1;
 	case 'S':
-		return PATH | ENEMY;
+		return TILE_PATH | TILE_ENEMY;
 	default:
-		return PATH;
+		return TILE_PATH;
 	}
 }
 

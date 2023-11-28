@@ -141,13 +141,14 @@ typedef struct s_sp_data
 
 typedef enum s_tile
 {
-    PATH = (1 << 0),
-    WALL = (1 << 1),
-    WATER = (1 << 2),
-	EXIT = (1 << 3),
-	PLAYER1 = (1 << 4),
-	COIN = (1 << 5),
-	ENEMY = (1 << 6),
+    TILE_PATH = (1 << 0),
+    TILE_WALL = (1 << 1),
+    TILE_WATER = (1 << 2),
+	TILE_EXIT = (1 << 3),
+	TILE_PLAYER1 = (1 << 4),
+	TILE_COIN = (1 << 5),
+	TILE_ENEMY = (1 << 6),
+	TILE_ATTACKED = (1 << 7)
 } t_tile;
 
 typedef struct	s_itbl {
@@ -274,6 +275,7 @@ void				ft_map_update_itbl(t_map *map);
 void				ft_map_update_itbl_pos(t_map *map);
 void				ft_map_check_reaction(t_map *map, t_vec2 cord);
 void				ft_map_update_all_status(t_map *map);
+void				ft_map_itbl_front_add(t_map *map, t_itbl *itbl, t_tile val);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);
@@ -297,6 +299,7 @@ void				ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, i
 void				ft_itbl_reset_ani(t_itbl * itbl);
 void				ft_update_itbl_status(t_itbl * itbl);
 void				ft_itbl_destory(t_itbl *itbl);
+void				ft_itbl_set_status(t_itbl *itbl, t_itbl_status status);
 
 t_input				ft_init_input(void);
 int					ft_on_key_press(int keycode, t_vars * param);

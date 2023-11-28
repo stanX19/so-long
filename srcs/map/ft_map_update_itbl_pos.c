@@ -50,29 +50,32 @@ static void	map_move_itbl(t_map *map, t_itbl *itbl, int x_dis, int y_dis)
 	itbl->rel_cord.x -=	x_dis * 2 * map->assets->tile_size.x;
 	itbl->rel_cord.y -=	y_dis * 2 * map->assets->tile_size.y;
 	map->grid[itbl->cord.y][itbl->cord.x] |= itbl->self;
+	ft_map_check_reaction(map, itbl->cord);
 	++itbl->stats.steps;
 }
 
 static void	update_pos(t_map *map, t_itbl *itbl)
 {
-	while (abs(itbl->rel_cord.x) > map->assets->tile_size.x)
+	check_rel_cord(map, itbl);
+	if (itbl->status & ATTACKING)
+	{
+		ft_map_itbl_front_add(map, itbl, TILE_ATTACKED);
+	}
+	if (abs(itbl->rel_cord.x) > map->assets->tile_size.x)
 	{
 		map_move_itbl(map, itbl, sign(itbl->rel_cord.x), 0);
-		ft_map_check_reaction(map, itbl->cord);
-		check_rel_cord(map, itbl);
+		update_pos(map, itbl);
 	}
-	while (abs(itbl->rel_cord.y) > map->assets->tile_size.y)
+	if (abs(itbl->rel_cord.y) > map->assets->tile_size.y)
 	{
 		map_move_itbl(map, itbl, 0, sign(itbl->rel_cord.y));
-		ft_map_check_reaction(map, itbl->cord);
-		check_rel_cord(map, itbl);
+		update_pos(map, itbl);
 	}
 }
 
 static inline void update_check_update(t_map *map, t_itbl *itbl)
 {
 	update_rel_cord(itbl);
-	check_rel_cord(map, itbl);
 	update_pos(map, itbl);
 	ft_map_update_all_status(map);
 }

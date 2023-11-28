@@ -2,8 +2,11 @@
 
 static void	m_update_itbl_status(t_map *map, t_itbl *itbl)
 {
-	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->self))
-		itbl->status = DYING;
+	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->self)
+		&& !(itbl->status & (DYING | DEAD)))
+	{
+		ft_itbl_set_status(itbl, DYING);
+	}
 }
 
 void	ft_map_update_all_status(t_map *map)

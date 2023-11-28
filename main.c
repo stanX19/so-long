@@ -6,13 +6,13 @@ typedef struct s_vars2 {
 	t_image*		base_img;
 	t_image*		background;
 	t_itbl*			itbl;
-	t_input*		s2;
+	t_input*		input;
 } t_vars2;
 
 int ending_loop(t_vars2* vars)
 {
-	int *kb = vars->s2->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb[vars->s2->esc_code] == 0)
+	int *kb = vars->input->keyboard;
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb[vars->input->esc_code] == 0)
 	{
 		ft_printf("loop ended\n");
 		ft_mlx_destory(vars->data);
@@ -58,10 +58,10 @@ int update(t_vars2* vars)
 	ft_put_interactable_to_img(vars->base_img, vars->itbl, x, y);
 	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
 	//ft_mlx_put_image_to_win(vars->data, vars->background, 0, 0);
-	int *kb = vars->s2->keyboard;
+	int *kb = vars->input->keyboard;
 
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
-	ft_printf("left: %i | right: %i\n", vars->s2->mouse_left, vars->s2->mouse_right);
+	ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);
 	if (kb['l'])
 		vars->itbl->stats.speed += 1;
 	if (kb['k'] && vars->itbl->stats.speed > 1)

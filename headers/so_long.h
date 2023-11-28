@@ -154,11 +154,13 @@ typedef struct	s_itbl {
 	t_vec2				cord;
 	t_vec2				offset;
 	t_vec2				rel_cord;
+	t_vec2				velocity;
 	t_direction			direction;
 	t_ani_sprite *		animation;
 	t_sprite_status		sp_status;
 	t_itbl_status		status;
 	int					flip;
+	t_tile				self;
 	t_tile				blocking;
 	t_ani_sprite ***	sprite_tab;
 	int					sprite_idx;
@@ -270,6 +272,8 @@ void				ft_map_destory(t_map *map);
 void				ft_map_put_itbl(t_image *bg, t_map *map);
 void				ft_map_update_itbl(t_map *map);
 void				ft_map_update_itbl_pos(t_map *map);
+void				ft_map_check_reaction(t_map *map, t_vec2 cord);
+void				ft_map_update_all_status(t_map *map);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);

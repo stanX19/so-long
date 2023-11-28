@@ -25,18 +25,12 @@ t_itbl * ft_init_interactable(t_ani_sprite *** ani_sprite_tab){
 	ret = malloc(sizeof(t_itbl));
 	if (ret == NULL)
 		return NULL;
-	ret->cord = (t_vec2){0, 0};
-	ret->offset = (t_vec2){0, 0};
-	ret->rel_cord = (t_vec2){0, 0};
+	ft_memset(ret, 0 , sizeof(t_itbl));
 	ret->direction = DOWN;
 	ret->status = IDLING;
 	ret->animation = ani_sprite_tab[DOWN][IDLE];
-	ret->flip = 0;
 	ret->sprite_tab = ani_sprite_tab;
 	ret->sp_status = IDLE;
-	ret->sprite_idx = 0;
-	ret->frame_tick = 0;
-	ret->blocking = 0;
 	ret->stats = ft_init_stats();
 
 	return ret;

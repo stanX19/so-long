@@ -108,12 +108,13 @@ typedef enum s_sprite_status {
 	IDLE,
 } t_sprite_status;
 
-typedef enum s_itbl_status {
-	DYING,
-	DEAD,
-	IDLING,
-	MOVING,
-	ATTACKING,
+typedef enum s_itbl_status
+{
+    IDLING    = (0),
+    DYING     = (1 << 0),
+    DEAD      = (1 << 1),
+    MOVING    = (1 << 2),
+    ATTACKING = (1 << 3)
 } t_itbl_status;
 
 typedef struct	s_stats{
@@ -244,6 +245,7 @@ void				ft_free_ptr_arr(void **arr, size_t len, void(*free_func)(void*));
 int					max(int a, int b);
 int					min(int a, int b);
 int					sign(int x);
+char *				ft_itoa(int n);
 
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
@@ -283,6 +285,7 @@ t_ani_sprite ***	ft_init_slime_ani_sprites(t_assets * assets);
 t_ani_sprite ***	ft_init_slime2_ani_sprites(t_assets * assets);
 t_ani_sprite ***	ft_init_player_ani_sprites(t_assets * assets);
 t_ani_sprite ***	ft_init_coin_ani_sprites(t_assets * assets);
+t_ani_sprite ***	ft_init_cat_ani_sprites(t_assets * assets);
 
 t_itbl *			ft_init_interactable(t_ani_sprite *** sprite_tab);
 void				ft_put_interactable_to_img(t_image * base_img, t_itbl * itbl, int x, int y);

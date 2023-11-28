@@ -26,21 +26,26 @@ int ending_loop(t_vars2* vars)
 void update2(t_itbl * itbl, t_direction direction)
 {
 	if (itbl->status != ATTACKING)
-		itbl->status = MOVING;
+		itbl->status |= MOVING;
 	itbl->direction = direction;
 }
 int update(t_vars2* vars)
 {
+	char *step_count;
+	t_itbl *player = vars->map->player1;
+	int *kb = vars->s2->keyboard;
 	//ft_fill_image(vars->base_img, 0);
 	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
 	ft_map_update_itbl(vars->map);
 	ft_map_update_itbl_pos(vars->map);
 	ft_map_put_itbl(vars->base_img, vars->map);
 	//ft_put_interactable_to_img(vars->base_img, vars->map->player1, x, y);
+	step_count = ft_itoa(player->stats.steps);
 	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
+	mlx_string_put(vars->data->mlx, vars->data->mlx_win, 10, 10, 0xFFFFFFFF, step_count);
+	free(step_count);
 
-	t_itbl *player = vars->map->player1;
-	int *kb = vars->s2->keyboard;
+	
 	//ft_printf("direction: %i | status: %i\n", vars->map->player1->direction, vars->map->player1->status);
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
 	//ft_printf("left: %i | right: %i\n", vars->s2->mouse_left, vars->s2->mouse_right);
@@ -51,12 +56,12 @@ int update(t_vars2* vars)
 		vars->map->player1->stats.speed = vars->map->player1->stats.base_speed;
 	if (vars->s2->mouse_left)
 	{
-		if (vars->map->player1->status != ATTACKING)
+		if (!(vars->map->player1->status & ATTACKING))
 		{
 			vars->map->player1->frame_tick = 0;
 			vars->map->player1->sprite_idx = 0;
 		}
-		vars->map->player1->status = ATTACKING;
+		vars->map->player1->status |= ATTACKING;
 	}
 	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
 	if (kb['w'])
@@ -67,8 +72,8 @@ int update(t_vars2* vars)
 		update2(vars->map->player1, DOWN);
 	else if (kb['d'])
 		update2(vars->map->player1, RIGHT);
-	else if (vars->map->player1->status != ATTACKING)
-		vars->map->player1->status = IDLING;
+	else
+		vars->map->player1->status &= ~MOVING;
 	if (kb[27])
 		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
 	return 0;

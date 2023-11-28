@@ -2,32 +2,24 @@
 
 static t_sprite_status get_sprite_status(t_itbl_status status)
 {
-	switch (status)
-	{
-	case DYING:
+	if (status & DYING)
 		return DEATH;
-	case IDLING:
-		return IDLE;
-	case MOVING:
-		return WALK;
-	case ATTACKING:
+	else if (status & ATTACKING)
 		return ATTACK;
-	default:
+	else if (status & MOVING)
+		return WALK;
+	else
 		return IDLE;
-	}
 }
 
-static t_itbl_status get_next_state(t_itbl * itbl)
+static t_itbl_status get_next_state(t_itbl_status status)
 {
-	switch (itbl->status)
-	{
-	case DYING:
-		return DEAD;
-	case ATTACKING:
-		return IDLING;
-	default:
-		return itbl->status;
-	}
+	if (status & DYING)
+		return (status | DEAD) & (~DYING);
+	else if (status & ATTACKING)
+		return (status & (~ATTACKING));
+	else
+		return status;
 }
 
 static void check_flip(t_itbl * itbl)
@@ -72,7 +64,7 @@ void ft_update_itbl_status(t_itbl * itbl)
 	if (itbl->sprite_idx >= itbl->animation->length)
 	{
 		itbl->sprite_idx = 0;
-		itbl->status = get_next_state(itbl);
+		itbl->status = get_next_state(itbl->status);
 		set_animation(itbl);
 	}
 }

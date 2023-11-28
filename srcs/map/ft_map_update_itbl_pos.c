@@ -3,7 +3,7 @@
 
 static void	update_rel_cord(t_itbl *itbl)
 {
-	if (itbl->status != MOVING && itbl->status != ATTACKING)
+	if (!(itbl->status & MOVING))
 	{
 		return ;
 	}

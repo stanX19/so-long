@@ -27,6 +27,19 @@ void update2(t_itbl * itbl, t_input *input)
 {
 	itbl->velocity.x = itbl->stats.speed * (input->keyboard['d'] - input->keyboard['a']);
 	itbl->velocity.y = itbl->stats.speed * (input->keyboard['s'] - input->keyboard['w']);
+	if (input->mouse_right)
+		itbl->stats.speed = 10 * itbl->stats.base_speed;
+	if (!input->mouse_right)
+		itbl->stats.speed = itbl->stats.base_speed;
+	if (input->mouse_left)
+	{
+		if (!(itbl->status & ATTACKING))
+		{
+			itbl->frame_tick = 0;
+			itbl->sprite_idx = 0;
+		}
+		itbl->status |= ATTACKING;
+	}
 }
 int update(t_vars2* vars)
 {
@@ -49,23 +62,24 @@ int update(t_vars2* vars)
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
 	//ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);
 	ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
-	if (vars->input->mouse_right)
-		vars->map->player1->stats.speed = 10 * vars->map->player1->stats.base_speed;
-	if (!vars->input->mouse_right)
-		vars->map->player1->stats.speed = vars->map->player1->stats.base_speed;
-	if (vars->input->mouse_left)
-	{
-		if (!(vars->map->player1->status & ATTACKING))
-		{
-			vars->map->player1->frame_tick = 0;
-			vars->map->player1->sprite_idx = 0;
-		}
-		vars->map->player1->status |= ATTACKING;
-	}
 	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
 	update2(player, vars->input);
 	if (kb[27])
 		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+	if (vars->map->exit->status & (DYING | DEAD))
+	{
+		step_count = ft_itoa(player->stats.steps);
+		ft_printf("YOU WON!  |  Steps: %s\n", step_count);
+		free(step_count);
+		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+	}
+	if (player->status & (DYING | DEAD))
+	{
+		step_count = ft_itoa(player->stats.steps);
+		ft_printf("YOU DIED\n");
+		free(step_count);
+		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+	}
 	return 0;
 }
 
@@ -81,7 +95,7 @@ int main(void)
     data = ft_mlx_init();
 	assets = ft_init_assets(data);
 	base_img = ft_new_image(assets, 2500, 1500);
-	map = ft_map_init("./assets/map/map2.ber", assets);
+	map = ft_map_init("./assets/map/map3.ber", assets);
 	ft_mlx_win_init(data, map->bkg_img->width, map->bkg_img->height, "so long");
 
 	map->player1->status = ATTACKING;

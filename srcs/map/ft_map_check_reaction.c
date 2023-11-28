@@ -25,5 +25,7 @@ void ft_map_check_reaction(t_map *map, t_vec2 cord)
 	if ((val & (PLAYER1 | EXIT)) == (PLAYER1 | EXIT)
 		&& all_dead(map->coins, map->coin_len))
 		val &= ~EXIT;
+	if ((val & (PLAYER1 | ENEMY)) == (PLAYER1 | ENEMY))
+		val &= ~PLAYER1;
 	map->grid[cord.y][cord.x] = val;
 }

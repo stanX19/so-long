@@ -14,16 +14,16 @@ void	ft_map_put_itbl(t_image *bg, t_map *map)
 	size_t	idx;
 
 	tile_size = map->assets->tile_size;
-	put_itbl_by_cord(bg, tile_size, map->player1);
-	put_itbl_by_cord(bg, tile_size, map->exit);
 	idx = 0;
 	while (idx < map->coin_len)
 	{
 		put_itbl_by_cord(bg, tile_size, map->coins[idx++]);
 	}
+	put_itbl_by_cord(bg, tile_size, map->exit);
 	idx = 0;
 	while (idx < map->enemy_len)
 	{
 		put_itbl_by_cord(bg, tile_size, map->enemy[idx++]);
 	}
+	put_itbl_by_cord(bg, tile_size, map->player1);
 }

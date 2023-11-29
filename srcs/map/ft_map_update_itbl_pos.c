@@ -1,12 +1,7 @@
 #include "so_long.h"
-#define BORDER_RATIO 1 / 2
 
 static void	update_rel_cord(t_itbl *itbl)
 {
-	if (itbl->velocity.x || itbl->velocity.y)
-		itbl->status |= MOVING;
-	else
-		itbl->status &= ~MOVING;
 	if (itbl->velocity.x > 0)
 		itbl->direction = RIGHT;
 	else if (itbl->velocity.x < 0)
@@ -19,44 +14,24 @@ static void	update_rel_cord(t_itbl *itbl)
 	itbl->rel_cord.y += itbl->velocity.y;
 }
 
-static void check_rel_cord(t_map *map, t_itbl *itbl)
-{
-	t_vec2 new;
-	t_vec2 border;
-
-	border = (t_vec2){map->assets->tile_size.x * BORDER_RATIO,
-		map->assets->tile_size.y * BORDER_RATIO};
-	new = (t_vec2){itbl->cord.x + sign(itbl->rel_cord.x),
-		itbl->cord.y + sign(itbl->rel_cord.y)};
-	if (new.x < 0 || new.x >= map->grid_size.x ||
-		(map->grid[itbl->cord.y][new.x] & itbl->blocking))
-	{
-		if (abs(itbl->rel_cord.x) > border.x)
-			itbl->rel_cord.x = sign(itbl->rel_cord.x) * border.x;
-	}
-	if (new.y < 0 || new.y >= map->grid_size.y ||
-		(map->grid[new.y][itbl->cord.x] & itbl->blocking))
-	{
-		if (abs(itbl->rel_cord.y) > border.y)
-			itbl->rel_cord.y = sign(itbl->rel_cord.y) * border.y;
-	}
-}
-
 static void	map_move_itbl(t_map *map, t_itbl *itbl, int x_dis, int y_dis)
 {
+	int val;
+
+	val = map->grid[itbl->cord.y][itbl->cord.x] & itbl->self;
 	map->grid[itbl->cord.y][itbl->cord.x] &= ~itbl->self;
 	itbl->cord.x += x_dis;
 	itbl->cord.y += y_dis;
 	itbl->rel_cord.x -=	x_dis * 2 * map->assets->tile_size.x;
 	itbl->rel_cord.y -=	y_dis * 2 * map->assets->tile_size.y;
-	map->grid[itbl->cord.y][itbl->cord.x] |= itbl->self;
+	map->grid[itbl->cord.y][itbl->cord.x] |= val;
 	ft_map_check_reaction(map, itbl->cord);
 	++itbl->stats.steps;
 }
 
 static void	update_pos(t_map *map, t_itbl *itbl)
 {
-	check_rel_cord(map, itbl);
+	ft_map_check_rel_cord(map, itbl);
 	if (itbl->status & ATTACKING)
 	{
 		ft_map_itbl_front_add(map, itbl, TILE_ATTACKED);
@@ -75,6 +50,7 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 
 static inline void update_check_update(t_map *map, t_itbl *itbl)
 {
+	ft_map_check_velocity(map, itbl);
 	update_rel_cord(itbl);
 	update_pos(map, itbl);
 	ft_map_update_all_status(map);

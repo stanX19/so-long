@@ -12,7 +12,6 @@ t_stats ft_init_stats(void) {
 	stats.steps = 0;
 	stats.stamina = 10;
 	stats.max_stamina = stats.stamina;
-	stats.velocity = (t_vec2){0, 0};
 
 	return stats;
 }
@@ -22,10 +21,9 @@ t_itbl * ft_init_interactable(t_ani_sprite *** ani_sprite_tab){
 
 	if (ani_sprite_tab == NULL)
 		return NULL;
-	ret = malloc(sizeof(t_itbl));
+	ret = ft_calloc(sizeof(t_itbl));
 	if (ret == NULL)
 		return NULL;
-	ft_memset(ret, 0 , sizeof(t_itbl));
 	ret->direction = DOWN;
 	ret->status = IDLING;
 	ret->animation = ani_sprite_tab[DOWN][IDLE];

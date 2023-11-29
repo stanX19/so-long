@@ -22,7 +22,7 @@ t_ani_sprite*** ft_init_coin_ani_sprites(t_assets * assets) {
 	t_ani_sprite*** ret;
 	t_sp_data sp_data;
 
-    ret = (t_ani_sprite ***)ft_malloc_2d(NUM_DIRECTIONS, NUM_ACTIONS,
+    ret = (t_ani_sprite ***)ft_calloc_2d(NUM_DIRECTIONS, NUM_ACTIONS,
                         		sizeof(t_ani_sprite**), sizeof(t_ani_sprite*));
 	sp_data = (t_sp_data){"assets/sprites/coin/D_Idle.xpm", {0, 0}, {15, 1}, {15, 1}};
 	for (int y = 0; y < NUM_DIRECTIONS; y++)

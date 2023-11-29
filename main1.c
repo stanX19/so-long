@@ -25,12 +25,25 @@ int ending_loop(t_vars2* vars)
 
 void update2(t_itbl * itbl, t_input *input)
 {
-	itbl->velocity.x = itbl->stats.speed * (input->keyboard['d'] - input->keyboard['a']);
-	itbl->velocity.y = itbl->stats.speed * (input->keyboard['s'] - input->keyboard['w']);
+	
 	if (input->mouse_right)
-		itbl->stats.speed = 10 * itbl->stats.base_speed;
+		itbl->stats.speed = 1000 * itbl->stats.base_speed;
 	if (!input->mouse_right)
 		itbl->stats.speed = itbl->stats.base_speed;
+	itbl->velocity.x = itbl->stats.speed * (input->keyboard['d'] - input->keyboard['a']);
+	itbl->velocity.y = itbl->stats.speed * (input->keyboard['s'] - input->keyboard['w']);
+	if (itbl->velocity.x || itbl->velocity.y)
+		itbl->status |= MOVING;
+	else
+		itbl->status &= ~MOVING;
+	if (itbl->velocity.x > 0)
+		itbl->direction = RIGHT;
+	else if (itbl->velocity.x < 0)
+		itbl->direction = LEFT;
+	else if (itbl->velocity.y < 0)
+		itbl->direction = UP;
+	else if (itbl->velocity.y > 0)
+		itbl->direction = DOWN;
 	if (input->mouse_left)
 	{
 		if (!(itbl->status & ATTACKING))
@@ -40,6 +53,7 @@ void update2(t_itbl * itbl, t_input *input)
 		}
 		itbl->status |= ATTACKING;
 	}
+	
 }
 int update(t_vars2* vars)
 {
@@ -47,6 +61,15 @@ int update(t_vars2* vars)
 	t_itbl *player = vars->map->player1;
 	int *kb = vars->input->keyboard;
 	//ft_fill_image(vars->base_img, 0);
+	update2(player, vars->input);
+	for (size_t i = 0; i < vars->map->enemy_len; i++)
+	{
+		vars->map->enemy[i]->velocity.x += rand() % 3 - 1;
+		vars->map->enemy[i]->velocity.y += rand() % 3 - 1;
+		//update2(vars->map->enemy[i], vars->input);
+		vars->map->enemy[i]->status |= MOVING;
+		//ft_printf("(%i, %i)\n", vars->map->enemy[i]->stats.velocity.x, vars->map->enemy[i]->stats.velocity.y);
+	}
 	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
 	ft_map_update_itbl(vars->map);
 	ft_map_update_itbl_pos(vars->map);
@@ -61,9 +84,8 @@ int update(t_vars2* vars)
 	//ft_printf("direction: %i | status: %i\n", vars->map->player1->direction, vars->map->player1->status);
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
 	//ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);
-	ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
+	//ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
 	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
-	update2(player, vars->input);
 	if (kb[27])
 		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
 	if (vars->map->exit->status & (DYING | DEAD))
@@ -95,7 +117,7 @@ int main(void)
     data = ft_mlx_init();
 	assets = ft_init_assets(data);
 	base_img = ft_new_image(assets, 2500, 1500);
-	map = ft_map_init("./assets/map/map3.ber", assets);
+	map = ft_map_init("./assets/map/map4.ber", assets);
 	ft_mlx_win_init(data, map->bkg_img->width, map->bkg_img->height, "so long");
 
 	map->player1->status = ATTACKING;

@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int	ft_is_valid_map(const char *path)
+static int	is_grid(const char *path)
 {
 	int prev;
 	int cur;
@@ -22,4 +22,12 @@ int	ft_is_valid_map(const char *path)
 			cur++;
 	}
 	return (cur == prev);
+}
+
+int	ft_is_valid_map(const char *path)
+{
+	int valid;
+
+	valid = is_grid(path);
+	return valid;
 }

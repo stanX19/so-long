@@ -127,7 +127,6 @@ typedef struct	s_stats{
 	int steps;
 	int stamina;
 	int max_stamina;
-	t_vec2	velocity;
 } t_stats;
 
 typedef struct s_sp_data
@@ -227,6 +226,7 @@ typedef struct s_map {
 	t_itbl **	enemy;
 	size_t		coin_len;
 	size_t		enemy_len;
+	int **		enemy_hash;
 	t_assets *	assets;
 } t_map;
 
@@ -241,7 +241,7 @@ size_t				ft_printf(const char *str, ...);
 void *				ft_memcpy(void *dst, const void *src, size_t n);
 char *				ft_strdup(char *src);
 void *				ft_memset(void *b, int c, size_t len);
-void **				ft_malloc_2d(size_t height, size_t width, size_t pointerSize, size_t elementSize);
+void **				ft_calloc_2d(size_t height, size_t width, size_t pointerSize, size_t elementSize);
 int					ft_2d_count_val(char ** map, int width, int height, char target);
 void				ft_free_2d(void **ptr, size_t len);
 void				ft_free_ptr_arr(void **arr, size_t len, void(*free_func)(void*));
@@ -249,6 +249,8 @@ int					max(int a, int b);
 int					min(int a, int b);
 int					sign(int x);
 char *				ft_itoa(int n);
+t_vec2				ft_vec2_add(t_vec2 v1, t_vec2 v2);
+void *				ft_calloc(size_t size);
 
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
@@ -276,6 +278,8 @@ void				ft_map_update_itbl_pos(t_map *map);
 void				ft_map_check_reaction(t_map *map, t_vec2 cord);
 void				ft_map_update_all_status(t_map *map);
 void				ft_map_itbl_front_add(t_map *map, t_itbl *itbl, t_tile val);
+void				ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
+void				ft_map_check_velocity(t_map *map, t_itbl *itbl);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);

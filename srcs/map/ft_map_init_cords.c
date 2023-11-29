@@ -37,19 +37,23 @@ typedef struct s_loc_data {
 
 void assign_sprites_loc(t_loc_data * d)
 {
+	t_vec2 cord;
+
+	cord = (t_vec2){d->x, d->y};
 	switch (d->raw_map[d->y][d->x])
 	{
 	case 'P':
-		d->map->player1->cord = (t_vec2){d->x, d->y};
+		d->map->player1->cord = cord;
 		break;
 	case 'E':
-		d->map->exit->cord = (t_vec2){d->x, d->y};
+		d->map->exit->cord = cord;
 		break;
 	case 'C':
-		d->map->coins[(d->idx.coin)++]->cord = (t_vec2){d->x, d->y};
+		d->map->coins[(d->idx.coin)++]->cord = cord;
 		break;
 	case 'S':
-		d->map->enemy[(d->idx.enemy)++]->cord = (t_vec2){d->x, d->y};
+		d->map->enemy[(d->idx.enemy)++]->cord = cord;
+		d->map->enemy_hash[d->y][d->x]++;
 		break;
 	}
 }

@@ -55,6 +55,7 @@ void update2(t_itbl * itbl, t_input *input)
 	}
 	
 }
+
 int update(t_vars2* vars)
 {
 	char *step_count;
@@ -95,12 +96,15 @@ int update(t_vars2* vars)
 		free(step_count);
 		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
 	}
-	if (player->status & (DYING | DEAD))
+	if (player->status & DEAD)
 	{
-		step_count = ft_itoa(player->stats.steps);
-		ft_printf("YOU DIED\n");
-		free(step_count);
-		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+		vars->map->grid[1][1] |= player->self;
+		player->cord = (t_vec2){1, 1};
+		player->status = ATTACKING;
+		// step_count = ft_itoa(player->stats.steps);
+		// ft_printf("YOU DIED\n");
+		// free(step_count);
+		// mlx_loop_hook(vars->data->mlx, ending_loop, vars);
 	}
 	return 0;
 }

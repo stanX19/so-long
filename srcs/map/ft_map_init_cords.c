@@ -53,7 +53,6 @@ void assign_sprites_loc(t_loc_data * d)
 		break;
 	case 'S':
 		d->map->enemy[(d->idx.enemy)++]->cord = cord;
-		d->map->enemy_hash[d->y][d->x]++;
 		break;
 	}
 }

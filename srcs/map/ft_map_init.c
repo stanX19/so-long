@@ -6,7 +6,6 @@ static t_map * init_base(char ** raw_map, int width, int height)
 
 	map = (t_map *)ft_calloc(sizeof(t_map));
 	map->grid = (t_tile **)ft_calloc_2d(height, width, sizeof(t_tile*), sizeof(t_tile));
-	map->enemy_hash = (int **)ft_calloc_2d(height, width, sizeof(int*), sizeof(int));
 	map->coin_len = ft_2d_count_val(raw_map, width, height, 'C');
 	map->enemy_len = ft_2d_count_val(raw_map, width, height, 'S');
 	map->grid_size.x = width;

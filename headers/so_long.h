@@ -226,7 +226,6 @@ typedef struct s_map {
 	t_itbl **	enemy;
 	size_t		coin_len;
 	size_t		enemy_len;
-	int **		enemy_hash;
 	t_assets *	assets;
 } t_map;
 
@@ -263,7 +262,7 @@ void				ft_mlx_pixel_put(t_image* img, int x, int y, unsigned int color);
 t_mlx_data *		ft_mlx_init(void);
 t_mlx_data *		ft_mlx_win_init(t_mlx_data * data, int width, int height, char *title);
 void				ft_mlx_destory(t_mlx_data * data);
-int					ft_add_to_free_arr(t_free_arr * free_arr, void * target);
+void				ft_mlx_destory_win(t_mlx_data * data);
 
 int					ft_is_valid_map(const char *path);
 char **				ft_generate_raw_map(const char* path, size_t *width, size_t *height);
@@ -316,4 +315,5 @@ t_sprite**			ft_init_connected_grass_tileset(t_assets *assets);
 t_sprite**			ft_init_seperated_grass_tileset(t_assets *assets);
 t_assets *			ft_init_assets(t_mlx_data *data);
 void				ft_destory_assets(t_assets *assets);
+int					ft_add_to_free_arr(t_free_arr * free_arr, void * target);
 #endif

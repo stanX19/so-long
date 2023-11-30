@@ -51,6 +51,8 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 static inline void update_check_update(t_map *map, t_itbl *itbl)
 {
 	ft_map_check_velocity(map, itbl);
+	if (!itbl->velocity.x && !itbl->velocity.y)
+		return ;
 	update_rel_cord(itbl);
 	update_pos(map, itbl);
 	ft_map_update_all_status(map);

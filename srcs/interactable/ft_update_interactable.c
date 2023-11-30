@@ -53,6 +53,9 @@ void ft_update_itbl_status(t_itbl * itbl)
 	set_animation(itbl);
 	if (!itbl->animation)
 	{
+		itbl->sprite_idx = 0;
+		ft_itbl_set_status(itbl, get_next_state(itbl->status));
+		set_animation(itbl);
 		return ;
 	}
 	++itbl->frame_tick;

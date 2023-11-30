@@ -50,6 +50,6 @@ void ft_map_init_itbl(t_map *map, t_assets *assets)
 	map->player1->stats.base_speed = 1;
 	params = (s_itbl_iv){ assets->exit, 1, {-4, -8}, TILE_EXIT, TILE_WALL | TILE_WATER };
 	map->exit = init_itbl_with_rel(&params);
-	params = (s_itbl_iv){ assets->enemy, map->enemy_len, {-16, -16}, TILE_ENEMY, TILE_WALL | TILE_WATER };
+	params = (s_itbl_iv){ assets->enemy, map->enemy_len, {-16, -16}, TILE_ENEMY, TILE_WALL | TILE_WATER | TILE_ENEMY};
 	map->enemy = init_itbl_arr(&params);
 }

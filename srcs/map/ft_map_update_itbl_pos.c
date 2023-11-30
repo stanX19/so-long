@@ -51,7 +51,7 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 static inline void update_check_update(t_map *map, t_itbl *itbl)
 {
 	ft_map_check_velocity(map, itbl);
-	if (!itbl->velocity.x && !itbl->velocity.y)
+	if (!itbl->velocity.x && !itbl->velocity.y && (itbl->status & (DEAD | IDLE)))
 		return ;
 	update_rel_cord(itbl);
 	update_pos(map, itbl);
@@ -61,9 +61,7 @@ static inline void update_check_update(t_map *map, t_itbl *itbl)
 void	ft_map_update_itbl_pos(t_map *map)
 {
 	size_t	idx;
-
-	update_check_update(map, map->player1);
-	update_check_update(map, map->exit);
+	
 	idx = 0;
 	while (idx < map->coin_len)
 	{
@@ -78,4 +76,6 @@ void	ft_map_update_itbl_pos(t_map *map)
 			update_check_update(map, map->enemy[idx]);
 		++idx;
 	}
+	update_check_update(map, map->exit);
+	update_check_update(map, map->player1);
 }

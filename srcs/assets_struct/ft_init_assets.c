@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-t_assets *	ft_init_assets(t_mlx_data *data)
+t_assets *	ft_init_assets(void *mlx)
 {
 	t_assets * assets;
 
@@ -10,7 +10,7 @@ t_assets *	ft_init_assets(t_mlx_data *data)
 		ft_printf("ERROR: Init assets: Failed to malloc\n");
 		return 0;
 	}
-	assets->mlx = data->mlx;
+	assets->mlx = mlx;
 	assets->all_img.idx = 0;
 	assets->all_ani_sprite.idx = 0;
 	assets->coin = ft_init_coin_ani_sprites(assets);

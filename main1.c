@@ -1,23 +1,50 @@
 #include "stdio.h"
 #include "so_long.h"
 
-typedef struct s_vars2 {
-    t_mlx_data*		data;
-	t_image*		base_img;
-	t_map*			map;
-	t_assets*		assets;
-	t_input*		input;
-} t_vars2;
+t_vars *	ft_init_vars(void)
+{
+	t_vars *vars;
 
-int ending_loop(t_vars2* vars)
+	vars = malloc(sizeof(t_vars));
+	if (!vars)
+	{
+		ft_printf("ERROR: Init vars: Failed to malloc\n");
+	}
+	vars->mlx = ft_mlx_init();
+	vars->assets = ft_init_assets(vars->mlx);
+	vars->input = ft_init_input();
+	return vars;
+}
+
+void	ft_init_game(t_vars* vars, char *path, char *title)
+{
+	vars->map = ft_map_init(path, vars->assets);
+	vars->base_img = ft_new_image(vars->assets, vars->map->bkg_img->width, vars->map->bkg_img->height);
+    vars->window = ft_window_init(vars->mlx, vars->map->bkg_img->width, vars->map->bkg_img->height, title);
+}
+
+void	ft_delete_game(t_vars* vars)
+{
+	ft_map_destory(vars->map);
+	// deal with the base_img somehow
+	ft_window_destory(vars->window);
+}
+
+void	ft_delete_vars(t_vars* vars)
+{
+	ft_input_destory(vars->input);
+	ft_destory_assets(vars->assets);
+	ft_mlx_destory(vars->mlx);
+}
+
+int ending_loop(t_vars* vars)
 {
 	int *kb = vars->input->keyboard;
 	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb[vars->input->esc_code] == 0)
 	{
 		ft_printf("loop ended\n");
-		ft_destory_assets(vars->assets);
-		ft_mlx_destory(vars->data);
-		ft_map_destory(vars->map);
+		ft_delete_game(vars);
+		ft_delete_vars(vars);
 		exit(0);
 	}
 	return 1;
@@ -56,7 +83,7 @@ void update2(t_itbl * itbl, t_input *input)
 	
 }
 
-int update(t_vars2* vars)
+int update(t_vars* vars)
 {
 	char *step_count;
 	t_itbl *player = vars->map->player1;
@@ -77,8 +104,8 @@ int update(t_vars2* vars)
 	ft_map_put_itbl(vars->base_img, vars->map);
 	//ft_put_interactable_to_img(vars->base_img, vars->map->player1, x, y);
 	step_count = ft_itoa(player->stats.steps);
-	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
-	mlx_string_put(vars->data->mlx, vars->data->mlx_win, 10, 20, 0xFFFFFFFF, step_count);
+	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	mlx_string_put(vars->window->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, step_count);
 	free(step_count);
 
 	
@@ -88,55 +115,47 @@ int update(t_vars2* vars)
 	//ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
 	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
 	if (kb[27])
-		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+		mlx_loop_hook(vars->window->mlx, ending_loop, vars);
 	if (vars->map->exit->status & (DYING | DEAD))
 	{
 		step_count = ft_itoa(player->stats.steps);
 		ft_printf("YOU WON!  |  Steps: %s\n", step_count);
 		free(step_count);
-		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+		mlx_loop_hook(vars->window->mlx, ending_loop, vars);
 	}
 	if (player->status & DEAD)
 	{
-		vars->map->grid[2][2] |= player->self;
-		player->cord = (t_vec2){2, 2};
+		vars->map->grid[player->cord.y][player->cord.x] |= player->self;
 		ft_itbl_set_status(player, ATTACKING);
+		// ft_delete_game(vars);
+		// ft_init_game(vars, );
 		// step_count = ft_itoa(player->stats.steps);
 		ft_printf("YOU DIED\n");
 		// free(step_count);
-		// mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+		// mlx_loop_hook(vars->window->mlx, ending_loop, vars);
 	}
 	return 0;
 }
 
-int main(void)
+
+
+
+int main(int argc, char **argv)
 {
-    t_mlx_data *	data;
-	t_image *		base_img;
-	t_map *			map;
-	t_assets *		assets;
-	t_input 		input = ft_init_input();
+	t_vars *		vars;
+	char *			path;
 
-    // Initialize the MiniLibX context
-    data = ft_mlx_init();
-	assets = ft_init_assets(data);
-	base_img = ft_new_image(assets, 2500, 1500);
-	map = ft_map_init("./assets/map/map4.ber", assets);
-	ft_mlx_win_init(data, map->bkg_img->width, map->bkg_img->height, "so long");
+	if (argc < 2)
+		path = "./assets/map/map4.ber";
+	else
+		path = argv[1];
+	vars = ft_init_vars();
+	ft_init_game(vars, path, argv[0]);
 
-	map->player1->status = ATTACKING;
 	ft_printf("running...\n");
-	// ft_mlx_put_sprite(base_img, assets->player[LEFT][WALK]->sprites_arr[0], -10, -10);
-	// ft_mlx_put_image_to_win(data, base_img, 0, 0);
-	mlx_loop_hook(data->mlx, update, &(t_vars2){data, base_img, map, assets, &input});
-	ft_hook_listeners(&(t_vars){data, map, &input});
-	mlx_loop(data->mlx); // Enter the event loop
+	mlx_loop_hook(vars->mlx, update, vars);
+	ft_hook_listeners(vars);
+	mlx_loop(vars->mlx);
 
-	ft_destory_assets(assets);
-	ft_mlx_destory(data);
-	ft_map_destory(map);
-
-	(void)base_img;
-	(void)map;
     return (0);
 }

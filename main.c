@@ -2,7 +2,7 @@
 #include "so_long.h"
 
 typedef struct s_vars2 {
-    t_mlx_data*		data;
+    t_window*		data;
 	t_image*		base_img;
 	t_image*		background;
 	t_itbl*			itbl;
@@ -81,7 +81,7 @@ int update(t_vars2* vars)
 }
 int main(void)
 {
-    t_mlx_data *	data;
+    t_window *	data;
 	t_image *		base_img;
 	t_image *		background;
 	t_itbl *		itbl;

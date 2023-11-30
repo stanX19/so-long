@@ -41,12 +41,13 @@ typedef struct s_free_arr {
 	int idx;
 } t_free_arr;
 
-typedef struct	s_mlx_data {
+typedef struct	s_window {
 	void *		mlx;
 	void *		mlx_win;
+	char *		title;
 	size_t		width;
 	size_t		height;
-}				t_mlx_data;
+}				t_window;
 
 typedef struct	s_sprite {
 	int		width;
@@ -230,8 +231,11 @@ typedef struct s_map {
 } t_map;
 
 typedef struct s_vars {
-	t_mlx_data *	data;
+	void *			mlx;
+	t_assets *		assets;
 	t_map *			map;
+	t_image *		base_img;
+	t_window *		window;
 	t_input *		input;
 } t_vars;
 
@@ -254,15 +258,15 @@ void *				ft_calloc(size_t size);
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
 void				ft_fill_image(t_image* img, int color);
-int					ft_mlx_put_image_to_win(t_mlx_data* data, t_image* img, int x, int y);
+int					ft_mlx_put_image_to_win(t_window* window, t_image* img, int x, int y);
 void				ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y);
 void				ft_image_destory(t_assets * assets, t_image * image);
 
 void				ft_mlx_pixel_put(t_image* img, int x, int y, unsigned int color);
-t_mlx_data *		ft_mlx_init(void);
-t_mlx_data *		ft_mlx_win_init(t_mlx_data * data, int width, int height, char *title);
-void				ft_mlx_destory(t_mlx_data * data);
-void				ft_mlx_destory_win(t_mlx_data * data);
+t_window *			ft_mlx_init(void);
+void				ft_mlx_destory(void *mlx);
+t_window *			ft_window_init(void *mlx, int width, int height, char *title);
+void				ft_window_destory(t_window * window);
 
 int					ft_is_valid_map(const char *path);
 char **				ft_generate_raw_map(const char* path, size_t *width, size_t *height);
@@ -304,16 +308,17 @@ void				ft_update_itbl_status(t_itbl * itbl);
 void				ft_itbl_destory(t_itbl *itbl);
 void				ft_itbl_set_status(t_itbl *itbl, t_itbl_status status);
 
-t_input				ft_init_input(void);
-int					ft_on_key_press(int keycode, t_vars * param);
-int					ft_on_key_release(int keycode, t_vars * param);
+t_input *			ft_init_input(void);
+void				ft_input_destory(t_input *input);
+int					ft_on_key_press(int keycode, t_vars * vars);
+int					ft_on_key_release(int keycode, t_vars * vars);
 int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
 int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
 
-t_sprite**			ft_init_connected_grass_tileset(t_assets *assets);
-t_sprite**			ft_init_seperated_grass_tileset(t_assets *assets);
-t_assets *			ft_init_assets(t_mlx_data *data);
+t_sprite **			ft_init_connected_grass_tileset(t_assets *assets);
+t_sprite **			ft_init_seperated_grass_tileset(t_assets *assets);
+t_assets *			ft_init_assets(void *mlx);
 void				ft_destory_assets(t_assets *assets);
 int					ft_add_to_free_arr(t_free_arr * free_arr, void * target);
 #endif

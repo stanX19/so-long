@@ -77,13 +77,17 @@ int update(t_vars* vars)
 	int *kb = vars->input->keyboard;
 	//ft_fill_image(vars->base_img, 0);
 	update2(player, vars->input);
-	for (size_t i = 0; i < vars->map->enemy_len; i++)
+	for (size_t i = 0; i < vars->map->slimes.len; i++)
 	{
-		vars->map->enemy[i]->velocity.x += rand() % 3 - 1;
-		vars->map->enemy[i]->velocity.y += rand() % 3 - 1;
-		//update2(vars->map->enemy[i], vars->input);
-		vars->map->enemy[i]->status |= MOVING;
-		//ft_printf("(%i, %i)\n", vars->map->enemy[i]->stats.velocity.x, vars->map->enemy[i]->stats.velocity.y);
+		vars->map->slimes.arr[i]->velocity.x += rand() % 3 - 1;
+		vars->map->slimes.arr[i]->velocity.y += rand() % 3 - 1;
+		vars->map->slimes.arr[i]->status |= MOVING;
+	}
+	for (size_t i = 0; i < vars->map->bees.len; i++)
+	{
+		vars->map->bees.arr[i]->velocity.x += rand() % 3 - 1;
+		vars->map->bees.arr[i]->velocity.y += rand() % 3 - 1;
+		vars->map->bees.arr[i]->status |= MOVING;
 	}
 	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
 	ft_map_update_itbl(vars->map);

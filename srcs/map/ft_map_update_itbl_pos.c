@@ -62,19 +62,23 @@ void	ft_map_update_itbl_pos(t_map *map)
 {
 	size_t	idx;
 	
-	idx = 0;
-	while (idx < map->coin_len)
+	idx = -1;
+	while (++idx < map->coins.len)
 	{
-		if (!(map->coins[idx]->status & DEAD))
-			update_check_update(map, map->coins[idx]);
-		++idx;
+		if (!(map->coins.arr[idx]->status & (DYING | DEAD)))
+			update_check_update(map, map->coins.arr[idx]);
 	}
-	idx = 0;
-	while (idx < map->enemy_len)
+	idx = -1;
+	while (++idx < map->slimes.len)
 	{
-		if (!(map->enemy[idx]->status & DEAD))
-			update_check_update(map, map->enemy[idx]);
-		++idx;
+		if (!(map->slimes.arr[idx]->status & (DYING | DEAD)))
+			update_check_update(map, map->slimes.arr[idx]);
+	}
+	idx = -1;
+	while (++idx < map->bees.len)
+	{
+		if (!(map->bees.arr[idx]->status & (DYING | DEAD)))
+			update_check_update(map, map->bees.arr[idx]);
 	}
 	update_check_update(map, map->exit);
 	update_check_update(map, map->player1);

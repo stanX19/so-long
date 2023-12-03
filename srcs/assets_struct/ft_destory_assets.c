@@ -1,15 +1,16 @@
 #include "so_long.h"
 
-static void	sprite_tab_destory(t_ani_sprite ***	sprite_tab)
+static void	itbl_n_tab_destory(t_itbl *itbl)
 {
 	int i;
 
 	i = 0;
 	while (i < NUM_DIRECTIONS)
 	{
-		free(sprite_tab[i++]);
+		free(itbl->sprite_tab[i++]);
 	}
-	free(sprite_tab);
+	free(itbl->sprite_tab);
+	ft_itbl_destory(itbl);
 }
 
 static void	sprite_arr_destory(t_sprite **sp_arr, size_t len)
@@ -38,10 +39,12 @@ void	ft_destory_assets(t_assets *assets)
 {
 	ft_free_list(&assets->all_ani_sprite, _ani_sprite_destory);
 	ft_free_list(&assets->all_img, _image_destory);
-	sprite_tab_destory(assets->enemy);
-	sprite_tab_destory(assets->coin);
-	sprite_tab_destory(assets->player);
-	sprite_tab_destory(assets->exit);
+	itbl_n_tab_destory(assets->slime);
+	itbl_n_tab_destory(assets->slime2);
+	itbl_n_tab_destory(assets->coin);
+	itbl_n_tab_destory(assets->player);
+	itbl_n_tab_destory(assets->cat);
+	itbl_n_tab_destory(assets->bee);
 	sprite_arr_destory(assets->all_tile, assets->all_tile_len);
 	free(assets);
 }

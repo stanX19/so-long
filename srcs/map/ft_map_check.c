@@ -1,7 +1,4 @@
 #include "so_long.h"
-#ifndef BORDER_RATIO
-# define BORDER_RATIO 1 / 2
-#endif
 
 static inline t_vec2 get_border(t_vec2 tile_size)
 {

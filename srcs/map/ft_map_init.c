@@ -6,8 +6,9 @@ static t_map * init_base(char ** raw_map, int width, int height)
 
 	map = (t_map *)ft_calloc(sizeof(t_map));
 	map->grid = (t_tile **)ft_calloc_2d(height, width, sizeof(t_tile*), sizeof(t_tile));
-	map->coin_len = ft_2d_count_val(raw_map, width, height, 'C');
-	map->enemy_len = ft_2d_count_val(raw_map, width, height, 'S');
+	map->coins.len = ft_2d_count_val(raw_map, width, height, 'C');
+	map->slimes.len = ft_2d_count_val(raw_map, width, height, 'S');
+	map->bees.len = ft_2d_count_val(raw_map, width, height, 'B');
 	map->grid_size.x = width;
 	map->grid_size.y = height;
 

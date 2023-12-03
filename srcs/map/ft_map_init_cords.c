@@ -2,7 +2,8 @@
 
 
 typedef struct s_idx_data {
-	int	enemy;
+	int	slime;
+	int bee;
 	int	coin;
 } t_idx_data;
 
@@ -13,27 +14,6 @@ typedef struct s_loc_data {
 	int				y;
 	t_idx_data		idx;
 } t_loc_data;
-
-// static void assign_itbl_locs(t_map *map, t_itbl **itbl, t_tile val)
-// {
-// 	int idx;
-// 	int x;
-// 	int y;
-
-// 	idx = 0;
-// 	y = 0;
-// 	x = 0;
-// 	while (y < map->grid_size.y)
-// 	{
-// 		while (x < map->grid_size.x)
-// 		{
-// 			if (map->grid[y][x] & val)
-// 				itbl[idx++]->loc = (t_vec2){x, y};
-// 			++x;
-// 		}
-// 		++y;
-// 	}
-// }
 
 void assign_sprites_loc(t_loc_data * d)
 {
@@ -49,10 +29,13 @@ void assign_sprites_loc(t_loc_data * d)
 		d->map->exit->cord = cord;
 		break;
 	case 'C':
-		d->map->coins[(d->idx.coin)++]->cord = cord;
+		d->map->coins.arr[(d->idx.coin)++]->cord = cord;
 		break;
 	case 'S':
-		d->map->enemy[(d->idx.enemy)++]->cord = cord;
+		d->map->slimes.arr[(d->idx.slime)++]->cord = cord;
+		break;
+	case 'B':
+		d->map->bees.arr[(d->idx.bee)++]->cord = cord;
 		break;
 	}
 }
@@ -72,7 +55,9 @@ static t_tile get_grid_val(char c)
 	case 'P':
 		return TILE_PATH | TILE_PLAYER1;
 	case 'S':
-		return TILE_PATH | TILE_ENEMY;
+		return TILE_PATH | TILE_SLIME;
+	case 'B':
+		return TILE_PATH | TILE_BEE;
 	default:
 		return TILE_PATH;
 	}
@@ -80,17 +65,18 @@ static t_tile get_grid_val(char c)
 
 void ft_map_init_cords(t_map* map, char** raw_map, int width, int height)
 {
-	t_loc_data	loc_data;
+	t_loc_data	cord;
 
-	loc_data = (t_loc_data){map, raw_map, 0, 0, {0, 0}};
-	for (int y = 0; y < height; y++) {
-		for (int x = 0; x < width; x++) {
-			//ft_printf("%i %i\n", x, y);
-			map->grid[y][x] = get_grid_val(raw_map[y][x]);
-			loc_data.x = x;
-			loc_data.y = y;
-			assign_sprites_loc(&loc_data);
-			//ft_printf("%i %i\n", loc_data.idx.coin, loc_data.idx.enemy);
+	cord = (t_loc_data){map, raw_map, 0, 0, {0, 0, 0}};
+	while (cord.y < height)
+	{
+		cord.x = 0;
+		while(cord.x < width)
+		{
+			map->grid[cord.y][cord.x] = get_grid_val(raw_map[cord.y][cord.x]);
+			assign_sprites_loc(&cord);
+			cord.x++;
 		}
+		cord.y++;
 	}
 }

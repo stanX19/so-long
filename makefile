@@ -63,7 +63,7 @@ IFLAGS		= -I. -I$(HEADER_DIR) -Imlx
 LINKERS		= $(MLX_LINUX) $(PRINTF_LIB)
 
 MAIN		= main.c
-ARGV		= assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber
+ARGV		= assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
 
 UP			= \033[1A
 FLUSH		= \033[2K

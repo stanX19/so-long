@@ -9,20 +9,23 @@ static void	m_update_itbl_status(t_map *map, t_itbl *itbl)
 	}
 }
 
-void	ft_map_update_all_status(t_map *map)
+static void m_update_arr(t_map *map, t_itbl_arr itbl_arr)
 {
 	size_t	idx;
 
+	idx = -1;
+	while (++idx < itbl_arr.len)
+	{
+		m_update_itbl_status(map, itbl_arr.arr[idx]);
+	}
+}
+
+void	ft_map_update_all_status(t_map *map)
+{
+
 	m_update_itbl_status(map, map->player1);
 	m_update_itbl_status(map, map->exit);
-	idx = 0;
-	while (idx < map->coin_len)
-	{
-		m_update_itbl_status(map, map->coins[idx++]);
-	}
-	idx = 0;
-	while (idx < map->enemy_len)
-	{
-		m_update_itbl_status(map, map->enemy[idx++]);
-	}
+	m_update_arr(map, map->coins);
+	m_update_arr(map, map->slimes);
+	m_update_arr(map, map->bees);
 }

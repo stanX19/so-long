@@ -14,10 +14,10 @@ static t_image *	init_base_image(t_assets *assets, t_vec2 map_size, t_vec2 tile_
 	size_t		width;
 	size_t		height;
 
-	ft_printf("Map grid size: (%i, %i)\n", map_size.x, map_size.y);
+	//ft_printf("Map grid size: (%i, %i)\n", map_size.x, map_size.y);
 	width = TILE_SIZE(map_size.x) * tile_size.x;
 	height = TILE_SIZE(map_size.y) * tile_size.y;
-	ft_printf("Background size: (%i, %i)\n", width, height);
+	//ft_printf("Background size: (%i, %i)\n", width, height);
 	ret = ft_new_image(assets, width, height);
 
 	return ret;

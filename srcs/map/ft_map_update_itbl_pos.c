@@ -65,14 +65,14 @@ void	ft_map_update_itbl_pos(t_map *map)
 	idx = 0;
 	while (idx < map->coin_len)
 	{
-		if (!(map->coins[idx]->status & (DYING | DEAD)))
+		if (!(map->coins[idx]->status & DEAD))
 			update_check_update(map, map->coins[idx]);
 		++idx;
 	}
 	idx = 0;
 	while (idx < map->enemy_len)
 	{
-		if (!(map->enemy[idx]->status & (DYING | DEAD)))
+		if (!(map->enemy[idx]->status & DEAD))
 			update_check_update(map, map->enemy[idx]);
 		++idx;
 	}

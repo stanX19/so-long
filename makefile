@@ -62,13 +62,14 @@ NAME		= so_long
 IFLAGS		= -I. -I$(HEADER_DIR) -Imlx
 LINKERS		= $(MLX_LINUX) $(PRINTF_LIB)
 
-MAIN		= main1.c
+MAIN		= main.c
+ARGV		= assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber
 
 UP			= \033[1A
 FLUSH		= \033[2K
 
 run: all
-	./so_long
+	./so_long $(ARGV)
 all: $(NAME)
 
 $(NAME): $(MAIN) $(OBJS) $(PRINTF_LIB) $(HEADER)

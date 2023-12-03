@@ -10,7 +10,7 @@ t_image* ft_read_xpm(t_assets * assets, char* relative_path){
 	t_image* img;
 	
 	if (!assets || !relative_path)
-		return null_with_message("Read xpm: null pointer received");
+		return null_with_message("Warning: Read xpm: null pointer received");
 	img = malloc(sizeof(t_image));
 	if (!img)
 		return null_with_message("failed to malloc");
@@ -20,8 +20,9 @@ t_image* ft_read_xpm(t_assets * assets, char* relative_path){
 		free(img);
 		return null_with_message(strerror(errno));
 	}
-	ft_add_to_free_arr(&assets->all_img, img);
+	ft_list_add(&assets->all_img, img);
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel), &(img->line_length), &(img->endian));
+	img->mlx = assets->mlx;
 
 	return img;
 }

@@ -1,108 +1,149 @@
 #include "stdio.h"
 #include "so_long.h"
 
-typedef struct s_vars2 {
-    t_window*		data;
-	t_image*		base_img;
-	t_image*		background;
-	t_itbl*			itbl;
-	t_input*		input;
-} t_vars2;
+int update(t_vars* vars);
 
-int ending_loop(t_vars2* vars)
+int wait_loop(t_vars* vars)
 {
+	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
+	ft_map_put_itbl(vars->base_img, vars->map);
+	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
 	int *kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb[vars->input->esc_code] == 0)
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb[vars->input->esc_code] + 
+		vars->input->mouse_left + vars->input->mouse_right == 0)
+	{
+		ft_new_game(vars);
+		mlx_loop_hook(vars->mlx, update, vars);
+	}
+	return 0;
+}
+
+int ending_loop(t_vars* vars)
+{
+	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
+	ft_map_put_itbl(vars->base_img, vars->map);
+	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
+	int *kb = vars->input->keyboard;
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb[vars->input->esc_code] + 
+		vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
 		ft_printf("loop ended\n");
-		ft_mlx_destory(vars->data);
-		ft_itbl_destory(vars->itbl);
+		ft_delete_game(vars);
+		ft_delete_vars(vars);
 		exit(0);
 	}
 	return 1;
 }
 
-void update2(t_itbl * itbl, t_direction direction, int*x, int*y)
+void update2(t_itbl * itbl, t_input *input)
 {
-	// if (itbl->direction != direction)
-	// {
-	// 	itbl->frame_tick = 0;
-	// 	itbl->sprite_idx = 0;
-	// }
-	itbl->direction = direction;
-	switch (direction)
+	
+	if (input->mouse_right)
+		itbl->stats.speed = 1000 * itbl->stats.base_speed;
+	if (!input->mouse_right)
+		itbl->stats.speed = itbl->stats.base_speed;
+	itbl->velocity.x = itbl->stats.speed * (input->keyboard['d'] - input->keyboard['a']);
+	itbl->velocity.y = itbl->stats.speed * (input->keyboard['s'] - input->keyboard['w']);
+	if (itbl->velocity.x || itbl->velocity.y)
+		itbl->status |= MOVING;
+	else
+		itbl->status &= ~MOVING;
+	if (itbl->velocity.x > 0)
+		itbl->direction = RIGHT;
+	else if (itbl->velocity.x < 0)
+		itbl->direction = LEFT;
+	else if (itbl->velocity.y < 0)
+		itbl->direction = UP;
+	else if (itbl->velocity.y > 0)
+		itbl->direction = DOWN;
+	if (input->mouse_left)
 	{
-	case LEFT:
-		*x -= itbl->stats.speed;
-		break;
-	case RIGHT:
-		*x += itbl->stats.speed;
-		break;
-	case UP:
-		*y -= itbl->stats.speed;
-		break;
-	case DOWN:
-		*y += itbl->stats.speed;
-		break;
-	default:
-		break;
+		if (!(itbl->status & ATTACKING))
+		{
+			itbl->frame_tick = 0;
+			itbl->sprite_idx = 0;
+		}
+		itbl->status |= ATTACKING;
 	}
+	
 }
-int update(t_vars2* vars)
+
+int update(t_vars* vars)
 {
-	static int x;
-	static int y;
-
-	ft_fill_image(vars->base_img, 0);
-	ft_update_itbl_status(vars->itbl);
-	ft_put_interactable_to_img(vars->base_img, vars->itbl, x, y);
-	ft_mlx_put_image_to_win(vars->data, vars->base_img, 0, 0);
-	//ft_mlx_put_image_to_win(vars->data, vars->background, 0, 0);
+	char *step_count;
+	t_itbl *player = vars->map->player1;
 	int *kb = vars->input->keyboard;
+	//ft_fill_image(vars->base_img, 0);
+	update2(player, vars->input);
+	for (size_t i = 0; i < vars->map->enemy_len; i++)
+	{
+		vars->map->enemy[i]->velocity.x += rand() % 3 - 1;
+		vars->map->enemy[i]->velocity.y += rand() % 3 - 1;
+		//update2(vars->map->enemy[i], vars->input);
+		vars->map->enemy[i]->status |= MOVING;
+		//ft_printf("(%i, %i)\n", vars->map->enemy[i]->stats.velocity.x, vars->map->enemy[i]->stats.velocity.y);
+	}
+	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
+	ft_map_update_itbl(vars->map);
+	ft_map_update_itbl_pos(vars->map);
+	ft_map_put_itbl(vars->base_img, vars->map);
+	//ft_put_interactable_to_img(vars->base_img, vars->map->player1, x, y);
+	step_count = ft_itoa(player->stats.steps);
+	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	mlx_string_put(vars->window->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, step_count);
+	free(step_count);
 
+	
+	//ft_printf("direction: %i | status: %i\n", vars->map->player1->direction, vars->map->player1->status);
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
-	ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);
-	if (kb['l'])
-		vars->itbl->stats.speed += 1;
-	if (kb['k'] && vars->itbl->stats.speed > 1)
-		vars->itbl->stats.speed -= 1;
-	//ft_printf("speed = %i\n", vars->itbl->stats.speed);
-	if (kb['w'])
-		update2(vars->itbl, UP, &x, &y);
-	else if (kb['a'])
-		update2(vars->itbl, LEFT, &x, &y);
-	else if (kb['s'])
-		update2(vars->itbl, DOWN, &x, &y);
-	else if (kb['d'])
-		update2(vars->itbl, RIGHT, &x, &y);
+	//ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);
+	//ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
+	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
 	if (kb[27])
-		mlx_loop_hook(vars->data->mlx, ending_loop, vars);
+		mlx_loop_hook(vars->window->mlx, ending_loop, vars);
+	else if (vars->map->exit->status & DEAD)
+	{
+		step_count = ft_itoa(player->stats.steps);
+		ft_printf("YOU WON!  |  Steps: %s\n", step_count);
+		free(step_count);
+		if (vars->idx + 1 >= vars->paths_len)
+		{
+			mlx_loop_hook(vars->mlx, ending_loop, vars);
+		}
+		else
+		{
+			vars->idx++;
+			mlx_loop_hook(vars->mlx, wait_loop, vars);
+		}
+	}
+	else if (player->status & DEAD)
+	{
+		mlx_loop_hook(vars->mlx, wait_loop, vars);
+	}
 	return 0;
 }
-int main(void)
+
+
+
+
+int main(int argc, char **argv)
 {
-    t_window *	data;
-	t_image *		base_img;
-	t_image *		background;
-	t_itbl *		itbl;
-	t_input			input = ft_init_input();
+	t_vars *		vars;
 
-    // Initialize the MiniLibX context
-    data = ft_mlx_init(500, 500, "Hello");
-	base_img = ft_new_image(data, 500, 500);
-	background = ft_read_xpm(data, "assets/sprites/player/U_Idle.xpm");
-	itbl = ft_init_interactable(ft_init_coin_ani_sprites(data));
-	itbl->direction = DOWN;
-	itbl->status = IDLING;
-	itbl->stats.speed = 1;
+	if (argc < 2)
+	{
+		printf("Incorrect format. Please provide at least one path.\n");
+        printf("Usage: %s <path1> <path2> <path3> ...\n", argv[0]);
+		return 1;
+	}
+	vars = ft_init_vars(argc, argv);
+	ft_init_game(vars);
 
-    mlx_loop_hook(data->mlx, update, &(t_vars2){data, base_img, background, itbl, &input});
-	mlx_clear_window(data->mlx, data->mlx_win);
-	mlx_do_key_autorepeatoff(data->mlx);
-	ft_hook_listeners(&(t_vars){data, 0, &input});
 	ft_printf("running...\n");
-	mlx_loop(data->mlx); // Enter the event loop
-	
+	mlx_loop_hook(vars->mlx, update, vars);
+	mlx_loop(vars->mlx);
 
     return (0);
 }

@@ -24,25 +24,20 @@ static void	sprite_arr_destory(t_sprite **sp_arr, size_t len)
 	free(sp_arr);
 }
 
-static void	free_free_arr(t_assets *assets)
+static void	_ani_sprite_destory(void* ptr)
 {
-	int i;
+	ft_ani_sprite_destory((t_ani_sprite *)ptr);
+}
 
-	i = 0;
-	while (i < assets->all_img.idx)
-	{
-		ft_image_destory(assets, assets->all_img.arr[i++]);
-	}
-	i = 0;
-	while (i < assets->all_ani_sprite.idx)
-	{
-		ft_ani_sprite_destory(assets->all_ani_sprite.arr[i++]);
-	}
+static void	_image_destory(void* ptr)
+{
+	ft_image_destory((t_image *)ptr);
 }
 
 void	ft_destory_assets(t_assets *assets)
 {
-	free_free_arr(assets);
+	ft_free_list(&assets->all_ani_sprite, _ani_sprite_destory);
+	ft_free_list(&assets->all_img, _image_destory);
 	sprite_tab_destory(assets->enemy);
 	sprite_tab_destory(assets->coin);
 	sprite_tab_destory(assets->player);

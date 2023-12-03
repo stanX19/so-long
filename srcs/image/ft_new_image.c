@@ -15,12 +15,12 @@ t_image* ft_new_image(t_assets * assets, int width, int height)
 	img->img = mlx_new_image(assets->mlx, width, height);
 	if (img->img == NULL)
 	{
-		ft_image_destory(assets, img);
+		ft_image_destory(img);
 		return 0;
 	}
-	ft_add_to_free_arr(&assets->all_img, img);
+	ft_list_add(&assets->all_img, img);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 		&img->line_length, &img->endian);
-
+	img->mlx = assets->mlx;
 	return img;
 }

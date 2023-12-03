@@ -1,6 +1,5 @@
 #ifndef SO_LONG_HEADER_H
 # define SO_LONG_HEADER_H
-# define MAX_FREE_ARR_SIZE 100
 # define NUM_DIRECTIONS 4
 # define NUM_ACTIONS 4
 # include <mlx.h>
@@ -27,7 +26,8 @@ typedef union s_color {
 } t_color;
 
 typedef struct	s_image {
-	void*	img;
+	void	*mlx;
+	void	*img;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -36,10 +36,14 @@ typedef struct	s_image {
 	int		height;
 } t_image;
 
-typedef struct s_free_arr {
-	void * arr[MAX_FREE_ARR_SIZE];
-	int idx;
-} t_free_arr;
+typedef struct s_node {
+	void *	ptr;
+	void *	next;
+} t_node;
+
+typedef struct s_linked_list {
+	t_node *	head;
+} t_linked_list;
 
 typedef struct	s_window {
 	void *		mlx;
@@ -68,22 +72,13 @@ typedef struct s_grouped_sp
 	t_sprite * path_wall[16];
 	t_sprite * water_path[16];
 	t_sprite * path_tree[16];
-	// t_sprite *	hill_path[3][3];
-	// t_sprite *	path_hill[3][3];
-	// t_sprite *	hill_hill[3][3];
-	// t_sprite *	path_water[3][3];
-	// t_sprite *	water_path[3][3];
-	// t_sprite *	water_water[3][3];
-	// t_sprite *	path_tree[3][3];
-	// t_sprite *	tree_path[3][3];
-	// t_sprite *	tree_tree[3][3];
 } t_grouped_sp;
 
 typedef struct s_assets
 {
 	void *			mlx;
-	t_free_arr		all_img;
-	t_free_arr		all_ani_sprite;
+	t_linked_list	all_img;
+	t_linked_list	all_ani_sprite;
 	t_ani_sprite ***enemy;
 	t_ani_sprite ***coin;
 	t_ani_sprite ***player;
@@ -237,6 +232,10 @@ typedef struct s_vars {
 	t_image *		base_img;
 	t_window *		window;
 	t_input *		input;
+	char **			paths;
+	char *			title;
+	int				paths_len;
+	int				idx;
 } t_vars;
 
 size_t				ft_printf(const char *str, ...);
@@ -254,13 +253,16 @@ int					sign(int x);
 char *				ft_itoa(int n);
 t_vec2				ft_vec2_add(t_vec2 v1, t_vec2 v2);
 void *				ft_calloc(size_t size);
+void				ft_list_add(t_linked_list *list, void *ptr);
+void				ft_list_remove(t_linked_list *list, void *ptr);
+void				ft_free_list(t_linked_list *list, void(*free_func)(void*));
 
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
 void				ft_fill_image(t_image* img, int color);
 int					ft_mlx_put_image_to_win(t_window* window, t_image* img, int x, int y);
 void				ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y);
-void				ft_image_destory(t_assets * assets, t_image * image);
+void				ft_image_destory(t_image * image);
 
 void				ft_mlx_pixel_put(t_image* img, int x, int y, unsigned int color);
 t_window *			ft_mlx_init(void);
@@ -320,5 +322,10 @@ t_sprite **			ft_init_connected_grass_tileset(t_assets *assets);
 t_sprite **			ft_init_seperated_grass_tileset(t_assets *assets);
 t_assets *			ft_init_assets(void *mlx);
 void				ft_destory_assets(t_assets *assets);
-int					ft_add_to_free_arr(t_free_arr * free_arr, void * target);
+
+t_vars *			ft_init_vars(int argc, char **argv);
+void				ft_init_game(t_vars* vars);
+void				ft_delete_game(t_vars* vars);
+void				ft_delete_vars(t_vars* vars);
+void				ft_new_game(t_vars* vars);
 #endif

@@ -73,6 +73,7 @@ typedef struct s_grouped_sp
 	t_sprite * path_wall[16];
 	t_sprite * water_path[16];
 	t_sprite * path_tree[16];
+	t_sprite * all_grass[16];
 } t_grouped_sp;
 
 

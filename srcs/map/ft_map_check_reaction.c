@@ -6,7 +6,7 @@ static int all_dead(t_map *map, t_itbl **arr, int len)
 	t_vec2 cord;
 
 	idx = 0;
-	wdhile (idx < len)
+	while (idx < len)
 	{
 		cord = arr[idx]->cord;
 		if (map->grid[cord.y][cord.x] & arr[idx]->self)

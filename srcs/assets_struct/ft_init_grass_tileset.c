@@ -1,7 +1,7 @@
 #include "so_long.h"
 # define START (t_vec2){0, 0}
 # define END SIZE
-# define SIZE (t_vec2){16, 3}
+# define SIZE (t_vec2){16, 4}
 
 static int get_idx(t_vec2 cord)
 {
@@ -18,6 +18,7 @@ static void set_grouped_tiles(t_assets *assets, t_sprite**src)
 		assets->tiles.path_wall[x] = src[get_idx((t_vec2){x, 0})];
 		assets->tiles.water_path[x] = src[get_idx((t_vec2){x, 1})];
 		assets->tiles.path_tree[x] = src[get_idx((t_vec2){x, 2})];
+		assets->tiles.all_grass[x] = src[get_idx((t_vec2){x, 3})];
 		++x;
 	}
 }

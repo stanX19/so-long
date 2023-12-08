@@ -28,7 +28,6 @@ t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
 	t_sprite ** type;
 	int			val;
 
-
 	val = ((c[0] | c[1] | c[2] | c[3]) & (TILE_PATH | TILE_WALL | TILE_WATER));
 	if (val == (TILE_PATH | TILE_WALL) || val == (TILE_PATH) || val == (TILE_WALL))
 	{
@@ -40,13 +39,14 @@ t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
 		type = assets->tiles.water_path;
 		MAP_EQL_TO(c, TILE_PATH);
 	}
-	else
+	val = BINARY_4BIT(c[0], c[1], c[2], c[3]);
+	if ((type == assets->tiles.path_wall && val == 0) ||
+		(type == assets->tiles.water_path && val == 15))
 	{
-		ft_printf("ERROR: Map bg gen: no matching tiles: %i %i %i %i\n", c[0], c[1], c[2], c[3]);
-		return 0;
+		type = assets->tiles.all_grass;
+		val = (rand() % 4 == 0) * rand() % 16;
 	}
-
-	return type[BINARY_4BIT(c[0], c[1], c[2], c[3])];
+	return type[val];
 }
 
 static void	process_cord(t_image *	img, t_map *map, t_assets *assets, t_vec2 cord)

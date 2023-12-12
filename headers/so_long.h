@@ -341,6 +341,8 @@ int					ft_on_key_release(int keycode, t_vars * vars);
 int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
 int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
+int					ft_has_input(t_input *input);
+void				ft_manage_mouse(t_vars *vars, int center);
 
 t_image*			ft_default_tileset_gen(t_assets *assets, t_vec2 size);
 t_sprite **			ft_init_line_fmt_tileset(t_assets *assets, char * path);

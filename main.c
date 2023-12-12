@@ -98,8 +98,8 @@ int update(t_vars* vars)
 	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
 	mlx_string_put(vars->window->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, step_count);
 	free(step_count);
-
 	
+	//ft_manage_mouse(vars, 1);
 	//ft_printf("direction: %i | status: %i\n", vars->map->player1->direction, vars->map->player1->status);
 	//ft_printf("%i %i %i %i %i\n", x['w'], x['a'], x['s'], x['d'], x[27]);
 	//ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);

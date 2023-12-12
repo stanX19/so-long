@@ -49,14 +49,12 @@ static t_sprite** init_line_format_tileset(t_assets *assets, char * path)
 
 t_sprite** ft_init_connected_grass_tileset(t_assets *assets)
 {
-	return init_line_format_tileset(assets,
-		"assets/sprites/tilesets/grass_cntd_line.xpm");
+	return init_line_format_tileset(assets, PATH_UNUSED_GRASS_CNTD_LINE);
 }
 
 t_sprite** ft_init_seperated_grass_tileset(t_assets *assets)
 {
-	return init_line_format_tileset(assets,
-		"assets/sprites/tilesets/grass_sprtd_line.xpm");
+	return init_line_format_tileset(assets, PATH_UNUSED_GRASS_SPRTD_LINE);
 }
 
 #undef START

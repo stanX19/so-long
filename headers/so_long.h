@@ -10,6 +10,7 @@
 # include <errno.h>
 # include <string.h>
 # include <math.h>
+# include "assets_path.h"
 
 typedef struct s_vec2 {
 	int x;

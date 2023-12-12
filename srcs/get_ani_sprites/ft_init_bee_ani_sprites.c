@@ -1,12 +1,12 @@
 #include "so_long.h"
 
 static void get_bee_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]) {
-    sp_data[UP][DEATH] = (t_sp_data){"assets/sprites/bee/U_Death.xpm", {0, 0}, {6, 1}, {6, 1}};
-    sp_data[UP][WALK] = (t_sp_data){"assets/sprites/bee/U_Walk.xpm", {0, 0}, {6, 1}, {6, 1}};
-    sp_data[DOWN][DEATH] = (t_sp_data){"assets/sprites/bee/D_Death.xpm", {0, 0}, {6, 1}, {6, 1}};
-    sp_data[DOWN][WALK] = (t_sp_data){"assets/sprites/bee/D_Walk.xpm", {0, 0}, {6, 1}, {6, 1}};
-    sp_data[LEFT][DEATH] = (t_sp_data){"assets/sprites/bee/S_Death.xpm", {0, 0}, {6, 1}, {6, 1}};
-    sp_data[LEFT][WALK] = (t_sp_data){"assets/sprites/bee/S_Walk.xpm", {0, 0}, {6, 1}, {6, 1}};
+    sp_data[UP][DEATH] = (t_sp_data){PATH_BEE_U_DEATH, {0, 0}, {6, 1}, {6, 1}};
+    sp_data[UP][WALK] = (t_sp_data){PATH_BEE_U_WALK, {0, 0}, {6, 1}, {6, 1}};
+    sp_data[DOWN][DEATH] = (t_sp_data){PATH_BEE_D_DEATH, {0, 0}, {6, 1}, {6, 1}};
+    sp_data[DOWN][WALK] = (t_sp_data){PATH_BEE_D_WALK, {0, 0}, {6, 1}, {6, 1}};
+    sp_data[LEFT][DEATH] = (t_sp_data){PATH_BEE_S_DEATH, {0, 0}, {6, 1}, {6, 1}};
+    sp_data[LEFT][WALK] = (t_sp_data){PATH_BEE_S_WALK, {0, 0}, {6, 1}, {6, 1}};
 }
 
 static t_ani_sprite* get_animated_sprite(t_assets * assets, t_sp_data sp_data){

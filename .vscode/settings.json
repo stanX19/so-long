@@ -8,6 +8,10 @@
 		"so_long.h": "c",
 		"limits": "c",
 		"*.tcc": "c",
-		"random": "c"
+		"random": "c",
+		"trgb_colors.h": "c",
+		"deque": "c",
+		"unordered_map": "c",
+		"initializer_list": "c"
 	}
 }

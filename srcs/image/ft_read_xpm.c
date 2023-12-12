@@ -6,8 +6,8 @@
 	return 0;
 }
 
-t_image* ft_read_xpm(t_assets * assets, char* relative_path){
-	t_image* img;
+t_image *	ft_read_xpm(t_assets *assets, char *relative_path){
+	t_image *	img;
 	
 	if (!assets || !relative_path)
 		return null_with_message("Warning: Read xpm: null pointer received");

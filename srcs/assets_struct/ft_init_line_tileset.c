@@ -23,7 +23,7 @@ static void set_grouped_tiles(t_assets *assets, t_sprite**src)
 	}
 }
 
-static t_sprite** init_line_format_tileset(t_assets *assets, char * path)
+t_sprite** ft_init_line_fmt_tileset(t_assets *assets, char * path)
 {
 	t_image *	img;
 	t_sprite **	ret;
@@ -31,11 +31,8 @@ static t_sprite** init_line_format_tileset(t_assets *assets, char * path)
 	img = ft_read_xpm(assets, path);
 	if (!img)
 	{
-		assets->tile_size.y = 0;
-		assets->tile_size.x = 0;
-		assets->all_tile_len = 0;
-		set_grouped_tiles(assets, 0);
-		return 0;
+		ft_printf("Assets missing: %s\nUsing default tilesets");
+		img = ft_default_tileset_gen(assets, SIZE);
 	}
 	ret = ft_generate_sprites_array_grid(img, START, END, SIZE);
 	if (!ret)
@@ -45,16 +42,6 @@ static t_sprite** init_line_format_tileset(t_assets *assets, char * path)
 	assets->tile_size.x = ret[0]->width;
 	set_grouped_tiles(assets, ret);
 	return ret;
-}
-
-t_sprite** ft_init_connected_grass_tileset(t_assets *assets)
-{
-	return init_line_format_tileset(assets, PATH_UNUSED_GRASS_CNTD_LINE);
-}
-
-t_sprite** ft_init_seperated_grass_tileset(t_assets *assets)
-{
-	return init_line_format_tileset(assets, PATH_UNUSED_GRASS_SPRTD_LINE);
 }
 
 #undef START

@@ -11,6 +11,7 @@
 # include <string.h>
 # include <math.h>
 # include "assets_path.h"
+# include "trgb_colors.h"
 
 typedef struct s_vec2 {
 	int x;
@@ -280,7 +281,7 @@ void				ft_free_list(t_linked_list *list, void(*free_func)(void*));
 
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
-void				ft_fill_image(t_image* img, int color);
+void				ft_fill_image(t_image* img, unsigned int color, t_vec2 start, t_vec2 end);
 int					ft_mlx_put_image_to_win(t_window* window, t_image* img, int x, int y);
 void				ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y);
 void				ft_image_destory(t_image * image);
@@ -341,8 +342,8 @@ int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
 int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
 
-t_sprite **			ft_init_connected_grass_tileset(t_assets *assets);
-t_sprite **			ft_init_seperated_grass_tileset(t_assets *assets);
+t_image*			ft_default_tileset_gen(t_assets *assets, t_vec2 size);
+t_sprite **			ft_init_line_fmt_tileset(t_assets *assets, char * path);
 t_assets *			ft_init_assets(void *mlx);
 void				ft_destory_assets(t_assets *assets);
 

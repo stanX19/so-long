@@ -43,7 +43,8 @@ SRCS		= $(wildcard ./$(SRCDIR)/*/*.c)
 HEADER_DIR		= headers
 SO_LONG_H		= $(HEADER_DIR)/so_long.h
 ASSETS_PATH_H	= $(HEADER_DIR)/assets_path.h
-HEADERS			= $(SO_LONG_H) $(ASSETS_PATH_H)
+COLORS_H		= $(HEADER_DIR)/trgb_colors.h
+HEADERS			= $(SO_LONG_H) $(ASSETS_PATH_H) $(COLORS_H)
 OBJDIR			= objs
 OBJDIRS			= $(sort $(dir $(OBJS)))
 OBJS			= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
@@ -65,7 +66,7 @@ IFLAGS			= -I. -I$(HEADER_DIR) -Imlx
 LINKERS			= $(MLX_LINUX) $(PRINTF_LIB)
 
 MAIN			= main.c
-ARGV			= assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
+ARGV			= assets/map/map5.ber #assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
 
 UP				= \033[1A
 FLUSH			= \033[2K

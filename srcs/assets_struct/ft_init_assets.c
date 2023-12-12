@@ -38,7 +38,7 @@ t_assets *	ft_init_assets(void *mlx)
 	assets->mlx = mlx;
 	assets->ani_tabs = init_ani_assets(assets);
 	init_itbl(assets);
-	assets->all_tile = ft_init_seperated_grass_tileset(assets);
+	assets->all_tile = ft_init_line_fmt_tileset(assets, PATH_TILESET_BACKGROUND);
 
 	return assets;
 }

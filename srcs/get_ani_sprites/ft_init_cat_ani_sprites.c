@@ -24,7 +24,7 @@ t_ani_sprite*** ft_init_cat_ani_sprites(t_assets * assets) {
 
     ret = (t_ani_sprite ***)ft_calloc_2d(NUM_DIRECTIONS, NUM_ACTIONS,
                         		sizeof(t_ani_sprite**), sizeof(t_ani_sprite*));
-	sp_data = (t_sp_data){"assets/sprites/cat/S_Idle.xpm", {0, 0}, {8, 4}, {8, 4}};
+	sp_data = (t_sp_data){PATH_CAT_S_IDLE, {0, 0}, {8, 4}, {8, 4}};
 	for (int y = 0; y < NUM_DIRECTIONS; y++)
 	{
         for (int x = 0; x < NUM_ACTIONS; x++)

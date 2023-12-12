@@ -2,15 +2,15 @@
 
 static void get_player_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
 {
-	sp_data[DOWN][ATTACK] = (t_sp_data){"assets/sprites/player/D_Attack.xpm", {0, 0}, {1, 2}, {2, 2}};
-    sp_data[DOWN][IDLE] = (t_sp_data){"assets/sprites/player/D_Idle.xpm", {0, 0}, {1, 2}, {4, 2}};
-    sp_data[DOWN][WALK] = (t_sp_data){"assets/sprites/player/D_Walk.xpm", {0, 0}, {2, 2}, {4, 2}};
-    sp_data[LEFT][ATTACK] = (t_sp_data){"assets/sprites/player/S_Attack.xpm", {0, 0}, {1, 2}, {2, 2}};
-    sp_data[LEFT][IDLE] = (t_sp_data){"assets/sprites/player/S_Idle.xpm", {0, 0}, {1, 2}, {4, 2}};
-    sp_data[LEFT][WALK] = (t_sp_data){"assets/sprites/player/S_Walk.xpm", {0, 0}, {2, 2}, {4, 2}};
-	sp_data[UP][ATTACK] = (t_sp_data){"assets/sprites/player/U_Attack.xpm", {0, 0}, {1, 2}, {2, 2}};
-    sp_data[UP][IDLE] = (t_sp_data){"assets/sprites/player/U_Idle.xpm", {0, 0}, {1, 2}, {4, 2}};
-    sp_data[UP][WALK] = (t_sp_data){"assets/sprites/player/U_Walk.xpm", {0, 0}, {2, 2}, {4, 2}};
+	sp_data[DOWN][ATTACK] = (t_sp_data){PATH_PLAYER_D_ATTACK, {0, 0}, {1, 2}, {2, 2}};
+    sp_data[DOWN][IDLE] = (t_sp_data){PATH_PLAYER_D_IDLE, {0, 0}, {1, 2}, {4, 2}};
+    sp_data[DOWN][WALK] = (t_sp_data){PATH_PLAYER_D_WALK, {0, 0}, {2, 2}, {4, 2}};
+    sp_data[LEFT][ATTACK] = (t_sp_data){PATH_PLAYER_S_ATTACK, {0, 0}, {1, 2}, {2, 2}};
+    sp_data[LEFT][IDLE] = (t_sp_data){PATH_PLAYER_S_IDLE, {0, 0}, {1, 2}, {4, 2}};
+    sp_data[LEFT][WALK] = (t_sp_data){PATH_PLAYER_S_WALK, {0, 0}, {2, 2}, {4, 2}};
+	sp_data[UP][ATTACK] = (t_sp_data){PATH_PLAYER_U_ATTACK, {0, 0}, {1, 2}, {2, 2}};
+    sp_data[UP][IDLE] = (t_sp_data){PATH_PLAYER_U_IDLE, {0, 0}, {1, 2}, {4, 2}};
+    sp_data[UP][WALK] = (t_sp_data){PATH_PLAYER_U_WALK, {0, 0}, {2, 2}, {4, 2}};
 }
 
 static int get_size(t_sp_data sp_data)

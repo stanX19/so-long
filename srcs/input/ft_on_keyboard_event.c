@@ -5,7 +5,9 @@ static int match_key_to_input(int keycode)
 	switch (keycode)
 	{
 	case 65307:
-		return 27;
+		return '\e';
+	case 65289:
+		return '\t';
 	case 13:
 		return 'w';
 	case 0:

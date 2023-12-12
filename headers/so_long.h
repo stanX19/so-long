@@ -222,11 +222,14 @@ enum s_x11_event_masks {
     OWNER_GRAB_BUTTON_MASK = (1L << 24),
 };
 
-typedef struct s_input {
+typedef struct s_input
+{
     int	keyboard[128];
     int	esc_code;
+	int tab_code;
 	int	mouse_left;
 	int	mouse_right;
+	int destory;
 } t_input;
 
 typedef struct s_itbl_arr
@@ -340,6 +343,7 @@ int					ft_on_key_press(int keycode, t_vars * vars);
 int					ft_on_key_release(int keycode, t_vars * vars);
 int					ft_on_mouse_click(int button, int x, int y, t_vars * vars);
 int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
+int					ft_on_destory(t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
 int					ft_has_input(t_input *input);
 void				ft_manage_mouse(t_vars *vars, int center);

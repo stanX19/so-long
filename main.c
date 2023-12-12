@@ -10,7 +10,7 @@ int wait_loop(t_vars* vars)
 	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
 	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
 	int *kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb[vars->input->esc_code] + 
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb['\e'] + kb['\t'] + 
 		vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
 		ft_new_game(vars);
@@ -39,10 +39,17 @@ int ending_loop(t_vars* vars)
 
 void update2(t_itbl * itbl, t_input *input)
 {
-	
-	if (input->mouse_right)
+	static int dash;
+
+	if (dash % 2 == 0 && input->keyboard['\t'])
+		dash++;
+	else if (dash % 2 == 1 && !input->keyboard['\t'])
+		dash++;
+	if (dash == 4)
+		dash = 0;
+	if (input->mouse_right || dash == 2)
 		itbl->stats.speed = 1000 * itbl->stats.base_speed;
-	if (!input->mouse_right)
+	else
 		itbl->stats.speed = itbl->stats.base_speed;
 	itbl->velocity.x = itbl->stats.speed * (input->keyboard['d'] - input->keyboard['a']);
 	itbl->velocity.y = itbl->stats.speed * (input->keyboard['s'] - input->keyboard['w']);
@@ -105,7 +112,7 @@ int update(t_vars* vars)
 	//ft_printf("left: %i | right: %i\n", vars->input->mouse_left, vars->input->mouse_right);
 	//ft_printf("(%i, %i) (%i, %i)\n", player->cord.x, player->cord.y, player->rel_cord.x, player->rel_cord.y);
 	//ft_printf("speed = %i\n", vars->map->player1->stats.speed);
-	if (kb[27])
+	if (kb['\e'] || vars->input->destory)
 		mlx_loop_hook(vars->window->mlx, ending_loop, vars);
 	else if (vars->map->exit->status & DEAD)
 	{

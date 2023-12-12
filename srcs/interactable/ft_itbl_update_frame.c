@@ -48,7 +48,7 @@ static void set_animation(t_itbl *itbl)
 	check_flip(itbl);
 }
 
-void ft_update_itbl_status(t_itbl * itbl)
+void ft_itbl_update_frame(t_itbl * itbl)
 {
 	set_animation(itbl);
 	if (!itbl->animation)

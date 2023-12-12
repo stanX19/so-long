@@ -17,7 +17,7 @@ static void	free_itbl_arr(t_itbl **arr, size_t len)
 void	ft_map_destory(t_map *map)
 {
 	ft_free_2d((void **)map->grid, map->grid_size.y);
-	ft_itbl_destory(map->player1);
+	ft_itbl_destory(map->player);
 	ft_itbl_destory(map->exit);
 	free_itbl_arr(map->coins.arr, map->coins.len);
 	free_itbl_arr(map->slimes.arr, map->slimes.len);

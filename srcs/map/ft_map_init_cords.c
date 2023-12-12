@@ -23,7 +23,7 @@ void assign_sprites_loc(t_loc_data * d)
 	switch (d->raw_map[d->y][d->x])
 	{
 	case 'P':
-		d->map->player1->cord = cord;
+		d->map->player->cord = cord;
 		break;
 	case 'E':
 		d->map->exit->cord = cord;
@@ -53,7 +53,7 @@ static t_tile get_grid_val(char c)
 	case 'C':
 		return TILE_PATH | TILE_COIN;
 	case 'P':
-		return TILE_PATH | TILE_PLAYER1;
+		return TILE_PATH | TILE_PLAYER;
 	case 'S':
 		return TILE_PATH | TILE_SLIME;
 	case 'B':

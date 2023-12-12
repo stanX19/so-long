@@ -81,5 +81,5 @@ void	ft_map_update_itbl_pos(t_map *map)
 			update_check_update(map, map->bees.arr[idx]);
 	}
 	update_check_update(map, map->exit);
-	update_check_update(map, map->player1);
+	update_check_update(map, map->player);
 }

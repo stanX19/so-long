@@ -7,15 +7,22 @@ static void	update_arr(t_itbl_arr itbl_arr)
 	idx = -1;
 	while (++idx < itbl_arr.len)
 	{
-		ft_update_itbl_status(itbl_arr.arr[idx]);
+		ft_itbl_update_frame(itbl_arr.arr[idx]);
 	}
+}
+
+static void map_update_frames(t_map *map)
+{
+	ft_itbl_update_frame(map->player);
+	ft_itbl_update_frame(map->exit);
+	update_arr(map->slimes);
+	update_arr(map->bees);
+	update_arr(map->coins);
 }
 
 void	ft_map_update_itbl(t_map *map)
 {
-	ft_update_itbl_status(map->player1);
-	ft_update_itbl_status(map->exit);
-	update_arr(map->slimes);
-	update_arr(map->bees);
-	update_arr(map->coins);
+	ft_map_update_all_status(map);
+	map_update_frames(map);
+	ft_map_update_itbl_pos(map);
 }

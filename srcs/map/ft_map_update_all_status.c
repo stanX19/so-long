@@ -23,7 +23,7 @@ static void m_update_arr(t_map *map, t_itbl_arr itbl_arr)
 void	ft_map_update_all_status(t_map *map)
 {
 
-	m_update_itbl_status(map, map->player1);
+	m_update_itbl_status(map, map->player);
 	m_update_itbl_status(map, map->exit);
 	m_update_arr(map, map->coins);
 	m_update_arr(map, map->slimes);

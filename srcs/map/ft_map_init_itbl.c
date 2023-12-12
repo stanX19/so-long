@@ -35,7 +35,7 @@ static t_itbl **init_itbl_arr(t_itbl* src, int len, t_tile self)
 
 void ft_map_init_itbl(t_map *map, t_assets *assets)
 {
-	map->player1 = init_itbl(assets->player, TILE_PLAYER1);
+	map->player = init_itbl(assets->player, TILE_PLAYER);
 	map->exit = init_itbl(assets->cat, TILE_EXIT);
 	map->slimes.arr = init_itbl_arr(assets->slime, map->slimes.len, TILE_SLIME);
 	map->bees.arr = init_itbl_arr(assets->bee, map->bees.len, TILE_BEE);

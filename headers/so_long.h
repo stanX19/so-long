@@ -103,15 +103,9 @@ typedef enum s_itbl_status
 } t_itbl_status;
 
 typedef struct	s_stats{
-	int	damage;
-	int	health;
-	int max_health;
 	int	speed;
 	int base_speed;
-	int atk_cd;
 	int steps;
-	int stamina;
-	int max_stamina;
 } t_stats;
 
 typedef struct s_sp_data
@@ -129,7 +123,7 @@ typedef enum s_tile
     TILE_WALL = (1 << 1),
     TILE_WATER = (1 << 2),
 	TILE_EXIT = (1 << 3),
-	TILE_PLAYER1 = (1 << 4),
+	TILE_PLAYER = (1 << 4),
 	TILE_COIN = (1 << 5),
 	TILE_SLIME = (1 << 6),
 	TILE_BEE = (1 << 7),
@@ -242,7 +236,7 @@ typedef struct s_map {
 	t_tile **	grid;
 	t_vec2		grid_size;
 	t_image *	bkg_img;
-	t_itbl *	player1;
+	t_itbl *	player;
 	t_itbl *	exit;
 	t_itbl_arr	coins;
 	t_itbl_arr	slimes;
@@ -311,6 +305,7 @@ void				ft_map_itbl_front_add(t_map *map, t_itbl *itbl, t_tile val);
 void				ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
 void				ft_map_check_velocity(t_map *map, t_itbl *itbl);
 void				ft_set_itbl_settings(t_itbl *itbl, t_tile self);
+void				ft_map_update_enemy_v(t_map *map);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);
@@ -332,10 +327,11 @@ t_itbl *			ft_init_interactable(t_ani_sprite *** sprite_tab);
 void				ft_put_interactable_to_img(t_image * base_img, t_itbl * itbl, int x, int y);
 void				ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, int img_y);
 void				ft_itbl_reset_ani(t_itbl * itbl);
-void				ft_update_itbl_status(t_itbl * itbl);
+void				ft_itbl_update_frame(t_itbl * itbl);
 void				ft_itbl_destory(t_itbl *itbl);
 void				ft_itbl_set_status(t_itbl *itbl, t_itbl_status status);
 t_itbl *			ft_itbl_copy(t_itbl *src);
+void				ft_itbl_update_direction(t_itbl *itbl);
 
 t_input *			ft_init_input(void);
 void				ft_input_destory(t_input *input);
@@ -358,4 +354,12 @@ void				ft_init_game(t_vars* vars);
 void				ft_delete_game(t_vars* vars);
 void				ft_delete_vars(t_vars* vars);
 void				ft_new_game(t_vars* vars);
+int					ft_update_loop(t_vars* vars);
+int					ft_ending_loop(t_vars* vars);
+int					ft_wait_loop(t_vars* vars);
+
+int					ft_get_dash_status(t_input *input);
+void				ft_update_player(t_vars *vars);
+void				ft_show_steps(t_vars *vars);
+void				ft_print_steps(t_vars *vars, char *fmt_str);
 #endif

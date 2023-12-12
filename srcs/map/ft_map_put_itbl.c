@@ -30,5 +30,5 @@ void	ft_map_put_itbl(t_image *img, t_map *map)
 	put_itbl_by_cord(img, tile_size, map->exit);
 	put_itbl_arr(img, tile_size, map->slimes);
 	put_itbl_arr(img, tile_size, map->bees);
-	put_itbl_by_cord(img, tile_size, map->player1);
+	put_itbl_by_cord(img, tile_size, map->player);
 }

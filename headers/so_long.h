@@ -2,7 +2,6 @@
 # define SO_LONG_HEADER_H
 # define NUM_DIRECTIONS 4
 # define NUM_ACTIONS 4
-# define BORDER_RATIO 1 / 3
 # include <mlx.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -12,6 +11,7 @@
 # include <math.h>
 # include "assets_path.h"
 # include "trgb_colors.h"
+# include "configs.h"
 
 typedef struct s_vec2 {
 	int x;
@@ -279,6 +279,7 @@ void				ft_free_list(t_linked_list *list, void(*free_func)(void*));
 t_image *			ft_read_xpm(t_assets * assets, char* relative_path);
 t_image *			ft_new_image(t_assets * assets, int width, int height);
 void				ft_fill_image(t_image* img, unsigned int color, t_vec2 start, t_vec2 end);
+void				ft_fill_image_whole(t_image* img, unsigned int color);
 int					ft_mlx_put_image_to_win(t_window* window, t_image* img, int x, int y);
 void				ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y);
 void				ft_image_destory(t_image * image);
@@ -288,6 +289,8 @@ t_window *			ft_mlx_init(void);
 void				ft_mlx_destory(void *mlx);
 t_window *			ft_window_init(void *mlx, int width, int height, char *title);
 void				ft_window_destory(t_window * window);
+t_vec2				ft_mlx_get_screen_size(void *mlx);
+void				ft_mlx_clear_window(t_window *window);
 
 int					ft_is_valid_map(const char *path);
 char **				ft_generate_raw_map(const char* path, size_t *width, size_t *height);
@@ -296,7 +299,7 @@ void				ft_map_init_itbl(t_map *map, t_assets *assets);
 t_image *			ft_map_bg_gen(t_map *map, t_assets *assets);
 t_map *				ft_map_init(const char* path, t_assets * assets);
 void				ft_map_destory(t_map *map);
-void				ft_map_put_itbl(t_image *bg, t_map *map);
+void				ft_map_put_itbl(t_image *img, t_map *map, t_vec2 offset);
 void				ft_map_update_itbl(t_map *map);
 void				ft_map_update_itbl_pos(t_map *map);
 void				ft_map_check_reaction(t_map *map, t_vec2 cord);
@@ -306,6 +309,7 @@ void				ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
 void				ft_map_check_velocity(t_map *map, t_itbl *itbl);
 void				ft_set_itbl_settings(t_itbl *itbl, t_tile self);
 void				ft_map_update_enemy_v(t_map *map);
+t_vec2				ft_get_displayed_cord(t_vec2 tile_size, t_itbl *itbl);
 
 t_sprite *			ft_init_sprite(t_image *img, int x, int y, t_vec2 grid_size);
 t_sprite **			ft_generate_sprites_array_grid(t_image *image, t_vec2 start, t_vec2 end, t_vec2 grid_size);
@@ -354,6 +358,7 @@ void				ft_init_game(t_vars* vars);
 void				ft_delete_game(t_vars* vars);
 void				ft_delete_vars(t_vars* vars);
 void				ft_new_game(t_vars* vars);
+void				ft_game_refresh(t_vars *vars);
 int					ft_update_loop(t_vars* vars);
 int					ft_ending_loop(t_vars* vars);
 int					ft_wait_loop(t_vars* vars);

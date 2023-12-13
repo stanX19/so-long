@@ -1,5 +1,15 @@
 #include "so_long.h"
 
+void ft_fill_image_whole(t_image* img, unsigned int color)
+{
+	t_vec2 start;
+	t_vec2 end;
+
+	start = (t_vec2){0, 0};
+	end = (t_vec2){img->width, img->height};
+	ft_fill_image(img, color, start, end);
+}
+
 void ft_fill_image(t_image* img, unsigned int color, t_vec2 start, t_vec2 end)
 {
 	t_vec2 cord;

@@ -2,9 +2,7 @@
 
 int ft_wait_loop(t_vars* vars)
 {
-	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
-	ft_map_put_itbl(vars->base_img, vars->map);
-	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	ft_game_refresh(vars);
 	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
 	int *kb = vars->input->keyboard;
 	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb['\e'] + kb['\t'] + 
@@ -18,9 +16,7 @@ int ft_wait_loop(t_vars* vars)
 
 int ft_ending_loop(t_vars* vars)
 {
-	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
-	ft_map_put_itbl(vars->base_img, vars->map);
-	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	ft_game_refresh(vars);
 	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
 	int *kb = vars->input->keyboard;
 	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb[vars->input->esc_code] + 
@@ -62,11 +58,9 @@ void choose_loop(t_vars* vars)
 int ft_update_loop(t_vars* vars)
 {
 	ft_update_player(vars);
-	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, 0, 0);
 	ft_map_update_enemy_v(vars->map);
 	ft_map_update_itbl(vars->map);
-	ft_map_put_itbl(vars->base_img, vars->map);
-	ft_mlx_put_image_to_win(vars->window, vars->base_img, 0, 0);
+	ft_game_refresh(vars);
 	ft_show_steps(vars);
 	choose_loop(vars);
 	return 0;

@@ -1,15 +1,15 @@
 #include "so_long.h"
 #define TOTAL_PARAMS 5
 
-typedef struct s_itbl_settings
+typedef struct s_itbl_cfg
 {
 	int		base_spd;
 	t_vec2	offset;
 	t_tile	self;
 	t_tile	blocking;
-} t_itbl_settings;
+} t_itbl_cfg;
 
-static void	set_itbl(t_itbl *itbl, const t_itbl_settings params)
+static void	set_itbl(t_itbl *itbl, const t_itbl_cfg params)
 {
 	itbl->stats.base_speed = params.base_spd;
 	itbl->offset = params.offset;
@@ -19,14 +19,14 @@ static void	set_itbl(t_itbl *itbl, const t_itbl_settings params)
 
 void ft_set_itbl_settings(t_itbl *itbl, t_tile self)
 {
-	t_itbl_settings params[TOTAL_PARAMS];
+	t_itbl_cfg params[TOTAL_PARAMS];
 	int idx;
 	
-	params[0] = (t_itbl_settings){0, {0, 0}, TILE_COIN, (TILE_WALL | TILE_WATER)};
-	params[1] = (t_itbl_settings){5, {-24, -32}, TILE_PLAYER, (TILE_WALL | TILE_WATER)};
-	params[2] = (t_itbl_settings){0, {-4, -8}, TILE_EXIT, (TILE_WALL | TILE_WATER)};
-	params[3] = (t_itbl_settings){5, {-16, -16}, TILE_SLIME, (TILE_WALL | TILE_WATER | TILE_SLIME)};
-	params[4] = (t_itbl_settings){5, {-16, -16}, TILE_BEE, (TILE_WALL | TILE_BEE)};
+	params[0] = (t_itbl_cfg){0, {0, 0}, TILE_COIN, (TILE_WALL | TILE_WATER)};
+	params[1] = (t_itbl_cfg){SPEED_PLAYER, {-24, -32}, TILE_PLAYER, (TILE_WALL | TILE_WATER)};
+	params[2] = (t_itbl_cfg){0, {-4, -8}, TILE_EXIT, (TILE_WALL | TILE_WATER)};
+	params[3] = (t_itbl_cfg){SPEED_SLIME, {-16, -16}, TILE_SLIME, (TILE_WALL | TILE_WATER | TILE_SLIME)};
+	params[4] = (t_itbl_cfg){SPEED_SLIME, {-16, -16}, TILE_BEE, (TILE_WALL | TILE_BEE)};
 	idx = 0;
 	while (idx < TOTAL_PARAMS)
 	{
@@ -37,6 +37,6 @@ void ft_set_itbl_settings(t_itbl *itbl, t_tile self)
 		}
 		idx++;
 	}
-	set_itbl(itbl, (t_itbl_settings){0, {0, 0}, 0, 0});
+	set_itbl(itbl, (t_itbl_cfg){0, {0, 0}, 0, 0});
 }
 #undef TOTAL_PARAMS

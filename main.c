@@ -11,6 +11,8 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	vars = ft_init_vars(argc, argv);
+	if (!vars)
+		return 1;
 	ft_init_game(vars);
 	ft_printf("running...\n");
 	mlx_loop_hook(vars->mlx, ft_update_loop, vars);

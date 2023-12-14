@@ -7,7 +7,7 @@ t_window * ft_mlx_init(void)
     mlx = mlx_init();
 	if (!mlx)
 	{
-		ft_printf("ERROR: Mlx init: Failed to mlx_init()");
+		ft_printf("ERROR: Mlx init: Failed to mlx init\n");
 	}
 	return mlx;
 }

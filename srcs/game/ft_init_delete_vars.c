@@ -10,6 +10,11 @@ t_vars *	ft_init_vars(int argc, char **argv)
 		ft_printf("ERROR: Init vars: Failed to malloc\n");
 	}
 	vars->mlx = ft_mlx_init();
+	if (!vars->mlx)
+	{
+		free(vars);
+		return 0;
+	}
 	vars->assets = ft_init_assets(vars->mlx);
 	vars->input = ft_init_input();
 	vars->paths = argv + 1;

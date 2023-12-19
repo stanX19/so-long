@@ -51,7 +51,7 @@ OBJDIRS			= $(sort $(dir $(OBJS)))
 OBJS			= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -fsanitize=address -g3
 RM				= rm -rf
 TESTDIR			= so_long_tester
 TESTGIT			= https://github.com/augustobecker/so_long_tester.git
@@ -63,8 +63,8 @@ MLX_LINUX		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 MLX_MACOS		= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
 NAME			= so_long
 
-IFLAGS			= -I. -I$(HEADER_DIR) -Imlx
-LINKERS			= $(MLX_LINUX) $(PRINTF_LIB)
+IFLAGS			= -I. -I$(HEADER_DIR) #-Imlx
+LINKERS			= $(PRINTF_LIB) $(MLX_MACOS)
 
 MAIN			= main.c
 ARGV			= assets/map/big.ber #assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
@@ -82,7 +82,7 @@ $(OBJDIRS):
 	mkdir -p $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIRS) $(PRINTF_LIB)
-	$(CC) $(CFLAGS) $(IFLAGS) $(LINKERS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 $(PRINTF_LIB):
 	@make --directory=$(PRINTF_DIR) all
@@ -94,7 +94,7 @@ fclean:	clean
 	@$(RM) $(OBJDIRS)
 	@$(RM) ./a.out
 	@make --directory=$(PRINTF_DIR) fclean
-re:	fclean path_h $(NAME)
+re:	fclean $(NAME)
 
 test: $(TESTDIR)
 	cd $(TESTDIR) && make && make fclean

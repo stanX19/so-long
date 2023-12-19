@@ -29,6 +29,7 @@ t_sprite *	get_corres_sprite(t_tile c[4], t_assets *assets)
 	int			val;
 
 	val = ((c[0] | c[1] | c[2] | c[3]) & (TILE_PATH | TILE_WALL | TILE_WATER));
+	type = 0;
 	if (val == (TILE_PATH | TILE_WALL) || val == (TILE_PATH) || val == (TILE_WALL))
 	{
 		type = assets->tiles.path_wall;

@@ -4,7 +4,7 @@ static t_image *get_base_img(t_assets *assets, t_image *bkg_img)
 {
 	t_vec2 size;
 
-	size = ft_mlx_get_screen_size(assets->mlx);
+	size = ft_system_get_screen_size();
 	size.x = min(max(32 * 7, size.x - 200), bkg_img->width);
 	size.y = min(max(32 * 7, size.y - 200), bkg_img->height);
 	return ft_new_image(assets, size.x, size.y);

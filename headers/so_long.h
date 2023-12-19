@@ -270,6 +270,7 @@ int					max(int a, int b);
 int					min(int a, int b);
 int					sign(int x);
 char *				ft_itoa(int n);
+int					ft_atoi(const char *str);
 t_vec2				ft_vec2_add(t_vec2 v1, t_vec2 v2);
 void *				ft_calloc(size_t size);
 void				ft_list_add(t_linked_list *list, void *ptr);
@@ -289,7 +290,7 @@ t_window *			ft_mlx_init(void);
 void				ft_mlx_destory(void *mlx);
 t_window *			ft_window_init(void *mlx, int width, int height, char *title);
 void				ft_window_destory(t_window * window);
-t_vec2				ft_mlx_get_screen_size(void *mlx);
+t_vec2				ft_system_get_screen_size(void);
 void				ft_mlx_clear_window(t_window *window);
 
 int					ft_is_valid_map(const char *path);
@@ -346,7 +347,6 @@ int					ft_on_mouse_release(int button, int x, int y, t_vars * vars);
 int					ft_on_destory(t_vars * vars);
 void				ft_hook_listeners(t_vars *vars);
 int					ft_has_input(t_input *input);
-void				ft_manage_mouse(t_vars *vars, int center);
 
 t_image*			ft_default_tileset_gen(t_assets *assets, t_vec2 size);
 t_sprite **			ft_init_line_fmt_tileset(t_assets *assets, char * path);

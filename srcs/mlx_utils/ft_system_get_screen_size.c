@@ -6,7 +6,11 @@ static t_vec2 str_to_vec(char *buf)
 
 	ret = (t_vec2){0, 0};
 	ret.x = ft_atoi(buf);
-	while (*buf != ' ' && *buf != 0)
+	while (!(*buf >= '0' && *buf <= '9') && *buf != 0)
+		buf++;
+	while (*buf >= '0' && *buf <= '9' && *buf != 0)
+		buf++;
+	while (!(*buf >= '0' && *buf <= '9') && *buf != 0)
 		buf++;
 	ret.y = ft_atoi(buf);
 	return ret;
@@ -34,11 +38,11 @@ t_vec2 ft_system_get_screen_size(void)
 {
 	t_vec2 ret;
 
-	system("system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2, $4}' > ./__resolution.txt 2> /dev/null");
+	system("xdpyinfo 2> /dev/null | grep dimensions | awk '{print $2}' > ./__resolution.txt");
 	ret = path_to_vec2("./__resolution.txt");
 	if (ret.x == 0 && ret.y == 0)
 	{
-		system("xdpyinfo | grep dimensions | awk '{print $2}' > ./__resolution.txt");
+		system("system_profiler SPDisplaysDataType 2> /dev/null | grep Resolution | awk '{print $2, $4}' > ./__resolution.txt");
 		ret = path_to_vec2("./__resolution.txt");
 	}
 	if (ret.x == 0 && ret.y == 0)

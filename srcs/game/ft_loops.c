@@ -19,12 +19,12 @@ int ft_ending_loop(t_vars* vars)
 	ft_game_refresh(vars);
 	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
 	int *kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb[vars->input->esc_code] + 
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb['\e'] + kb['\t'] + 
 		vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
-		ft_printf("loop ended\n");
 		ft_delete_game(vars);
 		ft_delete_vars(vars);
+		ft_printf("exited\n");
 		exit(0);
 	}
 	return 1;

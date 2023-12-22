@@ -64,10 +64,10 @@ MLX_MACOS		= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
 NAME			= so_long
 
 IFLAGS			= -I. -I$(HEADER_DIR) #-Imlx
-LINKERS			= $(PRINTF_LIB) $(MLX_MACOS)
+LINKERS			= $(PRINTF_LIB) $(MLX_LINUX)
 
 MAIN			= main.c
-ARGV			= assets/map/big.ber #assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
+ARGV			= assets/map/map_aoc_day10.ber #assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
 
 UP				= \033[1A
 FLUSH			= \033[2K
@@ -82,7 +82,7 @@ $(OBJDIRS):
 	mkdir -p $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIRS) $(PRINTF_LIB)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) $(LINKERS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 $(PRINTF_LIB):
 	@make --directory=$(PRINTF_DIR) all

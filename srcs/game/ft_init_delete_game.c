@@ -5,8 +5,9 @@ static t_image *get_base_img(t_assets *assets, t_image *bkg_img)
 	t_vec2 size;
 
 	size = ft_system_get_screen_size();
-	size.x = min(max(32 * 7, size.x - 200), bkg_img->width);
-	size.y = min(max(32 * 7, size.y - 200), bkg_img->height);
+	size.x = min(min(1800, size.x - 200), bkg_img->width);
+	size.y = min(min(900, size.y - 200), bkg_img->height);
+	ft_printf("%i %i\n", size.x, size.y);
 	return ft_new_image(assets, size.x, size.y);
 }
 

@@ -15,10 +15,10 @@ void ft_mlx_put_img_to_img(t_image* dst, t_image* src, int img_x, int img_y)
 	if (!dst || !src)
 		return ;
 	x = (img_x > 0)? 0: -img_x;
-	while (x < min(src->width, dst->width - img_x + 1))
+	while (x < min(src->width, dst->width - img_x))
 	{
 		y = (img_y > 0)? 0: -img_y;
-		while(y < min(src->height, dst->height - img_y + 1))
+		while(y < min(src->height, dst->height - img_y))
 		{
 			color = get_img_pixel_color(src, x, y);
 			ft_mlx_pixel_put(dst, img_x + x, img_y + y, color);

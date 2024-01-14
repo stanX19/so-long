@@ -6,6 +6,9 @@ void	ft_mlx_pixel_put(t_image* img, int x, int y, unsigned int color)
 	t_color	clrA;
 	t_color clrB;
 	
+	// #include <assert.h>
+	// assert(x < img->width);
+	// assert(y < img->height);
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 
 	clrA.trgb = color;

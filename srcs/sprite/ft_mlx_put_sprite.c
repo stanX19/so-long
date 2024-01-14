@@ -17,10 +17,10 @@ void ft_mlx_put_sprite_reverse(t_image* image, t_sprite* sprite, int img_x, int 
 		return ;
 	}
     cord.x = (img_x > 0)? 0: -img_x;
-	while (cord.x < min(sprite->width, image->width - img_x + 1))
+	while (cord.x < min(sprite->width, image->width - img_x))
 	{
 		cord.y = (img_y > 0)? 0: -img_y;
-		while(cord.y < min(sprite->height, image->height - img_y + 1))
+		while(cord.y < min(sprite->height, image->height - img_y))
 		{
             color = get_sprite_pixel_color(sprite, sprite->width - cord.x - 1, cord.y);
             ft_mlx_pixel_put(image, img_x + cord.x, img_y + cord.y, color);
@@ -47,10 +47,10 @@ void ft_mlx_put_sprite(t_image* image, t_sprite* sprite, int img_x, int img_y){
 		return ;
 	}
 	cord.x = (img_x > 0)? 0: -img_x;
-	while (cord.x < min(sprite->width, image->width - img_x + 1))
+	while (cord.x < min(sprite->width, image->width - img_x))
 	{
 		cord.y = (img_y > 0)? 0: -img_y;
-		while(cord.y < min(sprite->height, image->height - img_y + 1))
+		while(cord.y < min(sprite->height, image->height - img_y))
 		{
 			color = get_sprite_pixel_color(sprite, cord.x, cord.y);
 			ft_mlx_pixel_put(image, img_x + cord.x, img_y + cord.y, color);

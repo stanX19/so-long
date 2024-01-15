@@ -67,7 +67,7 @@ IFLAGS			= -I. -I$(HEADER_DIR) #-Imlx
 LINKERS			= $(PRINTF_LIB) $(MLX_MACOS)
 
 MAIN			= main.c
-ARGV			= assets/map/big.ber # assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
+ARGV			= assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
 
 UP				= \033[1A
 FLUSH			= \033[2K

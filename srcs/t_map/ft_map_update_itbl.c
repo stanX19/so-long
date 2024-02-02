@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_update_itbl.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:26:11 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 15:26:59 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	update_arr(t_itbl_arr itbl_arr)
 {
-	size_t idx;
-	
+	size_t	idx;
+
 	idx = -1;
 	while (++idx < itbl_arr.len)
 	{
@@ -11,7 +23,7 @@ static void	update_arr(t_itbl_arr itbl_arr)
 	}
 }
 
-static void map_update_frames(t_map *map)
+static void	map_update_frames(t_map *map)
 {
 	ft_itbl_update_frame(map->player);
 	ft_itbl_update_frame(map->exit);

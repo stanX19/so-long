@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   assets_path.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 17:52:09 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 17:54:14 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ASSETS_PATH_H
 # define ASSETS_PATH_H
 # define PATH_BEE_D_DEATH "assets/sprites/bee/D_Death.xpm"
@@ -47,7 +59,8 @@
 # define PATH_UNUSED_GRASS_CONNECTED "assets/sprites/unused/grass_connected.xpm"
 # define PATH_UNUSED_GRASS_ORIGINAL "assets/sprites/unused/grass_original.xpm"
 # define PATH_UNUSED_GRASS_SEPERATED "assets/sprites/unused/grass_seperated.xpm"
-# define PATH_UNUSED_GRASS_SPRTD_LINE "assets/sprites/unused/grass_sprtd_line.xpm"
+# define PATH_UNUSED_GRASS_SPRTD_LINE "assets/sprites/unused/\
+grass_sprtd_line.xpm"
 # define PATH_WOLF_D_ATTACK "assets/sprites/wolf/D_Attack.xpm"
 # define PATH_WOLF_D_DEATH "assets/sprites/wolf/D_Death.xpm"
 # define PATH_WOLF_D_WALK "assets/sprites/wolf/D_Walk.xpm"
@@ -57,65 +70,4 @@
 # define PATH_WOLF_U_ATTACK "assets/sprites/wolf/U_Attack.xpm"
 # define PATH_WOLF_U_DEATH "assets/sprites/wolf/U_Death.xpm"
 # define PATH_WOLF_U_WALK "assets/sprites/wolf/U_Walk.xpm"
-# define ALL_PATHS (char*[])\
-{\
-	PATH_BEE_D_DEATH,\
-	PATH_BEE_D_WALK,\
-	PATH_BEE_S_DEATH,\
-	PATH_BEE_S_WALK,\
-	PATH_BEE_U_DEATH,\
-	PATH_BEE_U_WALK,\
-	PATH_CAT_S_IDLE,\
-	PATH_COIN_D_IDLE,\
-	PATH_GOBLIN_D_ATTACK,\
-	PATH_GOBLIN_D_DEATH,\
-	PATH_GOBLIN_D_WALK,\
-	PATH_GOBLIN_S_ATTACK,\
-	PATH_GOBLIN_S_DEATH,\
-	PATH_GOBLIN_S_WALK,\
-	PATH_GOBLIN_U_ATTACK,\
-	PATH_GOBLIN_U_DEATH,\
-	PATH_GOBLIN_U_WALK,\
-	PATH_PLAYER_D_ATTACK,\
-	PATH_PLAYER_D_IDLE,\
-	PATH_PLAYER_D_WALK,\
-	PATH_PLAYER_PICK_UP,\
-	PATH_PLAYER_S_ATTACK,\
-	PATH_PLAYER_S_IDLE,\
-	PATH_PLAYER_S_WALK,\
-	PATH_PLAYER_U_ATTACK,\
-	PATH_PLAYER_U_IDLE,\
-	PATH_PLAYER_U_WALK,\
-	PATH_SLIME_D_DEATH,\
-	PATH_SLIME_D_DEATH2,\
-	PATH_SLIME_D_SPECIAL,\
-	PATH_SLIME_D_WALK,\
-	PATH_SLIME_D_WALK2,\
-	PATH_SLIME_S_DEATH,\
-	PATH_SLIME_S_DEATH2,\
-	PATH_SLIME_S_SPECIAL,\
-	PATH_SLIME_S_WALK,\
-	PATH_SLIME_S_WALK2,\
-	PATH_SLIME_U_DEATH,\
-	PATH_SLIME_U_DEATH2,\
-	PATH_SLIME_U_SPECIAL,\
-	PATH_SLIME_U_WALK,\
-	PATH_SLIME_U_WALK2,\
-	PATH_TILESET_BACKGROUND,\
-	PATH_UNUSED_GRASS_CNTD_LINE,\
-	PATH_UNUSED_GRASS_CONNECTED,\
-	PATH_UNUSED_GRASS_ORIGINAL,\
-	PATH_UNUSED_GRASS_SEPERATED,\
-	PATH_UNUSED_GRASS_SPRTD_LINE,\
-	PATH_WOLF_D_ATTACK,\
-	PATH_WOLF_D_DEATH,\
-	PATH_WOLF_D_WALK,\
-	PATH_WOLF_S_ATTACK,\
-	PATH_WOLF_S_DEATH,\
-	PATH_WOLF_S_WALK,\
-	PATH_WOLF_U_ATTACK,\
-	PATH_WOLF_U_DEATH,\
-	PATH_WOLF_U_WALK,\
-}
-# define ALL_PATH_LEN (sizeof(ALL_PATHS) / sizeof(char*))
 #endif

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc_2d.c                                     :+:      :+:    :+:   */
+/*   ft_map_bg_gen_helper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:37:25 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 15:57:39 by shatan           ###   ########.fr       */
+/*   Created: 2024/02/02 16:18:41 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 16:24:27 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	**ft_calloc_2d(size_t height, size_t width, size_t pointer_size,
-		size_t	element_size)
+int	get_tile_size(int x)
 {
-	void	**ret;
-	size_t	i;
+	return (x * 2 - 1);
+}
 
-	ret = (void **)ft_calloc(height * pointer_size);
-	if (ret == NULL)
-	{
-		return (NULL);
-	}
-	ft_memset(ret, 0, sizeof(ret));
-	i = 0;
-	while (i < height)
-	{
-		ret[i] = (void *)ft_calloc(width * element_size);
-		if (!ret[i])
-		{
-			ft_free_2d(ret, height);
-			return (0);
-		}
-		++i;
-	}
-	return (ret);
+int	binary_4bit(int num4, int num3, int num2, int num1)
+{
+	return ((num4 << 3) | (num3 << 2) | (num2 << 1) | (num1));
+}
+
+void	map_equal_to(t_tile c[4], unsigned int val)
+{
+	c[0] = ((c[0] & val) == val);
+	c[1] = ((c[1] & val) == val);
+	c[2] = ((c[2] & val) == val);
+	c[3] = ((c[3] & val) == val);
 }

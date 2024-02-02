@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_check_reaction.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:58:58 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 15:59:12 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-static int all_dead(t_map *map, t_itbl **arr, int len)
+static int	all_dead(t_map *map, t_itbl **arr, int len)
 {
-	int idx;
-	t_vec2 cord;
+	int		idx;
+	t_vec2	cord;
 
 	idx = 0;
 	while (idx < len)
@@ -11,16 +23,16 @@ static int all_dead(t_map *map, t_itbl **arr, int len)
 		cord = arr[idx]->cord;
 		if (map->grid[cord.y][cord.x] & arr[idx]->self)
 		{
-			return 0;
+			return (0);
 		}
 		++idx;
 	}
-	return 1;
+	return (1);
 }
 
-void ft_map_check_reaction(t_map *map, t_vec2 cord)
+void	ft_map_check_reaction(t_map *map, t_vec2 cord)
 {
-	t_tile val;
+	t_tile	val;
 
 	val = map->grid[cord.y][cord.x];
 	if ((val & (TILE_PLAYER | TILE_COIN)) == (TILE_PLAYER | TILE_COIN))

@@ -1,17 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_put_itbl.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:27:51 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 15:28:40 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-
-static void	put_itbl_by_cord(t_image *img, t_vec2 tile_size, t_itbl *itbl, t_vec2 offset)
+static void	put_itbl_by_cord(t_image *img, t_vec2 tile_size, t_itbl *itbl,
+		t_vec2	offset)
 {
-	t_vec2 display;
+	t_vec2	display;
 
 	if (itbl->status & DEAD)
 		return ;
 	display = ft_get_displayed_cord(tile_size, itbl);
-	ft_put_interactable_to_img(img, itbl, display.x + offset.x, display.y + offset.y);
+	ft_put_interactable_to_img(img, itbl, display.x + offset.x, display.y
+		+ offset.y);
 }
 
-static void	put_itbl_arr(t_image *img, t_vec2 tile_size, t_itbl_arr itbl_arr, t_vec2 offset)
+static void	put_itbl_arr(t_image *img, t_vec2 tile_size, t_itbl_arr itbl_arr,
+		t_vec2	offset)
 {
 	size_t	idx;
 

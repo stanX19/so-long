@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_init_itbl.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:41:53 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 15:41:55 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-static t_itbl	*init_itbl(t_itbl* src, t_tile self)
+static t_itbl	*init_itbl(t_itbl *src, t_tile self)
 {
-	t_itbl *ret;
+	t_itbl	*ret;
 
 	ret = ft_itbl_copy(src);
 	ft_set_itbl_settings(ret, self);
-	return ret;
+	return (ret);
 }
 
-static t_itbl **init_itbl_arr(t_itbl* src, int len, t_tile self)
+static t_itbl	**init_itbl_arr(t_itbl *src, int len, t_tile self)
 {
-	t_itbl **ret;
-	int idx;
+	t_itbl	**ret;
+	int		idx;
 
-	ret = (t_itbl **)malloc(sizeof(t_itbl*) * (len + 1));
+	ret = (t_itbl **)malloc(sizeof(t_itbl *) * (len + 1));
 	if (!ret)
 	{
 		ft_printf("ERROR: Init itbl arr: failed to malloc\n");
-		return 0;
+		return (0);
 	}
 	idx = 0;
 	if (idx < len)
@@ -30,10 +42,10 @@ static t_itbl **init_itbl_arr(t_itbl* src, int len, t_tile self)
 		ret[idx++] = ft_itbl_copy(ret[0]);
 	}
 	ret[idx] = 0;
-	return ret;
+	return (ret);
 }
 
-void ft_map_init_itbl(t_map *map, t_assets *assets)
+void	ft_map_init_itbl(t_map *map, t_assets *assets)
 {
 	map->player = init_itbl(assets->player, TILE_PLAYER);
 	map->exit = init_itbl(assets->cat, TILE_EXIT);

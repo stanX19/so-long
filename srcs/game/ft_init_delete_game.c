@@ -2,7 +2,7 @@
 
 static t_image *get_base_img(t_assets *assets, t_image *bkg_img)
 {
-	t_vec2 size;
+	t_vec2	size;
 
 	// size = ft_system_get_screen_size();
 	size.x = min(1800, bkg_img->width);

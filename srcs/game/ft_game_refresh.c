@@ -3,8 +3,8 @@
 static t_vec2	get_offset(t_map *map, t_image *bkg, t_itbl *subject)
 {
 	static t_vec2 ofst;
-	t_vec2 new_ofst;
-	t_vec2 diff;
+	t_vec2	new_ofst;
+	t_vec2	diff;
 
 	new_ofst = ft_get_displayed_cord(map->assets->tile_size, subject);
 	new_ofst.x = bkg->width / 2 - new_ofst.x;
@@ -28,7 +28,7 @@ static t_vec2	get_offset(t_map *map, t_image *bkg, t_itbl *subject)
 
 void	ft_game_refresh(t_vars *vars)
 {
-	t_vec2 offset;
+	t_vec2	offset;
 
 	offset = get_offset(vars->map, vars->base_img, vars->map->player);
 	ft_mlx_put_img_to_img(vars->base_img, vars->map->bkg_img, offset.x, offset.y);

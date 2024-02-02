@@ -12,6 +12,8 @@
 		"trgb_colors.h": "c",
 		"deque": "c",
 		"unordered_map": "c",
-		"initializer_list": "c"
+		"initializer_list": "c",
+		"configs.h": "c",
+		"assets_path.h": "c"
 	}
 }

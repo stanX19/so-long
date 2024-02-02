@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_destory_assets.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 17:21:10 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 17:21:18 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	itbl_n_tab_destory(t_itbl *itbl)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < NUM_DIRECTIONS)
@@ -15,7 +27,7 @@ static void	itbl_n_tab_destory(t_itbl *itbl)
 
 static void	sprite_arr_destory(t_sprite **sp_arr, size_t len)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)
@@ -25,12 +37,12 @@ static void	sprite_arr_destory(t_sprite **sp_arr, size_t len)
 	free(sp_arr);
 }
 
-static void	_ani_sprite_destory(void* ptr)
+static void	_ani_sprite_destory(void *ptr)
 {
 	ft_ani_sprite_destory((t_ani_sprite *)ptr);
 }
 
-static void	_image_destory(void* ptr)
+static void	_image_destory(void *ptr)
 {
 	ft_image_destory((t_image *)ptr);
 }

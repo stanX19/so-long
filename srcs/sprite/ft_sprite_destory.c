@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sprite_destory.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 17:24:18 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 17:26:32 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void ft_sprite_destory(t_sprite *sprite)
+void	ft_sprite_destory(t_sprite *sprite)
 {
 	if (!sprite)
 	{
@@ -10,9 +22,9 @@ void ft_sprite_destory(t_sprite *sprite)
 	free(sprite);
 }
 
-void ft_ani_sprite_destory(t_ani_sprite *animated)
+void	ft_ani_sprite_destory(t_ani_sprite *animated)
 {
-	int i;
+	int	i;
 
 	if (!animated)
 	{

@@ -1,77 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_init_cords.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
+/*   Updated: 2024/02/02 17:04:52 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-
-typedef struct s_idx_data {
-	int	slime;
-	int bee;
-	int	coin;
-} t_idx_data;
-
-typedef struct s_loc_data {
-	t_map *			map;
-	char **			raw_map;
-	int				x;
-	int				y;
-	t_idx_data		idx;
-} t_loc_data;
-
-void assign_sprites_loc(t_loc_data * d)
+void	assign_sprites_loc(t_map_init_cords_loc_data *d)
 {
-	t_vec2 cord;
+	t_vec2	cord;
+	char	c;
 
 	cord = (t_vec2){d->x, d->y};
-	switch (d->raw_map[d->y][d->x])
-	{
-	case 'P':
+	c = d->raw_map[d->y][d->x];
+	if (c == 'P')
 		d->map->player->cord = cord;
-		break;
-	case 'E':
+	else if (c == 'E')
 		d->map->exit->cord = cord;
-		break;
-	case 'C':
+	else if (c == 'C')
 		d->map->coins.arr[(d->idx.coin)++]->cord = cord;
-		break;
-	case 'S':
+	else if (c == 'S')
 		d->map->slimes.arr[(d->idx.slime)++]->cord = cord;
-		break;
-	case 'B':
+	else if (c == 'B')
 		d->map->bees.arr[(d->idx.bee)++]->cord = cord;
-		break;
-	}
 }
 
-static t_tile get_grid_val(char c)
+static t_tile	get_grid_val(char c)
 {
-	switch (c)
-	{
-	case '1':
-		return TILE_WALL;
-	case '2':
-		return TILE_WATER;
-	case 'E':
-		return TILE_PATH | TILE_EXIT;
-	case 'C':
-		return TILE_PATH | TILE_COIN;
-	case 'P':
-		return TILE_PATH | TILE_PLAYER;
-	case 'S':
-		return TILE_PATH | TILE_SLIME;
-	case 'B':
-		return TILE_PATH | TILE_BEE;
-	default:
-		return TILE_PATH;
-	}
+	if (c == '1')
+		return (TILE_WALL);
+	else if (c == '2')
+		return (TILE_WATER);
+	else if (c == 'E')
+		return (TILE_PATH | TILE_EXIT);
+	else if (c == 'C')
+		return (TILE_PATH | TILE_COIN);
+	else if (c == 'P')
+		return (TILE_PATH | TILE_PLAYER);
+	else if (c == 'S')
+		return (TILE_PATH | TILE_SLIME);
+	else if (c == 'B')
+		return (TILE_PATH | TILE_BEE);
+	else
+		return (TILE_PATH);
 }
 
-void ft_map_init_cords(t_map* map, char** raw_map, int width, int height)
+void	ft_map_init_cords(t_map *map, char **raw_map, int width, int height)
 {
-	t_loc_data	cord;
+	t_map_init_cords_loc_data	cord;
 
-	cord = (t_loc_data){map, raw_map, 0, 0, {0, 0, 0}};
+	cord = (t_map_init_cords_loc_data){map, raw_map, 0, 0, {0, 0, 0}};
 	while (cord.y < height)
 	{
 		cord.x = 0;
-		while(cord.x < width)
+		while (cord.x < width)
 		{
 			map->grid[cord.y][cord.x] = get_grid_val(raw_map[cord.y][cord.x]);
 			assign_sprites_loc(&cord);

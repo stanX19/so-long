@@ -1,33 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itbl_update_frame.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/14 17:28:26 by stan              #+#    #+#             */
+/*   Updated: 2024/02/14 17:28:26 by stan             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-static t_sprite_status get_sprite_status(t_itbl_status status)
+static t_sprite_status	get_sprite_status(t_itbl_status status)
 {
 	if (status & DYING)
-		return DEATH;
+		return (DEATH);
 	else if (status & ATTACKING)
-		return ATTACK;
+		return (ATTACK);
 	else if (status & MOVING)
-		return WALK;
+		return (WALK);
 	else
-		return IDLE;
+		return (IDLE);
 }
 
-static t_itbl_status get_next_state(t_itbl_status status)
+static t_itbl_status	get_next_state(t_itbl_status status)
 {
 	if (status & DYING)
 		return ((status | DEAD) & (~DYING));
 	else if (status & ATTACKING)
 		return (status & (~ATTACKING));
 	else
-		return status;
+		return (status);
 }
 
-static void check_flip(t_itbl * itbl)
+static void	check_flip(t_itbl *itbl)
 {
-	if ((itbl->direction == RIGHT && !itbl->animation &&
-		itbl->sprite_tab[LEFT][itbl->sp_status]) ||
-		(itbl->direction == LEFT && !itbl->animation &&
-		itbl->sprite_tab[RIGHT][itbl->sp_status]))
+	if ((itbl->direction == RIGHT && !itbl->animation
+			&& itbl->sprite_tab[LEFT][itbl->sp_status])
+		|| (itbl->direction == LEFT && !itbl->animation
+			&& itbl->sprite_tab[RIGHT][itbl->sp_status]))
 	{
 		itbl->animation = itbl->sprite_tab[LEFT][itbl->sp_status];
 		itbl->flip = 1;
@@ -36,7 +48,7 @@ static void check_flip(t_itbl * itbl)
 		itbl->flip = 0;
 }
 
-static void set_animation(t_itbl *itbl)
+static void	set_animation(t_itbl *itbl)
 {
 	if (itbl->status == DEAD)
 	{
@@ -48,7 +60,7 @@ static void set_animation(t_itbl *itbl)
 	check_flip(itbl);
 }
 
-void ft_itbl_update_frame(t_itbl * itbl)
+void	ft_itbl_update_frame(t_itbl *itbl)
 {
 	set_animation(itbl);
 	if (!itbl->animation)

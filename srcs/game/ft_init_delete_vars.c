@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init_delete_vars.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/14 17:50:58 by stan              #+#    #+#             */
+/*   Updated: 2024/02/14 17:50:58 by stan             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-t_vars *	ft_init_vars(int argc, char **argv)
+t_vars	*ft_init_vars(int argc, char **argv)
 {
-	t_vars *vars;
+	t_vars	*vars;
 
 	vars = ft_calloc(sizeof(t_vars));
 	if (!vars)
@@ -13,17 +25,17 @@ t_vars *	ft_init_vars(int argc, char **argv)
 	if (!vars->mlx)
 	{
 		free(vars);
-		return 0;
+		return (0);
 	}
 	vars->assets = ft_init_assets(vars->mlx);
 	vars->input = ft_init_input();
 	vars->paths = argv + 1;
 	vars->paths_len = argc - 1;
 	vars->title = argv[0];
-	return vars;
+	return (vars);
 }
 
-void	ft_delete_vars(t_vars* vars)
+void	ft_delete_vars(t_vars *vars)
 {
 	ft_input_destory(vars->input);
 	ft_destory_assets(vars->assets);

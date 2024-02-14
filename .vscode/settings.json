@@ -15,5 +15,11 @@
 		"initializer_list": "c",
 		"configs.h": "c",
 		"assets_path.h": "c"
-	}
+	},
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.renderWhitespace": "all",
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+	"norminette.command": "norminette"
 }

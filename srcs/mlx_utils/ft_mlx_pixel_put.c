@@ -18,18 +18,15 @@
 void	ft_mlx_pixel_put(t_image *img, int x, int y, unsigned int color)
 {
 	char	*dst;
-	t_color	clrA;
-	t_color	clrB;
+	t_color	clr_a;
+	t_color	clr_b;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-
-	clrA.trgb = color;
-	clrB.trgb = *(unsigned int *)dst;
-
-	clrB.t = (char)0;
-	clrB.r = (char)(((clrA.r * (255 - clrA.t)) + (clrB.r * clrA.t)) / 255);
-	clrB.g = (char)(((clrA.g * (255 - clrA.t)) + (clrB.g * clrA.t)) / 255);
-	clrB.b = (char)(((clrA.b * (255 - clrA.t)) + (clrB.b * clrA.t)) / 255);
-
-	*(unsigned int *)dst = clrB.trgb;
+	clr_a.trgb = color;
+	clr_b.trgb = *(unsigned int *)dst;
+	clr_b.t = (char)0;
+	clr_b.r = (char)(((clr_a.r * (255 - clr_a.t)) + (clr_b.r * clr_a.t)) / 255);
+	clr_b.g = (char)(((clr_a.g * (255 - clr_a.t)) + (clr_b.g * clr_a.t)) / 255);
+	clr_b.b = (char)(((clr_a.b * (255 - clr_a.t)) + (clr_b.b * clr_a.t)) / 255);
+	*(unsigned int *)dst = clr_b.trgb;
 }

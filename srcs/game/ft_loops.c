@@ -1,36 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_loops.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/14 17:50:54 by stan              #+#    #+#             */
+/*   Updated: 2024/02/14 17:50:54 by stan             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-int ft_wait_loop(t_vars* vars)
+int	ft_wait_loop(t_vars *vars)
 {
+	int	*kb;
+
 	ft_game_refresh(vars);
-	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
-	int *kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb['\e'] + kb['\t'] + 
-		vars->input->mouse_left + vars->input->mouse_right == 0)
+	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF,
+		"GAME ENDED, RELEASE ALL KEYS");
+	kb = vars->input->keyboard;
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb['\e'] + kb['\t']
+		+ vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
 		ft_new_game(vars);
 		mlx_loop_hook(vars->mlx, ft_update_loop, vars);
 	}
-	return 0;
+	return (0);
 }
 
-int ft_ending_loop(t_vars* vars)
+int	ft_ending_loop(t_vars *vars)
 {
+	int	*kb;
+
 	ft_game_refresh(vars);
-	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF, "GAME ENDED, RELEASE ALL KEYS");
-	int *kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] +	kb['\e'] + kb['\t'] + 
-		vars->input->mouse_left + vars->input->mouse_right == 0)
+	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF,
+		"GAME ENDED, RELEASE ALL KEYS");
+	kb = vars->input->keyboard;
+	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb['\e'] + kb['\t']
+		+ vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
 		ft_delete_game(vars);
 		ft_delete_vars(vars);
 		ft_printf("exited\n");
 		exit(0);
 	}
-	return 1;
+	return (1);
 }
 
-void choose_loop(t_vars* vars)
+void	choose_loop(t_vars *vars)
 {
 	if (vars->input->keyboard['\e'] || vars->input->destory)
 	{
@@ -55,7 +73,7 @@ void choose_loop(t_vars* vars)
 	}
 }
 
-int ft_update_loop(t_vars* vars)
+int	ft_update_loop(t_vars *vars)
 {
 	ft_update_player(vars);
 	ft_map_update_enemy_v(vars->map);
@@ -63,5 +81,5 @@ int ft_update_loop(t_vars* vars)
 	ft_game_refresh(vars);
 	ft_show_steps(vars);
 	choose_loop(vars);
-	return 0;
+	return (0);
 }

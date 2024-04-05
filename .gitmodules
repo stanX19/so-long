@@ -1,3 +1,4 @@
 [submodule "ft_printf"]
 	path = ft_printf
-	url = https://github.com/stanX19/ft_printf.git
+	url = git@github.com:stanX19/ft_printf.git
+	branch = main

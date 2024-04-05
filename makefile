@@ -113,6 +113,12 @@ path_h:
 	@echo "# define ALL_PATH_LEN (sizeof(ALL_PATHS) / sizeof(char*))" >> $(ASSETS_PATH_H)
 	@echo "#endif" >> $(ASSETS_PATH_H)
 	cat $(ASSETS_PATH_H)
+	
 $(TESTDIR):
 	git clone $(TESTGIT)
+
+push:
+	@echo -n "Commit name: "; read name; make fclean;\
+	git add .; git commit -m "$$name"; git push;\
+
 .PHONY:			all clean fclean re .c.o xpm

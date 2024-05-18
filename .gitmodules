@@ -1,4 +1,4 @@
-[submodule "ft_printf"]
-	path = ft_printf
-	url = git@github.com:stanX19/ft_printf.git
+[submodule "includes/libft"]
+	path = includes/libft
+	url = git@github.com:stanX19/libft.git
 	branch = main

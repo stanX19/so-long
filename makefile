@@ -1,103 +1,78 @@
-SRCDIR	= srcs
-# SPRITE	= sprite
-# IMAGE	= image
-# MAP		= map
-# UTILS	= utils
-# INTER	= interactable
-# MLXUTILS	= mlx_utils
-SRCS		= $(wildcard ./$(SRCDIR)/*/*.c)
-# SRCS	=	$(addsuffix .c, \
-# 		$(addprefix $(SRCDIR)/ft_, \
-# 			) \
-# 		$(addprefix $(SRCDIR)/$(IMAGE)/ft_, \
-# 			add_img_to_arr\
-# 			fill_image image_destory\
-# 			mlx_put_image_to_win\
-# 			new_image read_xpm)\
-# 		$(addprefix $(SRCDIR)/$(INTER)/ft_, \
-# 			get_bee_ani_sprites\
-# 			init_interactable\
-# 			put_interactable_to_img\
-# 			init_sp_data)\
-# 		$(addprefix $(SRCDIR)/$(MAP)/ft_, \
-# 			generate_raw_map\
-# 			map_init_cords\
-# 			initialize_map_sprites\
-# 			map_init\
-# 			is_valid_map)\
-# 		$(addprefix $(SRCDIR)/$(MLXUTILS)/ft_, \
-# 			mlx_init\
-# 			mlx_pixel_put\
-# 			mlx_destory)\
-# 		$(addprefix $(SRCDIR)/$(UTILS)/ft_, \
-# 			memcpy\
-# 			strdup\
-# 			malloc_2d)\
-# 		$(addprefix $(SRCDIR)/$(SPRITE)/ft_, \
-# 			generate_sprites_array\
-# 			init_animated_sprite\
-# 			init_sprite mlx_put_sprite\
-# 			sprite_destory)\
-# 			)
+SRCDIR		= srcs
+SRCS		:= $(shell find $(SRCDIR) -name '*.c')
 
-HEADER_DIR		= headers
-SO_LONG_H		= $(HEADER_DIR)/so_long.h
-ASSETS_PATH_H	= $(HEADER_DIR)/assets_path.h
-COLORS_H		= $(HEADER_DIR)/trgb_colors.h
-CONFIG_H		= $(HEADER_DIR)/configs.h
-HEADERS			= $(SO_LONG_H) $(ASSETS_PATH_H) $(COLORS_H) $(CONFIG_H)
-OBJDIR			= objs
-OBJDIRS			= $(sort $(dir $(OBJS)))
-OBJS			= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
+OBJDIR		= objs
+OBJDIRS		= $(sort $(dir $(OBJS)))
+OBJS		= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
 
-CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -fsanitize=address -g3
-RM				= rm -rf
-TESTDIR			= so_long_tester
-TESTGIT			= https://github.com/augustobecker/so_long_tester.git
+CWD			:= $(shell pwd)
+INCLUDE_DIR	= includes
+HEADER_DIR	= headers
+HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h') $(shell find $(INCLUDE_DIR) -name '*.h')
+HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
-PRINTF_DIR		= ft_printf
-PRINTF_LIB		= $(PRINTF_DIR)/libftprintf.a
+MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+MLX_MACOS	= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
+LIBS		= $(LIBFT)
 
-MLX_LINUX		= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-MLX_MACOS		= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
-NAME			= so_long
+IFLAGS		:= -I. $(HEADERS_INC)
 
-IFLAGS			= -I. -I$(HEADER_DIR) #-Imlx
-LINKERS			= $(PRINTF_LIB) $(MLX_MACOS)
+CC			= gcc
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
+AR			= ar -rcs
+RM			= rm -rf
+UP			= \033[1A
+FLUSH		= \033[2K
 
-MAIN			= main.c
-ARGV			= assets/map/map5.ber #assets/map/map0.ber assets/map/map1.ber assets/map/map2.ber assets/map/map3.ber assets/map/map4.ber assets/map/map5.ber
-
-UP				= \033[1A
-FLUSH			= \033[2K
+NAME		= so_long
+ARGV		=
 
 run: all
-	./so_long $(ARGV)
+	./$(NAME) $(ARGV)
+
+$(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
+
 all: $(NAME)
 
-$(NAME): $(MAIN) $(OBJS) $(PRINTF_LIB) $(SO_LONG_H)
-	$(CC) $(CFLAGS) $(OBJS) $(MAIN) $(IFLAGS) $(LINKERS) -o $(NAME)
 $(OBJDIRS):
 	mkdir -p $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIRS) $(PRINTF_LIB)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
-$(PRINTF_LIB):
-	@make --directory=$(PRINTF_DIR) all
+
 clean:
 	@$(RM) $(OBJS)
+
 fclean:	clean
+	make -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME)
 	@$(RM) $(TESTDIR)
 	@$(RM) $(OBJDIRS)
 	@$(RM) ./a.out
-	@make --directory=$(PRINTF_DIR) fclean
-re:	fclean $(NAME)
 
-test: $(TESTDIR)
-	cd $(TESTDIR) && make && make fclean
+re: fclean $(NAME)
+
+push:
+	@echo -n "Commit name: "; read name; make fclean;\
+	git add .; git commit -m "$$name"; git push;
+
+LIBFT_DIR	= $(INCLUDE_DIR)/libft
+LIBFT		= $(LIBFT_DIR)/libft.a
+
+$(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
+	make -C $(LIBFT_DIR) all
+
+$(LIBFT_DIR):
+	touch .gitmodules
+	git submodule add --force git@github.com:stanX19/libft.git $(LIBFT_DIR)
+	git config -f .gitmodules submodule.$(LIBFT_DIR).branch main
+	git submodule update --init --recursive --remote
+
+init_libft: $(LIBFT_DIR)
+
 xpm:
 	find . -type f -name "*.xpm" -exec $(RM) {} \;
 	mogrify -format xpm ./assets/*/*/*.png
@@ -113,12 +88,5 @@ path_h:
 	@echo "# define ALL_PATH_LEN (sizeof(ALL_PATHS) / sizeof(char*))" >> $(ASSETS_PATH_H)
 	@echo "#endif" >> $(ASSETS_PATH_H)
 	cat $(ASSETS_PATH_H)
-	
-$(TESTDIR):
-	git clone $(TESTGIT)
 
-push:
-	@echo -n "Commit name: "; read name; make fclean;\
-	git add .; git commit -m "$$name"; git push;\
-
-.PHONY:			all clean fclean re .c.o xpm
+.PHONY: all clean fclean re bonus push

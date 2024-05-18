@@ -11,8 +11,17 @@ HEADER_DIR	= headers
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h') $(shell find $(INCLUDE_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
+UNAME_S		:= $(shell uname -s)
 MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-MLX_MACOS	= -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
+MLX_MACOS	= -lmlx -framework OpenGL -framework AppKit
+ifeq ($(UNAME_S), Darwin)
+	MLX		= $(MLX_MACOS)
+else
+	MLX		= $(MLX_LINUX)
+endif
+
+LIBFT_DIR	= $(INCLUDE_DIR)/libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 LIBS		= $(LIBFT)
 
 IFLAGS		:= -I. $(HEADERS_INC)
@@ -25,13 +34,13 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= so_long
-ARGV		=
+ARGV		= assets/map/map5.ber
 
 run: all
 	./$(NAME) $(ARGV)
 
-$(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
+$(NAME): $(LIBS) $(OBJDIRS) $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) $(MLX) -o $(NAME)
 
 all: $(NAME)
 
@@ -58,9 +67,6 @@ re: fclean $(NAME)
 push:
 	@echo -n "Commit name: "; read name; make fclean;\
 	git add .; git commit -m "$$name"; git push;
-
-LIBFT_DIR	= $(INCLUDE_DIR)/libft
-LIBFT		= $(LIBFT_DIR)/libft.a
 
 $(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
 	make -C $(LIBFT_DIR) all

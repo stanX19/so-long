@@ -16,8 +16,10 @@ MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 MLX_MACOS	= -lmlx -framework OpenGL -framework AppKit
 ifeq ($(UNAME_S), Darwin)
 	MLX		= $(MLX_MACOS)
+	MLX_CO	=
 else
 	MLX		= $(MLX_LINUX)
+	MLX_CO	= $(MLX_LINUX)
 endif
 
 LIBFT_DIR	= $(INCLUDE_DIR)/libft
@@ -49,7 +51,7 @@ $(OBJDIRS):
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) $(MLX_CO) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
 clean:
@@ -90,7 +92,7 @@ path_h:
 	@echo "# define ASSETS_PATH_H" >> $(ASSETS_PATH_H)
 	@find assets/ -type f -name '*.xpm' -exec sh -c ' \
 		FILE="{}"; \
-		DEF_NAME=$$(echo "$$FILE" | tr "/" "_" | sed "s/\.xpm$$//" | awk "{print toupper(\$$0)}" | sed "s/ASSETS__SPRITES_//"); \
+		DEF_NAME=$$(echo "$$FILE" | tr "/" "_" | sed "s/\.xpm$$//" | awk "{print toupper(\$$0)}" | sed "s/ASSETS_SPRITES_//"  | sed "s/ASSETS__SPRITES_//"); \
 		echo "# define PATH_$$DEF_NAME \"$$FILE\"" >> $(ASSETS_PATH_H); \
 	' \;
 	@echo "#endif" >> $(ASSETS_PATH_H)

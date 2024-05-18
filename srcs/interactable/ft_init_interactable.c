@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:29:43 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:29:57 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/18 22:33:19 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_itbl	*ft_init_interactable(t_ani_sprite ***ani_sprite_tab)
 
 	if (ani_sprite_tab == NULL)
 		return (NULL);
-	ret = ft_calloc(sizeof(t_itbl));
+	ret = (t_itbl *)ft_calloc(sizeof(t_itbl), 1);
 	if (ret == NULL)
 		return (NULL);
 	ret->direction = DOWN;

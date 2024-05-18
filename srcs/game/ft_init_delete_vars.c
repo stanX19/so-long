@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:50:58 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:50:58 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/18 22:31:31 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_vars	*ft_init_vars(int argc, char **argv)
 {
 	t_vars	*vars;
 
-	vars = ft_calloc(sizeof(t_vars));
+	vars = (t_vars *)ft_calloc(sizeof(t_vars), 1);
 	if (!vars)
 	{
 		ft_printf("ERROR: Init vars: Failed to malloc\n");

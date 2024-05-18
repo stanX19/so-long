@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/09 14:18:18 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 22:21:41 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ITBL_CFG_PARAMS_SIZE 5
 # include "assets_path.h"
 # include "configs.h"
+# include "libft.h"
 # include "trgb_colors.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -25,12 +26,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-
-typedef struct s_vec2
-{
-	int					x;
-	int					y;
-}						t_vec2;
 
 typedef union s_color
 {
@@ -290,18 +285,18 @@ typedef struct s_map_init_cords_loc_data
 		int				slime;
 		int				bee;
 		int				coin;
-	}					idx;
+	} idx;
 }						t_map_init_cords_loc_data;
 
 typedef struct s_default_tileset_gen_vars
 {
-	t_image			*img;
-	t_vec2			size;
-	int				y;
-	int				x;
-	unsigned int	color_0;
-	unsigned int	color_1;
-}					t_default_tileset_gen_vars;
+	t_image				*img;
+	t_vec2				size;
+	int					y;
+	int					x;
+	unsigned int		color_0;
+	unsigned int		color_1;
+}						t_default_tileset_gen_vars;
 
 typedef struct s_vars
 {
@@ -317,25 +312,6 @@ typedef struct s_vars
 	int					idx;
 }						t_vars;
 
-size_t					ft_printf(const char *str, ...);
-
-void					*ft_memcpy(void *dst, const void *src, size_t n);
-char					*ft_strdup(char *src);
-void					*ft_memset(void *b, int c, size_t len);
-void					**ft_calloc_2d(size_t height, size_t width,
-							size_t pointerSize, size_t elementSize);
-int						ft_2d_count_val(char **map, int width, int height,
-							char target);
-void					ft_free_2d(void **ptr, size_t len);
-void					ft_free_ptr_arr(void **arr, size_t len,
-							void (*free_func)(void *));
-int						max(int a, int b);
-int						min(int a, int b);
-int						sign(int x);
-char					*ft_itoa(int n);
-int						ft_atoi(const char *str);
-t_vec2					ft_vec2_add(t_vec2 v1, t_vec2 v2);
-void					*ft_calloc(size_t size);
 void					ft_list_add(t_linked_list *list, void *ptr);
 void					ft_list_remove(t_linked_list *list, void *ptr);
 void					ft_free_list(t_linked_list *list,
@@ -397,8 +373,7 @@ void					ft_mlx_put_sprite(t_image *image, t_sprite *sprite,
 void					ft_sprite_destory(t_sprite *sprite);
 void					ft_ani_sprite_destory(t_ani_sprite *animated);
 
-void					init_sp_data(
-							t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
+void					init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite			***ft_init_bee_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime2_ani_sprites(t_assets *assets);

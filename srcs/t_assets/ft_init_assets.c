@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_assets.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:20:38 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:20:58 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 22:34:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_assets	*ft_init_assets(void *mlx)
 {
 	t_assets	*assets;
 
-	assets = (t_assets *)ft_calloc(sizeof(t_assets));
+	assets = (t_assets *)ft_calloc(sizeof(t_assets), 1);
 	if (!assets)
 	{
 		ft_printf("ERROR: Init assets: Failed to malloc\n");

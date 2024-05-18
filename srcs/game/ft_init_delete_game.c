@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:02 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:51:58 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/18 22:20:43 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_image	*get_base_img(t_assets *assets, t_image *bkg_img)
 {
 	t_vec2	size;
 
-	size.x = min(1800, bkg_img->width);
-	size.y = min(900, bkg_img->height);
+	size.x = ft_min(1800, bkg_img->width);
+	size.y = ft_min(900, bkg_img->height);
 	return (ft_new_image(assets, size.x, size.y));
 }
 

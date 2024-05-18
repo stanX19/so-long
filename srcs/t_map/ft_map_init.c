@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:42:59 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 15:58:22 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 22:36:22 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_map	*init_base(char **raw_map, int width, int height)
 {
 	t_map	*map;
 
-	map = (t_map *)ft_calloc(sizeof(t_map));
+	map = (t_map *)ft_calloc(sizeof(t_map), 1);
 	map->grid = (t_tile **)ft_calloc_2d(height, width, sizeof(t_tile *),
 			sizeof(t_tile));
 	map->coins.len = ft_2d_count_val(raw_map, width, height, 'C');

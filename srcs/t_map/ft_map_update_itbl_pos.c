@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_update_itbl_pos.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 15:26:45 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 22:21:14 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 	}
 	if (abs(itbl->rel_cord.x) > map->assets->tile_size.x)
 	{
-		map_move_itbl(map, itbl, sign(itbl->rel_cord.x), 0);
+		map_move_itbl(map, itbl, ft_sign(itbl->rel_cord.x), 0);
 		update_pos(map, itbl);
 	}
 	if (abs(itbl->rel_cord.y) > map->assets->tile_size.y)
 	{
-		map_move_itbl(map, itbl, 0, sign(itbl->rel_cord.y));
+		map_move_itbl(map, itbl, 0, ft_sign(itbl->rel_cord.y));
 		update_pos(map, itbl);
 	}
 }

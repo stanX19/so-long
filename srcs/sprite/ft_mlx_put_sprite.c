@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_put_sprite.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:26:41 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:28:21 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 22:20:43 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	ft_mlx_put_sprite_reverse(t_image *image, t_sprite *sprite, int img_x,
 	if (!sprite || !image)
 		return ;
 	cord.x = (img_x <= 0) * -img_x;
-	while (cord.x < min(sprite->width, image->width - img_x))
+	while (cord.x < ft_min(sprite->width, image->width - img_x))
 	{
 		cord.y = (img_y <= 0) * -img_y;
-		while (cord.y < min(sprite->height, image->height - img_y))
+		while (cord.y < ft_min(sprite->height, image->height - img_y))
 		{
 			color = get_sprite_pixel_color(sprite, sprite->width - cord.x - 1,
 					cord.y);
@@ -53,10 +53,10 @@ void	ft_mlx_put_sprite(t_image *image, t_sprite *sprite, int img_x,
 	if (!sprite || !image)
 		return ;
 	cord.x = (img_x <= 0) * -img_x;
-	while (cord.x < min(sprite->width, image->width - img_x))
+	while (cord.x < ft_min(sprite->width, image->width - img_x))
 	{
 		cord.y = (img_y <= 0) * -img_y;
-		while (cord.y < min(sprite->height, image->height - img_y))
+		while (cord.y < ft_min(sprite->height, image->height - img_y))
 		{
 			color = get_sprite_pixel_color(sprite, cord.x, cord.y);
 			ft_mlx_pixel_put(image, img_x + cord.x, img_y + cord.y, color);

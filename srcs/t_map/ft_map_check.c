@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:02:31 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:56:27 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 22:21:14 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static inline t_vec2	get_border(t_vec2 tile_size)
 
 static inline t_vec2	get_new_by_sign(t_vec2 old, t_vec2 dis)
 {
-	return ((t_vec2){old.x + sign(dis.x), old.y + sign(dis.y)});
+	return ((t_vec2){old.x + ft_sign(dis.x), old.y + ft_sign(dis.y)});
 }
 
 static inline t_vec2	is_blocking(t_map *map, t_vec2 old, t_vec2 new,
@@ -49,7 +49,7 @@ void	ft_map_check_velocity(t_map *map, t_itbl *itbl)
 	t_vec2	blocking;
 
 	border = get_border(map->assets->tile_size);
-	new = get_new_by_sign(itbl->cord, ft_vec2_add(itbl->rel_cord,
+	new = get_new_by_sign(itbl->cord, vec2_add(itbl->rel_cord,
 				itbl->velocity));
 	blocking = is_blocking(map, itbl->cord, new, itbl->blocking);
 	if (blocking.x)
@@ -80,11 +80,11 @@ void	ft_map_check_rel_cord(t_map *map, t_itbl *itbl)
 	if (blocking.x)
 	{
 		if (abs(itbl->rel_cord.x) > border.x)
-			itbl->rel_cord.x = sign(itbl->rel_cord.x) * border.x;
+			itbl->rel_cord.x = ft_sign(itbl->rel_cord.x) * border.x;
 	}
 	if (blocking.y)
 	{
 		if (abs(itbl->rel_cord.y) > border.y)
-			itbl->rel_cord.y = sign(itbl->rel_cord.y) * border.y;
+			itbl->rel_cord.y = ft_sign(itbl->rel_cord.y) * border.y;
 	}
 }

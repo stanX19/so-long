@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:10 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:52:31 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/18 22:21:14 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ static t_vec2	get_offset(t_map *map, t_image *bkg, t_itbl *subject)
 	new_ofst.y = bkg->height / 2 - new_ofst.y;
 	diff.x = new_ofst.x - ofst.x;
 	diff.y = new_ofst.y - ofst.y;
-	diff.x = sign(diff.x) * max(abs(diff.x) / 2, abs(diff.x) - bkg->width / 2
+	diff.x = ft_sign(diff.x) * ft_max(abs(diff.x) / 2, abs(diff.x) - bkg->width / 2
 			+ 100);
-	diff.y = sign(diff.y) * max(abs(diff.y) / 2, abs(diff.y) - bkg->height / 2
+	diff.y = ft_sign(diff.y) * ft_max(abs(diff.y) / 2, abs(diff.y) - bkg->height / 2
 			+ 100);
 	ofst.x += diff.x;
 	ofst.y += diff.y;
-	ofst.x = min(0, ofst.x);
-	ofst.y = min(0, ofst.y);
-	ofst.x = max(bkg->width - map->bkg_img->width, ofst.x);
-	ofst.y = max(bkg->height - map->bkg_img->height, ofst.y);
+	ofst.x = ft_min(0, ofst.x);
+	ofst.y = ft_min(0, ofst.y);
+	ofst.x = ft_max(bkg->width - map->bkg_img->width, ofst.x);
+	ofst.y = ft_max(bkg->height - map->bkg_img->height, ofst.y);
 	return (ofst);
 }
 

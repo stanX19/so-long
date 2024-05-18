@@ -83,16 +83,18 @@ xpm:
 	find . -type f -name "*.xpm" -exec $(RM) {} \;
 	mogrify -format xpm ./assets/*/*/*.png
 	@make path_h
+
+ASSETS_PATH_H	= headers/assets_path.h
 path_h:
 	@echo "#ifndef ASSETS_PATH_H" > $(ASSETS_PATH_H)
 	@echo "# define ASSETS_PATH_H" >> $(ASSETS_PATH_H)
-	@find assets/ -type f -name '*.xpm' -exec sh -c 'echo "# define PATH_$$(echo "{}" | tr "/" "_" | awk "{gsub(/.xpm$$/, \"\", \$$0); print toupper(\$$0)}" | sed "s/ASSETS_SPRITES_//") \"{}\"" >> $(ASSETS_PATH_H)' \;
-	@echo "# define ALL_PATHS (char*[])\\" >> $(ASSETS_PATH_H)
-	@echo "{\\" >> $(ASSETS_PATH_H)
-	@find assets/ -type f -name '*.xpm' -exec sh -c 'echo "	PATH_$$(echo "{}" | tr "/" "_" | awk "{gsub(/.xpm$$/, \"\", \$$0); print toupper(\$$0)}" | sed "s/ASSETS_SPRITES_//"),\\" >> $(ASSETS_PATH_H)' \;
-	@echo "}" >> $(ASSETS_PATH_H)
-	@echo "# define ALL_PATH_LEN (sizeof(ALL_PATHS) / sizeof(char*))" >> $(ASSETS_PATH_H)
+	@find assets/ -type f -name '*.xpm' -exec sh -c ' \
+		FILE="{}"; \
+		DEF_NAME=$$(echo "$$FILE" | tr "/" "_" | sed "s/\.xpm$$//" | awk "{print toupper(\$$0)}" | sed "s/ASSETS__SPRITES_//"); \
+		echo "# define PATH_$$DEF_NAME \"$$FILE\"" >> $(ASSETS_PATH_H); \
+	' \;
 	@echo "#endif" >> $(ASSETS_PATH_H)
-	cat $(ASSETS_PATH_H)
+	@cat $(ASSETS_PATH_H)
+
 
 .PHONY: all clean fclean re bonus push

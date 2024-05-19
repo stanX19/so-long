@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/19 22:01:24 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 01:18:01 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	map_move_itbl(t_map *map, t_itbl *itbl, int x_dis, int y_dis)
 	int	val;
 
 	val = map->grid[itbl->cord.y][itbl->cord.x] & itbl->self;
-	map->grid[itbl->cord.y][itbl->cord.x] &= ~itbl->self;
+	map->grid[itbl->cord.y][itbl->cord.x] &= ~(itbl->self | itbl->faction);
 	itbl->cord.x += x_dis;
 	itbl->cord.y += y_dis;
 	itbl->rel_cord.x -= x_dis * 2 * map->assets->tile_size.x;
 	itbl->rel_cord.y -= y_dis * 2 * map->assets->tile_size.y;
-	map->grid[itbl->cord.y][itbl->cord.x] |= val;
+	map->grid[itbl->cord.y][itbl->cord.x] |= val | itbl->faction;
 	ft_map_check_reaction(map, itbl->cord);
 	++itbl->stats.steps;
 }
@@ -46,7 +46,7 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 	ft_map_check_rel_cord(map, itbl);
 	if (itbl->status & ATTACKING)
 	{
-		ft_map_itbl_front_add(map, itbl, TILE_ATTACKED);
+		ft_map_itbl_front_add(map, itbl, TILE_ALLY_ATK);
 	}
 	if (abs(itbl->rel_cord.x) > map->assets->tile_size.x)
 	{

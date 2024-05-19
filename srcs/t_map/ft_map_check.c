@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:02:31 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 22:21:14 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 00:54:29 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	ft_map_check_velocity(t_map *map, t_itbl *itbl)
 		else if (itbl->rel_cord.y + itbl->velocity.y < -border.y)
 			itbl->velocity.y = -border.y - itbl->rel_cord.y;
 	}
+	itbl->velocity.x %= itbl->stats.speed + 1;
+	itbl->velocity.y %= itbl->stats.speed + 1;
 }
 
 void	ft_map_check_rel_cord(t_map *map, t_itbl *itbl)

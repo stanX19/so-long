@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_init_cords.c                                :+:      :+:    :+:   */
+/*   ft_map_init_tiles.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/19 22:08:20 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 01:33:27 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	{'0', TILE_PATH, 0, 0, NULL},
 	{'1', TILE_WALL, 0, 0, NULL},
 	{'2', TILE_WATER, 0, 0, NULL},
-	{'P', TILE_PLAYER, TILE_PLAYER, TILE_PATH, assets->human},
+	{'P', TILE_HUMAN, TILE_PLAYER, TILE_PATH, assets->human},
 	{'E', TILE_EXIT, TILE_EXIT, TILE_PATH, assets->cat},
 	{'C', TILE_COIN, TILE_COIN, TILE_PATH, assets->coin},
 	{'S', TILE_SLIME, TILE_ENEMY, TILE_PATH, assets->slime},
 	{'B', TILE_BEE, TILE_ENEMY, TILE_PATH, assets->bee},
 	{'W', TILE_WOLF, TILE_ENEMY, TILE_PATH, assets->human},
 	{'G', TILE_GOBLIN, TILE_ENEMY, TILE_PATH, assets->human},
+	{'L', TILE_HUMAN, TILE_PLAYER, TILE_PATH, assets->human},
 	{'\0', 0, 0, 0, NULL}
 	};
 
@@ -59,6 +60,7 @@ static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
 	ret->self = hash[c].self;
 	ret->faction = hash[c].faction;
 	ret->cord = cord;
+	ret->blocking |= ret->self;
 	return (ret);
 }
 
@@ -87,7 +89,7 @@ static void	assign_itbl(t_map_init_data *d, char c, t_vec2 cord)
 	}
 }
 
-void	ft_map_init_cords(t_map *map, char **raw_map, int width, int height)
+void	ft_map_init_ibtl(t_map *map, char **raw_map, int width, int height)
 {
 	t_map_init_data	d;
 	int				c;

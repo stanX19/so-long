@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/19 21:58:42 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 01:33:27 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,12 +143,13 @@ typedef enum s_tile
 	TILE_EXIT = (1 << 3),
 	TILE_PLAYER = (1 << 4),
 	TILE_COIN = (1 << 5),
-	TILE_ATTACKED = (1 << 6),
+	TILE_ALLY_ATK = (1 << 6),
 	TILE_ENEMY = (1 << 7),
-	TILE_SLIME = (1 << 8),
-	TILE_BEE = (1 << 9),
-	TILE_WOLF = (1 << 10),
-	TILE_GOBLIN = (1 << 11),
+	TILE_HUMAN = (1 << 8),
+	TILE_SLIME = (1 << 9),
+	TILE_BEE = (1 << 10),
+	TILE_WOLF = (1 << 11),
+	TILE_GOBLIN = (1 << 12),
 }						t_tile;
 
 typedef struct s_itbl
@@ -328,7 +329,7 @@ void					ft_mlx_clear_window(t_window *window);
 int						ft_is_valid_map(const char *path);
 char					**ft_generate_raw_map(const char *path, size_t *width,
 							size_t *height);
-void					ft_map_init_cords(t_map *map, char **raw_map, int width,
+void					ft_map_init_ibtl(t_map *map, char **raw_map, int width,
 							int height);
 t_image					*ft_map_bg_gen(t_map *map, t_assets *assets);
 t_map					*ft_map_init(const char *path, t_assets *assets);

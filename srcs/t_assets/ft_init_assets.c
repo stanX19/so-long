@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:20:38 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/19 21:54:13 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 00:27:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void	config_itbl(t_assets *assets)
 	ft_itbl_config(assets->cat,
 		(t_itbl_cfg){SPEED_DEFAULT, {-4, -8}, 0, (TILE_WALL | TILE_WATER)});
 	ft_itbl_config(assets->slime,
-		(t_itbl_cfg){SPEED_SLIME, {-16, -16}, 0, (TILE_WALL | TILE_WATER | TILE_SLIME)});
+		(t_itbl_cfg){SPEED_SLIME, {-16, -16}, 0, (TILE_WALL | TILE_WATER)});
 	ft_itbl_config(assets->slime2,
-		(t_itbl_cfg){SPEED_SLIME, {-16, -16}, 0, (TILE_WALL | TILE_WATER | TILE_SLIME)});
+		(t_itbl_cfg){SPEED_SLIME, {-16, -16}, 0, (TILE_WALL | TILE_WATER)});
 	ft_itbl_config(assets->bee,
-		(t_itbl_cfg){SPEED_BEE, {-16, -16}, 0, (TILE_WALL | TILE_BEE)});
+		(t_itbl_cfg){SPEED_BEE, {-16, -16}, 0, (TILE_WALL)});
 }
 
 t_assets	*ft_init_assets(void *mlx)

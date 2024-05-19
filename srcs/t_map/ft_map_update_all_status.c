@@ -6,17 +6,40 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/19 22:00:46 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 01:45:31 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static bool	just_died(t_map *map, t_itbl *itbl)
+{
+	if (itbl->status & (DYING | DEAD))
+		return 0;
+	if (itbl->faction & TILE_ENEMY)
+	{
+		if ((map->grid[itbl->cord.y][itbl->cord.x] & TILE_ALLY_ATK))
+		{
+			map->grid[itbl->cord.y][itbl->cord.x] &= ~TILE_ALLY_ATK;
+			return (1);
+		}
+		return (0);
+	}
+	if (itbl->faction & TILE_PLAYER)
+	{
+		if (map->grid[itbl->cord.y][itbl->cord.x] & TILE_ENEMY)
+			return (1);
+	}
+	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->self))
+		return (1);
+	return (0);
+}
+
 static void	m_update_itbl_status(t_map *map, t_itbl *itbl)
 {
-	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->self)
-		&& !(itbl->status & (DYING | DEAD)))
+	if (just_died(map, itbl))
 	{
+		map->grid[itbl->cord.y][itbl->cord.x] &= ~(itbl->faction | itbl->self);
 		ft_itbl_set_status(itbl, DYING);
 	}
 }

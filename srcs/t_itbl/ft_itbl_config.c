@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_update_enemy_v.c                            :+:      :+:    :+:   */
+/*   ft_itbl_config.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 15:27:27 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/19 22:00:55 by stan             ###   ########.fr       */
+/*   Created: 2024/05/19 20:59:16 by stan              #+#    #+#             */
+/*   Updated: 2024/05/19 21:15:24 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	update_arr_v(t_itbl_arr itbl_arr)
+void	ft_itbl_config(t_itbl *itbl, t_itbl_cfg params)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < itbl_arr.len)
-	{
-		itbl_arr.arr[i]->velocity.x += rand() % 3 - 1;
-		itbl_arr.arr[i]->velocity.y += rand() % 3 - 1;
-		itbl_arr.arr[i]->status |= MOVING;
-		++i;
-	}
-}
-
-void	ft_map_update_enemy_v(t_map *map)
-{
-	update_arr_v(map->enemies);
+	itbl->stats.base_speed = params.base_spd;
+	itbl->offset = params.offset;
+	itbl->self = params.self;
+	itbl->blocking = params.blocking;
 }

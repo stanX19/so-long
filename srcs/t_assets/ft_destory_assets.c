@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_destory_assets.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:21:10 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:21:18 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/19 21:11:52 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_destory_assets(t_assets *assets)
 	itbl_n_tab_destory(assets->slime);
 	itbl_n_tab_destory(assets->slime2);
 	itbl_n_tab_destory(assets->coin);
-	itbl_n_tab_destory(assets->player);
+	itbl_n_tab_destory(assets->human);
 	itbl_n_tab_destory(assets->cat);
 	itbl_n_tab_destory(assets->bee);
 	sprite_arr_destory(assets->all_tile, assets->all_tile_len);

@@ -6,13 +6,13 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:39:25 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:43:19 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/19 21:13:11 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	get_player_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
+static void	get_human_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
 {
 	sp_data[DOWN][ATTACK] = (t_sp_data){PATH_PLAYER_D_ATTACK,
 	{0, 0}, {1, 2}, {2, 2}};
@@ -50,7 +50,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, t_sp_data sp_data)
 		return (0);
 	if (sp_data.size.x * sp_data.size.y <= 0)
 	{
-		ft_printf("ERROR: player animated sprites: Invalid grid range for %s",
+		ft_printf("ERROR: human animated sprites: Invalid grid range for %s",
 			sp_data.rel_path);
 		return (0);
 	}
@@ -61,7 +61,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, t_sp_data sp_data)
 	return (ret);
 }
 
-t_ani_sprite	***ft_init_player_ani_sprites(t_assets *assets)
+t_ani_sprite	***ft_init_human_ani_sprites(t_assets *assets)
 {
 	t_ani_sprite	***ret;
 	t_sp_data		sp_data[NUM_DIRECTIONS][NUM_ACTIONS];
@@ -71,7 +71,7 @@ t_ani_sprite	***ft_init_player_ani_sprites(t_assets *assets)
 	ret = (t_ani_sprite ***)ft_calloc_2d(NUM_DIRECTIONS, NUM_ACTIONS,
 			sizeof(t_ani_sprite **), sizeof(t_ani_sprite *));
 	init_sp_data(sp_data);
-	get_player_rel_paths(sp_data);
+	get_human_rel_paths(sp_data);
 	y = 0;
 	while (y < NUM_DIRECTIONS)
 	{

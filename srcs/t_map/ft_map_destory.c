@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_destory.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:58:40 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 15:58:48 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/19 21:55:19 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_map_destory(t_map *map)
 	ft_itbl_destory(map->player);
 	ft_itbl_destory(map->exit);
 	free_itbl_arr(map->coins.arr, map->coins.len);
-	free_itbl_arr(map->slimes.arr, map->slimes.len);
-	free_itbl_arr(map->bees.arr, map->bees.len);
+	free_itbl_arr(map->enemies.arr, map->enemies.len);
 	free(map);
 }

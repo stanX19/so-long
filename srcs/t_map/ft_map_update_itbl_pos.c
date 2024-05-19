@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 22:21:14 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/19 22:01:24 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,10 @@ void	ft_map_update_itbl_pos(t_map *map)
 			update_check_update(map, map->coins.arr[idx]);
 	}
 	idx = -1;
-	while (++idx < map->slimes.len)
+	while (++idx < map->enemies.len)
 	{
-		if (!(map->slimes.arr[idx]->status & (DYING | DEAD)))
-			update_check_update(map, map->slimes.arr[idx]);
-	}
-	idx = -1;
-	while (++idx < map->bees.len)
-	{
-		if (!(map->bees.arr[idx]->status & (DYING | DEAD)))
-			update_check_update(map, map->bees.arr[idx]);
+		if (!(map->enemies.arr[idx]->status & (DYING | DEAD)))
+			update_check_update(map, map->enemies.arr[idx]);
 	}
 	update_check_update(map, map->exit);
 	update_check_update(map, map->player);

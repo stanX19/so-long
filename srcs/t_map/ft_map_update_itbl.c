@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_update_itbl.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:11 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 15:26:59 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/19 22:01:12 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static void	map_update_frames(t_map *map)
 {
 	ft_itbl_update_frame(map->player);
 	ft_itbl_update_frame(map->exit);
-	update_arr(map->slimes);
-	update_arr(map->bees);
+	update_arr(map->enemies);
 	update_arr(map->coins);
 }
 

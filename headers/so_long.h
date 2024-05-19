@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 22:21:41 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/19 21:58:42 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SO_LONG_H
 # define NUM_DIRECTIONS 4
 # define NUM_ACTIONS 4
-# define ITBL_CFG_PARAMS_SIZE 5
 # include "assets_path.h"
 # include "configs.h"
 # include "libft.h"
@@ -144,9 +143,12 @@ typedef enum s_tile
 	TILE_EXIT = (1 << 3),
 	TILE_PLAYER = (1 << 4),
 	TILE_COIN = (1 << 5),
-	TILE_SLIME = (1 << 6),
-	TILE_BEE = (1 << 7),
-	TILE_ATTACKED = (1 << 8)
+	TILE_ATTACKED = (1 << 6),
+	TILE_ENEMY = (1 << 7),
+	TILE_SLIME = (1 << 8),
+	TILE_BEE = (1 << 9),
+	TILE_WOLF = (1 << 10),
+	TILE_GOBLIN = (1 << 11),
 }						t_tile;
 
 typedef struct s_itbl
@@ -162,6 +164,7 @@ typedef struct s_itbl
 	int					flip;
 	t_tile				self;
 	t_tile				blocking;
+	t_tile				faction;
 	t_ani_sprite		***sprite_tab;
 	int					sprite_idx;
 	int					frame_tick;
@@ -182,7 +185,7 @@ typedef struct s_ani_assets
 	t_ani_sprite		***slime2;
 	t_ani_sprite		***bee;
 	t_ani_sprite		***coin;
-	t_ani_sprite		***player;
+	t_ani_sprite		***human;
 	t_ani_sprite		***cat;
 }						t_ani_assets;
 
@@ -195,7 +198,7 @@ typedef struct s_assets
 	t_itbl				*slime;
 	t_itbl				*slime2;
 	t_itbl				*coin;
-	t_itbl				*player;
+	t_itbl				*human;
 	t_itbl				*cat;
 	t_ani_assets		ani_tabs;
 	t_sprite			**all_tile;
@@ -269,24 +272,9 @@ typedef struct s_map
 	t_itbl				*player;
 	t_itbl				*exit;
 	t_itbl_arr			coins;
-	t_itbl_arr			slimes;
-	t_itbl_arr			bees;
+	t_itbl_arr			enemies;
 	t_assets			*assets;
 }						t_map;
-
-typedef struct s_map_init_cords_loc_data
-{
-	t_map				*map;
-	char				**raw_map;
-	int					x;
-	int					y;
-	struct				s_idx_data
-	{
-		int				slime;
-		int				bee;
-		int				coin;
-	} idx;
-}						t_map_init_cords_loc_data;
 
 typedef struct s_default_tileset_gen_vars
 {
@@ -342,7 +330,6 @@ char					**ft_generate_raw_map(const char *path, size_t *width,
 							size_t *height);
 void					ft_map_init_cords(t_map *map, char **raw_map, int width,
 							int height);
-void					ft_map_init_itbl(t_map *map, t_assets *assets);
 t_image					*ft_map_bg_gen(t_map *map, t_assets *assets);
 t_map					*ft_map_init(const char *path, t_assets *assets);
 void					ft_map_destory(t_map *map);
@@ -356,7 +343,6 @@ void					ft_map_itbl_front_add(t_map *map, t_itbl *itbl,
 							t_tile val);
 void					ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
 void					ft_map_check_velocity(t_map *map, t_itbl *itbl);
-void					ft_set_itbl_settings(t_itbl *itbl, t_tile self);
 void					ft_map_update_enemy_v(t_map *map);
 t_vec2					ft_get_displayed_cord(t_vec2 tile_size, t_itbl *itbl);
 
@@ -377,7 +363,7 @@ void					init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite			***ft_init_bee_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime2_ani_sprites(t_assets *assets);
-t_ani_sprite			***ft_init_player_ani_sprites(t_assets *assets);
+t_ani_sprite			***ft_init_human_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_coin_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_cat_ani_sprites(t_assets *assets);
 
@@ -392,6 +378,7 @@ void					ft_itbl_destory(t_itbl *itbl);
 void					ft_itbl_set_status(t_itbl *itbl, t_itbl_status status);
 t_itbl					*ft_itbl_copy(t_itbl *src);
 void					ft_itbl_update_direction(t_itbl *itbl);
+void					ft_itbl_config(t_itbl *itbl, t_itbl_cfg params);
 
 t_input					*ft_init_input(void);
 void					ft_input_destory(t_input *input);

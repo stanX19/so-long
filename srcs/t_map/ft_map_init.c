@@ -6,13 +6,13 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:42:59 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 22:36:22 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/19 22:09:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static t_map	*init_base(char **raw_map, int width, int height)
+static t_map	*init_memory(char **raw_map, int width, int height, t_assets *assets)
 {
 	t_map	*map;
 
@@ -20,13 +20,19 @@ static t_map	*init_base(char **raw_map, int width, int height)
 	map->grid = (t_tile **)ft_calloc_2d(height, width, sizeof(t_tile *),
 			sizeof(t_tile));
 	map->coins.len = ft_2d_count_val(raw_map, width, height, 'C');
-	map->slimes.len = ft_2d_count_val(raw_map, width, height, 'S');
-	map->bees.len = ft_2d_count_val(raw_map, width, height, 'B');
+	map->enemies.len = ft_2d_count_charset(raw_map, width, height, "SBWG");
+	map->coins.arr = (t_itbl **)ft_calloc(sizeof(t_itbl *), map->coins.len);
+	map->enemies.arr = (t_itbl **)ft_calloc(sizeof(t_itbl *), map->enemies.len);
 	map->grid_size.x = width;
 	map->grid_size.y = height;
+	map->assets = assets;
 	return (map);
 }
 
+// TODO:
+// change the 2d_count_val in init base into 2d_count_charset
+// all enemies stored in an array
+// remove ft_map_init_itbl, it will be called by ft_map_init_cords instead
 t_map	*ft_map_init(const char *path, t_assets *assets)
 {
 	t_map	*map;
@@ -35,8 +41,7 @@ t_map	*ft_map_init(const char *path, t_assets *assets)
 	size_t	height;
 
 	raw_map = ft_generate_raw_map(path, &width, &height);
-	map = init_base(raw_map, width, height);
-	ft_map_init_itbl(map, assets);
+	map = init_memory(raw_map, width, height, assets);
 	ft_map_init_cords(map, raw_map, width, height);
 	ft_free_2d((void **)raw_map, height);
 	map->bkg_img = ft_map_bg_gen(map, assets);

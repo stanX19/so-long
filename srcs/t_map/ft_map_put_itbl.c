@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_put_itbl.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:51 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 15:28:40 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/19 22:00:35 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_map_put_itbl(t_image *img, t_map *map, t_vec2 offset)
 	tile_size = map->assets->tile_size;
 	put_itbl_arr(img, tile_size, map->coins, offset);
 	put_itbl_by_cord(img, tile_size, map->exit, offset);
-	put_itbl_arr(img, tile_size, map->slimes, offset);
-	put_itbl_arr(img, tile_size, map->bees, offset);
+	put_itbl_arr(img, tile_size, map->enemies, offset);
 	put_itbl_by_cord(img, tile_size, map->player, offset);
 }

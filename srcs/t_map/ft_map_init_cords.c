@@ -3,66 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_init_cords.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:04:52 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/19 22:08:20 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "data_private.h"
 
-void	assign_sprites_loc(t_map_init_cords_loc_data *d)
+// char, self, faction, on_path, animation resource
+t_itbl_dict	*get_itbl_dict(t_assets *assets)
 {
-	t_vec2	cord;
-	char	c;
+	static t_itbl_dict	ret[100];
+	const t_itbl_dict	itbl_dict[] = {
+	{'0', TILE_PATH, 0, 0, NULL},
+	{'1', TILE_WALL, 0, 0, NULL},
+	{'2', TILE_WATER, 0, 0, NULL},
+	{'P', TILE_PLAYER, TILE_PLAYER, TILE_PATH, assets->human},
+	{'E', TILE_EXIT, TILE_EXIT, TILE_PATH, assets->cat},
+	{'C', TILE_COIN, TILE_COIN, TILE_PATH, assets->coin},
+	{'S', TILE_SLIME, TILE_ENEMY, TILE_PATH, assets->slime},
+	{'B', TILE_BEE, TILE_ENEMY, TILE_PATH, assets->bee},
+	{'W', TILE_WOLF, TILE_ENEMY, TILE_PATH, assets->human},
+	{'G', TILE_GOBLIN, TILE_ENEMY, TILE_PATH, assets->human},
+	{'\0', 0, 0, 0, NULL}
+	};
 
-	cord = (t_vec2){d->x, d->y};
-	c = d->raw_map[d->y][d->x];
-	if (c == 'P')
-		d->map->player->cord = cord;
-	else if (c == 'E')
-		d->map->exit->cord = cord;
-	else if (c == 'C')
-		d->map->coins.arr[(d->idx.coin)++]->cord = cord;
-	else if (c == 'S')
-		d->map->slimes.arr[(d->idx.slime)++]->cord = cord;
-	else if (c == 'B')
-		d->map->bees.arr[(d->idx.bee)++]->cord = cord;
+	ft_memcpy(ret, itbl_dict, sizeof(itbl_dict));
+	return (ret);
 }
 
-static t_tile	get_grid_val(char c)
+t_itbl_dict	*get_itbl_hash(t_assets *assets)
 {
-	if (c == '1')
-		return (TILE_WALL);
-	else if (c == '2')
-		return (TILE_WATER);
+	static t_itbl_dict	hash[256];
+	int					idx;
+	t_itbl_dict			*dict;
+
+	ft_bzero(hash, sizeof(hash));
+	dict = get_itbl_dict(assets);
+	idx = 0;
+	while (dict[idx].key)
+	{
+		hash[(int)dict[idx].key] = dict[idx];
+		idx++;
+	}
+	return (hash);
+}
+
+static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
+{
+	t_itbl		*ret;
+
+	ret = ft_itbl_copy(hash[c].itbl);
+	ret->self = hash[c].self;
+	ret->faction = hash[c].faction;
+	ret->cord = cord;
+	return (ret);
+}
+
+static void	assign_itbl(t_map_init_data *d, char c, t_vec2 cord)
+{
+	t_itbl	**assign_loc;
+	int		idx;
+
+	assign_loc = NULL;
+	if (c == 'P')
+		assign_loc = &(d->map->player);
 	else if (c == 'E')
-		return (TILE_PATH | TILE_EXIT);
+		assign_loc = &(d->map->exit);
 	else if (c == 'C')
-		return (TILE_PATH | TILE_COIN);
-	else if (c == 'P')
-		return (TILE_PATH | TILE_PLAYER);
-	else if (c == 'S')
-		return (TILE_PATH | TILE_SLIME);
-	else if (c == 'B')
-		return (TILE_PATH | TILE_BEE);
-	else
-		return (TILE_PATH);
+		assign_loc = &(d->map->coins.arr[(d->idx.coin)++]);
+	idx = 0;
+	while (d->dict[idx].key && d->dict[idx].key != c)
+	{
+		idx++;
+	}
+	if (d->dict[idx].key == c && d->dict[idx].itbl != NULL)
+	{
+		if (assign_loc == NULL)
+			assign_loc = &(d->map->enemies.arr[(d->idx.enemy)++]);
+		*assign_loc = init_from_cfg(d->hash, c, cord);
+	}
 }
 
 void	ft_map_init_cords(t_map *map, char **raw_map, int width, int height)
 {
-	t_map_init_cords_loc_data	cord;
+	t_map_init_data	d;
+	int				c;
+	t_vec2			cord;
 
-	cord = (t_map_init_cords_loc_data){map, raw_map, 0, 0, {0, 0, 0}};
+	d = (t_map_init_data){map, raw_map, {0, 0}, get_itbl_dict(map->assets), get_itbl_hash(map->assets)};
+	cord = (t_vec2){0, 0};
 	while (cord.y < height)
 	{
 		cord.x = 0;
 		while (cord.x < width)
 		{
-			map->grid[cord.y][cord.x] = get_grid_val(raw_map[cord.y][cord.x]);
-			assign_sprites_loc(&cord);
+			c = d.raw_map[cord.y][cord.x];
+			map->grid[cord.y][cord.x] = TILE_PATH;
+			if (d.hash[c].key)
+				map->grid[cord.y][cord.x] = d.hash[c].self | d.hash[c].background;
+			assign_itbl(&d, c, cord);
 			cord.x++;
 		}
 		cord.y++;

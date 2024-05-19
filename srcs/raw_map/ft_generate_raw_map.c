@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:45:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 22:39:09 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/19 22:36:53 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,22 @@ static int	count_lines(int fd)
 
 static void	read_and_set(int fd, char **ret, size_t *width, size_t *height)
 {
-	char	buffer[3200];
-	int		idx;
-	int		lc;
-	int		x;
+	char			buffer[320000];
+	int				idx;
+	t_stringstream	*ss;
 
+	buffer[read(fd, buffer, sizeof(buffer) - 1)] = 0;
+	ss = ss_create(buffer);
 	idx = 0;
-	lc = 0;
-	ft_memset(buffer, 0, sizeof(buffer));
-	x = read(fd, buffer + idx, 1);
-	while (x)
+	errno = 0;
+	while (ss_read_line(ss, ret + idx, "\n"))
 	{
-		if (buffer[idx++] == '\n')
-		{
-			buffer[--idx] = 0;
-			*width = idx;
-			ret[lc++] = ft_strdup(buffer);
-			idx = 0;
-		}
-		x = read(fd, buffer + idx, 1);
+		idx++;
 	}
-	buffer[idx] = 0;
-	ret[lc] = ft_strdup(buffer);
-	*height = lc + 1;
+	ss_destroy(ss);
+	ret[idx] = 0;
+	*width = ft_strlen(ret[0]);
+	*height = idx;
 }
 
 static char	**failed(char *msg, size_t *width, size_t *height)
@@ -71,7 +64,7 @@ char	**ft_generate_raw_map(const char *path, size_t *width, size_t *height)
 	{
 		return (failed(strerror(errno), width, height));
 	}
-	ret = (char **)malloc(sizeof(char *) * count_lines(fd));
+	ret = (char **)malloc(sizeof(char *) * (count_lines(fd) + 1));
 	close(fd);
 	if (!ret)
 	{

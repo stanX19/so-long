@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_init_tiles.c                                :+:      :+:    :+:   */
+/*   ft_map_init_itbl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 01:33:27 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 16:36:35 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 {
 	static t_itbl_dict	ret[100];
 	const t_itbl_dict	itbl_dict[] = {
-	{'0', TILE_PATH, 0, 0, NULL},
-	{'1', TILE_WALL, 0, 0, NULL},
-	{'2', TILE_WATER, 0, 0, NULL},
-	{'P', TILE_HUMAN, TILE_PLAYER, TILE_PATH, assets->human},
-	{'E', TILE_EXIT, TILE_EXIT, TILE_PATH, assets->cat},
-	{'C', TILE_COIN, TILE_COIN, TILE_PATH, assets->coin},
-	{'S', TILE_SLIME, TILE_ENEMY, TILE_PATH, assets->slime},
-	{'B', TILE_BEE, TILE_ENEMY, TILE_PATH, assets->bee},
-	{'W', TILE_WOLF, TILE_ENEMY, TILE_PATH, assets->human},
-	{'G', TILE_GOBLIN, TILE_ENEMY, TILE_PATH, assets->human},
-	{'L', TILE_HUMAN, TILE_PLAYER, TILE_PATH, assets->human},
-	{'\0', 0, 0, 0, NULL}
+	{'0', 0, TILE_PATH, NULL},
+	{'1', 0, TILE_WALL, NULL},
+	{'2', 0, TILE_WATER, NULL},
+	{'P', TILE_PLAYER, TILE_PATH, assets->human},
+	{'E', TILE_EXIT, TILE_PATH, assets->portal},
+	{'C', TILE_COIN, TILE_PATH, assets->coin},
+	{'S', TILE_ENEMY, TILE_PATH, assets->slime},
+	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
+	{'W', TILE_ENEMY, TILE_PATH, assets->wolf},
+	{'G', TILE_ENEMY, TILE_PATH, assets->human},
+	{'L', TILE_PLAYER, TILE_PATH, assets->human},
+	{'\0', 0, 0, NULL}
 	};
 
 	ft_memcpy(ret, itbl_dict, sizeof(itbl_dict));
@@ -57,7 +57,6 @@ static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
 	t_itbl		*ret;
 
 	ret = ft_itbl_copy(hash[c].itbl);
-	ret->self = hash[c].self;
 	ret->faction = hash[c].faction;
 	ret->cord = cord;
 	ret->blocking |= ret->self;
@@ -104,8 +103,10 @@ void	ft_map_init_ibtl(t_map *map, char **raw_map, int width, int height)
 		{
 			c = d.raw_map[cord.y][cord.x];
 			map->grid[cord.y][cord.x] = TILE_PATH;
-			if (d.hash[c].key)
-				map->grid[cord.y][cord.x] = d.hash[c].self | d.hash[c].background;
+			if (d.hash[c].background)
+				map->grid[cord.y][cord.x] = d.hash[c].background;
+			if (d.hash[c].itbl)
+				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self;
 			assign_itbl(&d, c, cord);
 			cord.x++;
 		}

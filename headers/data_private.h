@@ -5,7 +5,6 @@
 typedef struct s_itbl_dict
 {
 	char		key;
-	t_tile		self;
 	t_tile		faction;
 	t_tile		background;
 	t_itbl		*itbl;

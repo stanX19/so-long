@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 01:33:27 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 16:35:25 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,11 +145,14 @@ typedef enum s_tile
 	TILE_COIN = (1 << 5),
 	TILE_ALLY_ATK = (1 << 6),
 	TILE_ENEMY = (1 << 7),
-	TILE_HUMAN = (1 << 8),
-	TILE_SLIME = (1 << 9),
-	TILE_BEE = (1 << 10),
-	TILE_WOLF = (1 << 11),
-	TILE_GOBLIN = (1 << 12),
+	TILE_ALLY = (1 << 8),
+	TILE_HUMAN = (1 << 9),
+	TILE_SLIME = (1 << 10),
+	TILE_BEE = (1 << 11),
+	TILE_WOLF = (1 << 12),
+	TILE_GOBLIN = (1 << 13),
+	TILE_CAT = (1 << 14),
+	TILE_PORTAL = (1 << 15),
 }						t_tile;
 
 typedef struct s_itbl
@@ -162,7 +165,7 @@ typedef struct s_itbl
 	t_ani_sprite		*animation;
 	t_sprite_status		sp_status;
 	t_itbl_status		status;
-	int					flip;
+	int					_flip;
 	t_tile				self;
 	t_tile				blocking;
 	t_tile				faction;
@@ -187,6 +190,8 @@ typedef struct s_ani_assets
 	t_ani_sprite		***bee;
 	t_ani_sprite		***coin;
 	t_ani_sprite		***human;
+	t_ani_sprite		***wolf;
+	t_ani_sprite		***portal;
 	t_ani_sprite		***cat;
 }						t_ani_assets;
 
@@ -200,6 +205,8 @@ typedef struct s_assets
 	t_itbl				*slime2;
 	t_itbl				*coin;
 	t_itbl				*human;
+	t_itbl				*wolf;
+	t_itbl				*portal;
 	t_itbl				*cat;
 	t_ani_assets		ani_tabs;
 	t_sprite			**all_tile;
@@ -367,6 +374,8 @@ t_ani_sprite			***ft_init_slime2_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_human_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_coin_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_cat_ani_sprites(t_assets *assets);
+t_ani_sprite			***ft_init_wolf_ani_sprites(t_assets *assets);
+t_ani_sprite			***ft_init_portal_ani_sprites(t_assets *assets);
 
 t_itbl					*ft_init_interactable(t_ani_sprite ***sprite_tab);
 void					ft_put_interactable_to_img(t_image *base_img,

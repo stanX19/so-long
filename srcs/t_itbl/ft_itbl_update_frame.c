@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:28:26 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:28:26 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/20 15:55:48 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void	check_flip(t_itbl *itbl)
 			&& itbl->sprite_tab[RIGHT][itbl->sp_status]))
 	{
 		itbl->animation = itbl->sprite_tab[LEFT][itbl->sp_status];
-		itbl->flip = 1;
+		itbl->_flip = 1;
 	}
 	else
-		itbl->flip = 0;
+		itbl->_flip = 0;
 }
 
 static void	set_animation(t_itbl *itbl)

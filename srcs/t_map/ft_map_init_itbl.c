@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 16:36:35 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/26 16:38:59 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	{'2', 0, TILE_WATER, NULL},
 	{'P', TILE_PLAYER, TILE_PATH, assets->human},
 	{'E', TILE_EXIT, TILE_PATH, assets->portal},
-	{'C', TILE_COIN, TILE_PATH, assets->coin},
+	{'C', TILE_COLLECTIBLE, TILE_PATH, assets->coin},
 	{'S', TILE_ENEMY, TILE_PATH, assets->slime},
 	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
 	{'W', TILE_ENEMY, TILE_PATH, assets->wolf},
@@ -54,7 +54,7 @@ t_itbl_dict	*get_itbl_hash(t_assets *assets)
 
 static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
 {
-	t_itbl		*ret;
+	t_itbl	*ret;
 
 	ret = ft_itbl_copy(hash[c].itbl);
 	ret->faction = hash[c].faction;
@@ -94,7 +94,8 @@ void	ft_map_init_ibtl(t_map *map, char **raw_map, int width, int height)
 	int				c;
 	t_vec2			cord;
 
-	d = (t_map_init_data){map, raw_map, {0, 0}, get_itbl_dict(map->assets), get_itbl_hash(map->assets)};
+	d = (t_map_init_data){map, raw_map, {0, 0}, get_itbl_dict(map->assets),
+		get_itbl_hash(map->assets)};
 	cord = (t_vec2){0, 0};
 	while (cord.y < height)
 	{
@@ -106,7 +107,8 @@ void	ft_map_init_ibtl(t_map *map, char **raw_map, int width, int height)
 			if (d.hash[c].background)
 				map->grid[cord.y][cord.x] = d.hash[c].background;
 			if (d.hash[c].itbl)
-				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self;
+				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self
+					| d.hash[c].faction;
 			assign_itbl(&d, c, cord);
 			cord.x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 16:35:25 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/26 11:22:11 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef enum s_tile
 	TILE_WATER = (1 << 2),
 	TILE_EXIT = (1 << 3),
 	TILE_PLAYER = (1 << 4),
-	TILE_COIN = (1 << 5),
+	TILE_COLLECTIBLE = (1 << 5),
 	TILE_ALLY_ATK = (1 << 6),
 	TILE_ENEMY = (1 << 7),
 	TILE_ALLY = (1 << 8),
@@ -153,6 +153,7 @@ typedef enum s_tile
 	TILE_GOBLIN = (1 << 13),
 	TILE_CAT = (1 << 14),
 	TILE_PORTAL = (1 << 15),
+    TILE_COIN = (1 << 16),
 }						t_tile;
 
 typedef struct s_itbl

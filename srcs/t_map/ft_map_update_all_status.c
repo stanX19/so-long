@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 16:59:29 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/26 11:31:46 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ static bool	just_died(t_map *map, t_itbl *itbl)
 		}
 		return (0);
 	}
-	if (itbl->faction & TILE_PLAYER)
-	{
-		if (map->grid[itbl->cord.y][itbl->cord.x] & TILE_ENEMY)
+	if ((itbl->faction & TILE_PLAYER)
+		&& (map->grid[itbl->cord.y][itbl->cord.x] & TILE_ENEMY))
 			return (1);
-	}
-	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->self))
-		return (1);
+	if ((itbl->faction & (TILE_COLLECTIBLE | TILE_EXIT))
+		&& !(map->grid[itbl->cord.y][itbl->cord.x] & itbl->faction))
+			return (1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:20:38 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/26 16:33:44 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/27 19:43:46 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_ani_assets	init_ani_assets(t_assets *assets)
 	ret.cat = ft_init_cat_ani_sprites(assets);
 	ret.human = ft_init_human_ani_sprites(assets);
 	ret.wolf = ft_init_wolf_ani_sprites(assets);
+	ret.goblin = ft_init_goblin_ani_sprites(assets);
 	ret.portal = ft_init_portal_ani_sprites(assets);
 	return (ret);
 }
@@ -39,6 +40,7 @@ static void	init_itbl(t_assets *assets)
 	assets->cat = ft_init_interactable(ani_tabs->cat);
 	assets->human = ft_init_interactable(ani_tabs->human);
 	assets->wolf = ft_init_interactable(ani_tabs->wolf);
+	assets->goblin = ft_init_interactable(ani_tabs->goblin);
 	assets->portal = ft_init_interactable(ani_tabs->portal);
 }
 
@@ -58,6 +60,8 @@ static void	config_itbl(t_assets *assets)
 		(t_itbl_cfg){SPEED_BEE, {-16, -16}, TILE_BEE, (TILE_WALL)});
 	ft_itbl_config(assets->wolf,
 		(t_itbl_cfg){SPEED_WOLF, {-16, -16}, TILE_WOLF, (TILE_WALL | TILE_WATER)});
+	ft_itbl_config(assets->goblin,
+		(t_itbl_cfg){SPEED_GOBLIN, {-16, -16}, TILE_GOBLIN, (TILE_WALL | TILE_WATER)});
 	ft_itbl_config(assets->portal,
 		(t_itbl_cfg){SPEED_DEFAULT, {-8, -16}, TILE_PORTAL, (TILE_WALL | TILE_WATER)});
 }

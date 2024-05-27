@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/26 11:22:11 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/27 19:29:49 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct s_ani_assets
 	t_ani_sprite		***coin;
 	t_ani_sprite		***human;
 	t_ani_sprite		***wolf;
+	t_ani_sprite		***goblin;
 	t_ani_sprite		***portal;
 	t_ani_sprite		***cat;
 }						t_ani_assets;
@@ -207,6 +208,7 @@ typedef struct s_assets
 	t_itbl				*coin;
 	t_itbl				*human;
 	t_itbl				*wolf;
+	t_itbl				*goblin;
 	t_itbl				*portal;
 	t_itbl				*cat;
 	t_ani_assets		ani_tabs;
@@ -376,6 +378,7 @@ t_ani_sprite			***ft_init_human_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_coin_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_cat_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_wolf_ani_sprites(t_assets *assets);
+t_ani_sprite			***ft_init_goblin_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_portal_ani_sprites(t_assets *assets);
 
 t_itbl					*ft_init_interactable(t_ani_sprite ***sprite_tab);

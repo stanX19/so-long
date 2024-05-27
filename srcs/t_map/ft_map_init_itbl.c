@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/26 16:38:59 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/27 19:42:33 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	{'S', TILE_ENEMY, TILE_PATH, assets->slime},
 	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
 	{'W', TILE_ENEMY, TILE_PATH, assets->wolf},
-	{'G', TILE_ENEMY, TILE_PATH, assets->human},
+	{'G', TILE_ENEMY, TILE_PATH, assets->goblin},
 	{'L', TILE_PLAYER, TILE_PATH, assets->human},
 	{'\0', 0, 0, NULL}
 	};

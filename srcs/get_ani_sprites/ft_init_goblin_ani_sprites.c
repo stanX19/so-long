@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_WOLF_ani_sprites.c                        :+:      :+:    :+:   */
+/*   ft_init_GOBLIN_ani_sprites.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,25 @@
 
 #include "so_long.h"
 
-static void	get_wolf_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
+static void	get_goblin_rel_paths(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS])
 {
-	sp_data[UP][DEATH] = (t_sp_data){PATH_WOLF_U_DEATH,
+	sp_data[UP][DEATH] = (t_sp_data){PATH_GOBLIN_U_DEATH,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[UP][WALK] = (t_sp_data){PATH_WOLF_U_WALK,
+	sp_data[UP][WALK] = (t_sp_data){PATH_GOBLIN_U_WALK,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[UP][ATTACK] = (t_sp_data){PATH_WOLF_U_ATTACK,
+	sp_data[UP][ATTACK] = (t_sp_data){PATH_GOBLIN_U_ATTACK,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[DOWN][DEATH] = (t_sp_data){PATH_WOLF_D_DEATH,
+	sp_data[DOWN][DEATH] = (t_sp_data){PATH_GOBLIN_D_DEATH,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[DOWN][WALK] = (t_sp_data){PATH_WOLF_D_WALK,
+	sp_data[DOWN][WALK] = (t_sp_data){PATH_GOBLIN_D_WALK,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[DOWN][ATTACK] = (t_sp_data){PATH_WOLF_D_ATTACK,
+	sp_data[DOWN][ATTACK] = (t_sp_data){PATH_GOBLIN_D_ATTACK,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[LEFT][DEATH] = (t_sp_data){PATH_WOLF_S_DEATH,
+	sp_data[LEFT][DEATH] = (t_sp_data){PATH_GOBLIN_S_DEATH,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[LEFT][WALK] = (t_sp_data){PATH_WOLF_S_WALK,
+	sp_data[LEFT][WALK] = (t_sp_data){PATH_GOBLIN_S_WALK,
 	{0, 0}, {6, 1}, {6, 1}};
-	sp_data[LEFT][ATTACK] = (t_sp_data){PATH_WOLF_S_ATTACK,
+	sp_data[LEFT][ATTACK] = (t_sp_data){PATH_GOBLIN_S_ATTACK,
 	{0, 0}, {6, 1}, {6, 1}};
 }
 
@@ -56,7 +56,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, char *rel_path,
 	return (ret);
 }
 
-t_ani_sprite	***ft_init_wolf_ani_sprites(t_assets *assets)
+t_ani_sprite	***ft_init_goblin_ani_sprites(t_assets *assets)
 {
 	t_ani_sprite	***ret;
 	t_sp_data		sp_data[NUM_DIRECTIONS][NUM_ACTIONS];
@@ -66,7 +66,7 @@ t_ani_sprite	***ft_init_wolf_ani_sprites(t_assets *assets)
 	ret = (t_ani_sprite ***)ft_calloc_2d(NUM_DIRECTIONS, NUM_ACTIONS,
 			sizeof(t_ani_sprite **), sizeof(t_ani_sprite *));
 	init_sp_data(sp_data);
-	get_wolf_rel_paths(sp_data);
+	get_goblin_rel_paths(sp_data);
 	y = 0;
 	while (y < NUM_DIRECTIONS)
 	{

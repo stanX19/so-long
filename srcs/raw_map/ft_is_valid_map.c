@@ -3,44 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:48:21 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:48:27 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/02 18:33:42 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	is_grid(const char *path)
+static int	is_grid(t_stringstream *ss)
 {
-	int		prev;
-	int		cur;
-	char	c;
-	int		fd;
+	int		prev_len;
+	int		length;
+	char	*line;
 
-	fd = open(path, O_RDONLY);
-	prev = 0;
-	while (read(fd, &c, 1) && c != '\n')
-		prev++;
-	while (read(fd, &c, 1))
+	if (ss_read_line(ss, &line, "\n\t"))
 	{
-		if (c == '\n')
-		{
-			if (cur != prev)
-				return (0);
-			cur = 0;
-		}
-		else
-			cur++;
+		prev_len = ft_strlen(line);
+		free(line);
 	}
-	return (cur == prev);
+	else
+		return (false);
+	while (ss_read_line(ss, &line, "\n\t"))
+	{
+		length = ft_strlen(line);
+		free(line);
+		if (length != prev_len)
+		{
+			return (false);
+		}
+	}
+	return (true);
 }
 
 int	ft_is_valid_map(const char *path)
 {
-	int	valid;
+	int				valid;
+	int				fd;
+	t_stringstream	*ss;
 
-	valid = is_grid(path);
+	fd = open(path, O_RDONLY);
+	ss = ss_create_from_fd(fd);
+	valid = is_grid(ss);
+	ss_destroy(ss);
+	close(fd);
 	return (valid);
 }

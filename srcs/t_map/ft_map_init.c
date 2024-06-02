@@ -6,13 +6,14 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:42:59 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 01:33:40 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/02 13:41:26 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static t_map	*init_memory(char **raw_map, int width, int height, t_assets *assets)
+static t_map	*init_memory(char **raw_map, int width, int height,
+		t_assets *assets)
 {
 	t_map	*map;
 

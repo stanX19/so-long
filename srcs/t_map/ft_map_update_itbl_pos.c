@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/20 01:18:01 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/02 18:46:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static void	map_move_itbl(t_map *map, t_itbl *itbl, int x_dis, int y_dis)
 {
 	int	val;
 
-	val = map->grid[itbl->cord.y][itbl->cord.x] & itbl->self;
+	val = map->grid[itbl->cord.y][itbl->cord.x] & (itbl->self | itbl->faction);
 	map->grid[itbl->cord.y][itbl->cord.x] &= ~(itbl->self | itbl->faction);
 	itbl->cord.x += x_dis;
 	itbl->cord.y += y_dis;
 	itbl->rel_cord.x -= x_dis * 2 * map->assets->tile_size.x;
 	itbl->rel_cord.y -= y_dis * 2 * map->assets->tile_size.y;
-	map->grid[itbl->cord.y][itbl->cord.x] |= val | itbl->faction;
+	map->grid[itbl->cord.y][itbl->cord.x] |= val;
 	ft_map_check_reaction(map, itbl->cord);
 	++itbl->stats.steps;
 }

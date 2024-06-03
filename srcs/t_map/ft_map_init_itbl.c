@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/27 19:42:33 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/03 22:20:38 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
 	ret->faction = hash[c].faction;
 	ret->cord = cord;
 	ret->blocking |= ret->self;
+	if (ret->faction & TILE_ENEMY)
+		ret->attack = TILE_ENEMY_ATK;
+	else if (ret->faction & (TILE_ALLY | TILE_PLAYER))
+		ret->attack = TILE_ALLY_ATK;
+	else if (ret->faction & TILE_NEUTRAL)
+		ret->attack = TILE_ALLY_ATK | TILE_ENEMY_ATK;
 	return (ret);
 }
 

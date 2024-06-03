@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/02 19:05:26 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/03 22:04:23 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	m_update_itbl_status(t_map *map, t_itbl *itbl)
 		map->grid[itbl->cord.y][itbl->cord.x] &= ~(itbl->faction | itbl->self);
 		ft_itbl_set_status(itbl, DYING);
 	}
-	else if (target_in_front(map, itbl))
+	else if (itbl->can_atk && target_in_front(map, itbl))
 	{
 		itbl->status = ATTACKING;
 		itbl->velocity = (t_vec2){0, 0};

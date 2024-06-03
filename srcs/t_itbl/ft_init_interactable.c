@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:29:43 by stan              #+#    #+#             */
-/*   Updated: 2024/05/18 22:33:19 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/03 22:05:59 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_itbl	*ft_init_interactable(t_ani_sprite ***ani_sprite_tab)
 	ret->animation = ani_sprite_tab[DOWN][IDLE];
 	ret->sprite_tab = ani_sprite_tab;
 	ret->sp_status = IDLE;
+	ret->can_atk = (ani_sprite_tab[DOWN][ATTACK] != NULL);
 	ret->stats = ft_init_stats();
 	return (ret);
 }

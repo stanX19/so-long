@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/27 19:29:49 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/03 22:16:19 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,17 +143,19 @@ typedef enum s_tile
 	TILE_EXIT = (1 << 3),
 	TILE_PLAYER = (1 << 4),
 	TILE_COLLECTIBLE = (1 << 5),
-	TILE_ALLY_ATK = (1 << 6),
-	TILE_ENEMY = (1 << 7),
+	TILE_ENEMY = (1 << 6),
+	TILE_ENEMY_ATK = (1 << 7),
 	TILE_ALLY = (1 << 8),
-	TILE_HUMAN = (1 << 9),
-	TILE_SLIME = (1 << 10),
+	TILE_ALLY_ATK = (1 << 9),
+	TILE_NEUTRAL = (1 << 10),
 	TILE_BEE = (1 << 11),
 	TILE_WOLF = (1 << 12),
 	TILE_GOBLIN = (1 << 13),
 	TILE_CAT = (1 << 14),
 	TILE_PORTAL = (1 << 15),
     TILE_COIN = (1 << 16),
+	TILE_HUMAN = (1 << 17),
+	TILE_SLIME = (1 << 18),
 }						t_tile;
 
 typedef struct s_itbl
@@ -171,6 +173,8 @@ typedef struct s_itbl
 	t_tile				blocking;
 	t_tile				faction;
 	t_ani_sprite		***sprite_tab;
+	bool				can_atk;
+	t_tile				attack;
 	int					sprite_idx;
 	int					frame_tick;
 	t_stats				stats;

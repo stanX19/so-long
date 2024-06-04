@@ -70,6 +70,16 @@ push:
 	@echo -n "Commit name: "; read name; make fclean;\
 	git add .; git commit -m "$$name"; git push;
 
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+ifeq ($(BRANCH),HEAD)
+BRANCH := main
+endif
+pull:
+	git fetch --all
+	git checkout -f $(BRANCH);
+	git reset --hard origin/$(BRANCH);
+	make -C $(LIBFT_DIR) pull
+
 $(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
 	make -C $(LIBFT_DIR) all
 

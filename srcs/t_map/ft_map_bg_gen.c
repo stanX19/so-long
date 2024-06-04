@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:03:32 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 16:20:45 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/04 15:53:56 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_sprite	*get_corres_sprite(t_tile c[4], t_assets *assets)
 	int			val;
 
 	val = ((c[0] | c[1] | c[2] | c[3]) & (TILE_PATH | TILE_WALL | TILE_WATER));
-	type = 0;
+	type = assets->tiles.water_path;
 	if (val == (TILE_PATH | TILE_WALL) || val == (TILE_PATH)
 		|| val == (TILE_WALL))
 	{
@@ -54,7 +54,7 @@ t_sprite	*get_corres_sprite(t_tile c[4], t_assets *assets)
 		type = assets->tiles.all_grass;
 		val = (rand() % 4 == 0) * rand() % 16;
 	}
-	return (type[val]);
+	return (type[val % 16]);
 }
 
 static void	process_cord(t_image *img, t_map *map, t_assets *assets,

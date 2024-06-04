@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/03 22:16:19 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/04 15:34:54 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,7 +340,7 @@ t_window				*ft_window_init(void *mlx, int width, int height,
 void					ft_window_destory(t_window *window);
 void					ft_mlx_clear_window(t_window *window);
 
-int						ft_is_valid_map(const char *path);
+bool					ft_is_valid_map(char **map, int width, int height);
 char					**ft_generate_raw_map(const char *path, size_t *width,
 							size_t *height);
 void					ft_map_init_ibtl(t_map *map, char **raw_map, int width,

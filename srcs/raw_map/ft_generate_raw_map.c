@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:45:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/04 14:50:23 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/04 15:29:56 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**ft_generate_raw_map(const char *path, size_t *width, size_t *height)
 	close(fd);
 	if (!ft_is_valid_map(ret, *width, *height))
 	{
-		ft_free_2d(ret, *height);
+		ft_free_2d((void **)ret, *height);
 		return (failed("Invalid map", width, height));
 	}
 	return (ret);

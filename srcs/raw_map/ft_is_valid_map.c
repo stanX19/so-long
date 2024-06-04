@@ -3,50 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:48:21 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/02 18:33:42 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/04 15:14:08 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	is_grid(t_stringstream *ss)
+static bool	has_equ_witdth(char **map, int width, int height)
 {
-	int		prev_len;
-	int		length;
-	char	*line;
+	int	i;
 
-	if (ss_read_line(ss, &line, "\n\t"))
+	i = 0;
+	while (i < height)
 	{
-		prev_len = ft_strlen(line);
-		free(line);
-	}
-	else
-		return (false);
-	while (ss_read_line(ss, &line, "\n\t"))
-	{
-		length = ft_strlen(line);
-		free(line);
-		if (length != prev_len)
-		{
+		if (ft_strlen(map[i]) != width)
 			return (false);
-		}
+		i++;
 	}
 	return (true);
 }
 
-int	ft_is_valid_map(const char *path)
+// assuming that map is confirmed to have equ width
+static bool	has_solid_border(char **map, int width, int height)
 {
-	int				valid;
-	int				fd;
-	t_stringstream	*ss;
+	const char	*wall = "12";
+	int i;
 
-	fd = open(path, O_RDONLY);
-	ss = ss_create_from_fd(fd);
-	valid = is_grid(ss);
-	ss_destroy(ss);
-	close(fd);
-	return (valid);
+	i = 0;
+	if (ft_str_count_charset(map[i++], wall) != width)
+		return (false);
+	while (i < height - 1)
+	{
+		if (!ft_strchr(wall, map[i][0]) && !ft_strchr(wall, map[i][width - 1]))
+			return (false);
+		i++;
+	}
+	if (ft_str_count_charset(map[i], wall) != width)
+		return (false);
+	return (true);
+}
+
+bool	ft_is_valid_map(char **map, int width, int height)
+{
+	if (!has_equ_width(map, width, height))
+		return false;
+	if (!has_solid_border(map, width, height))
+		return false;
 }

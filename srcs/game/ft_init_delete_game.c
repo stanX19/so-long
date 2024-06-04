@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_delete_game.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:02 by stan              #+#    #+#             */
-/*   Updated: 2024/05/18 22:20:43 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/04 14:47:14 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static t_image	*get_base_img(t_assets *assets, t_image *bkg_img)
 void	ft_init_game(t_vars *vars)
 {
 	vars->map = ft_map_init(vars->paths[vars->idx], vars->assets);
+	if (!vars->map)
+	{
+		ft_delete_vars(vars);
+		exit(1);
+		return ;
+	}
 	vars->base_img = get_base_img(vars->assets, vars->map->bkg_img);
 	vars->window = ft_window_init(vars->mlx, vars->base_img->width,
 			vars->base_img->height, vars->title);

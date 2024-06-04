@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:42:59 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/02 13:41:26 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/04 14:46:11 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_map	*ft_map_init(const char *path, t_assets *assets)
 	size_t	height;
 
 	raw_map = ft_generate_raw_map(path, &width, &height);
+	if (raw_map == NULL)
+		return (NULL);
 	map = init_memory(raw_map, width, height, assets);
 	ft_map_init_ibtl(map, raw_map, width, height);
 	ft_free_2d((void **)raw_map, height);

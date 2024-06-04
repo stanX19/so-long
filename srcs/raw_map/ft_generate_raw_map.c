@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_raw_map.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:45:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/02 18:42:10 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/04 14:50:23 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static char	**generate_map(t_stringstream *ss, size_t *width, size_t *height)
 	if (!ret)
 		return (failed("failed to malloc\n", width, height));
 	idx = 0;
-	errno = 0;
 	while (ss_read_line(ss, ret + idx, "\n\r"))
 	{
 		idx++;
@@ -60,10 +59,6 @@ char	**ft_generate_raw_map(const char *path, size_t *width, size_t *height)
 	int				fd;
 	t_stringstream	*ss;
 
-	if (!ft_is_valid_map(path))
-	{
-		return (failed("Invalid map", width, height));
-	}
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (failed(strerror(errno), width, height));
@@ -71,5 +66,10 @@ char	**ft_generate_raw_map(const char *path, size_t *width, size_t *height)
 	ret = generate_map(ss, width, height);
 	ss_destroy(ss);
 	close(fd);
+	if (!ft_is_valid_map(ret, *width, *height))
+	{
+		ft_free_2d(ret, *height);
+		return (failed("Invalid map", width, height));
+	}
 	return (ret);
 }

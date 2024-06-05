@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/05 19:24:56 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/05 19:56:46 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 static bool	just_died(t_map *map, t_itbl *itbl)
 {
+	if ((itbl->faction & TILE_PLAYER)
+		&& !(map->grid[itbl->cord.y][itbl->cord.x] & TILE_PLAYER))
+		return (1);
+	if ((itbl->faction & (TILE_COLLECTIBLE | TILE_EXIT))
+		&& !(map->grid[itbl->cord.y][itbl->cord.x] & itbl->faction))
+		return (1);
 	if (itbl->faction & TILE_ENEMY)
 	{
 		if ((map->grid[itbl->cord.y][itbl->cord.x] & TILE_ALLY_ATK))
@@ -23,12 +29,15 @@ static bool	just_died(t_map *map, t_itbl *itbl)
 		}
 		return (0);
 	}
-	if ((itbl->faction & TILE_PLAYER)
-		&& !(map->grid[itbl->cord.y][itbl->cord.x] & TILE_PLAYER))
-		return (1);
-	if ((itbl->faction & (TILE_COLLECTIBLE | TILE_EXIT))
-		&& !(map->grid[itbl->cord.y][itbl->cord.x] & itbl->faction))
-		return (1);
+	if (itbl->faction & TILE_ALLY)
+	{
+		if ((map->grid[itbl->cord.y][itbl->cord.x] & TILE_ENEMY_ATK))
+		{
+			map->grid[itbl->cord.y][itbl->cord.x] &= ~TILE_ENEMY_ATK;
+			return (1);
+		}
+		return (0);
+	}
 	return (0);
 }
 

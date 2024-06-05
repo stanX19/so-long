@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/05 19:03:00 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/05 19:34:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 	{
 		if (itbl->self & TILE_HUMAN)
 			ft_map_itbl_front_add(map, itbl, itbl->attack);
-		else
+		else if (itbl->frame_tick > 2)
 			ft_map_itbl_pos_add(map, itbl, itbl->attack);
 	}
 	if (abs(itbl->rel_cord.x) > map->assets->tile_size.x)

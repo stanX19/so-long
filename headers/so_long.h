@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/05 19:03:28 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/05 19:11:42 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,10 @@ typedef struct s_itbl
 	t_tile				self;
 	t_tile				blocking;
 	t_tile				faction;
+	t_tile				enemy;
+	t_tile				attack;
 	t_ani_sprite		***sprite_tab;
 	bool				can_atk;
-	t_tile				attack;
 	int					sprite_idx;
 	int					frame_tick;
 	t_stats				stats;

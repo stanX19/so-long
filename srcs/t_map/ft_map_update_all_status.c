@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/03 22:04:23 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/05 19:24:56 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,12 @@ static bool	target_in_front(t_map *map, t_itbl *itbl)
 		[UP] = { 0, 1 },
 		[DOWN] = { 0, -1 }
 	};
-	t_tile	enemy;
-	int 	dy;
-	int		dx;
-
-	if (itbl->faction == TILE_ENEMY)
-		enemy = TILE_PLAYER;
-	else
-		enemy = 0;
-	dy = displacement[itbl->direction].y;
-	dx = displacement[itbl->direction].x;
-
-	return (map->grid[itbl->cord.y + dy][itbl->cord.x + dx] & enemy);
+	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->enemy))
+		return false;
+	if (displacement[itbl->direction].x == -ft_sign(itbl->rel_cord.x)
+		|| displacement[itbl->direction].y == -ft_sign(itbl->rel_cord.y))
+		return true;
+	return false;
 }
 
 static void	m_update_itbl_status(t_map *map, t_itbl *itbl)

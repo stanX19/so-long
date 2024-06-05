@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/05 19:52:25 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 00:10:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void	map_move_itbl(t_map *map, t_itbl *itbl, int x_dis, int y_dis)
 static void	update_pos(t_map *map, t_itbl *itbl)
 {
 	ft_map_check_rel_cord(map, itbl);
+	if (itbl->self & (TILE_SLIME | TILE_BEE))
+		ft_map_itbl_pos_add(map, itbl, itbl->attack);
 	if (itbl->status & ATTACKING)
 	{
 		if (itbl->self & TILE_HUMAN)

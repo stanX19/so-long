@@ -6,40 +6,11 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/05 19:56:46 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 00:03:58 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static bool	just_died(t_map *map, t_itbl *itbl)
-{
-	if ((itbl->faction & TILE_PLAYER)
-		&& !(map->grid[itbl->cord.y][itbl->cord.x] & TILE_PLAYER))
-		return (1);
-	if ((itbl->faction & (TILE_COLLECTIBLE | TILE_EXIT))
-		&& !(map->grid[itbl->cord.y][itbl->cord.x] & itbl->faction))
-		return (1);
-	if (itbl->faction & TILE_ENEMY)
-	{
-		if ((map->grid[itbl->cord.y][itbl->cord.x] & TILE_ALLY_ATK))
-		{
-			map->grid[itbl->cord.y][itbl->cord.x] &= ~TILE_ALLY_ATK;
-			return (1);
-		}
-		return (0);
-	}
-	if (itbl->faction & TILE_ALLY)
-	{
-		if ((map->grid[itbl->cord.y][itbl->cord.x] & TILE_ENEMY_ATK))
-		{
-			map->grid[itbl->cord.y][itbl->cord.x] &= ~TILE_ENEMY_ATK;
-			return (1);
-		}
-		return (0);
-	}
-	return (0);
-}
 
 static bool	target_in_front(t_map *map, t_itbl *itbl)
 {
@@ -57,37 +28,38 @@ static bool	target_in_front(t_map *map, t_itbl *itbl)
 	return false;
 }
 
-static void	m_update_itbl_status(t_map *map, t_itbl *itbl)
+static void	update_itbl_status(t_map *map, t_itbl *itbl)
 {
 	if (itbl->status & (DYING | DEAD))
 		return ;
-	if (just_died(map, itbl))
+	if (ft_map_itbl_check_death(map, itbl))
 	{
 		map->grid[itbl->cord.y][itbl->cord.x] &= ~(itbl->faction | itbl->self);
 		ft_itbl_set_status(itbl, DYING);
 	}
-	else if (itbl->can_atk && target_in_front(map, itbl))
+	else if (itbl->can_atk && !(itbl->self & TILE_PLAYER)
+		&& target_in_front(map, itbl))
 	{
 		itbl->status = ATTACKING;
 		itbl->velocity = (t_vec2){0, 0};
 	}
 }
 
-static void	m_update_arr(t_map *map, t_itbl_arr itbl_arr)
+static void	update_arr(t_map *map, t_itbl_arr itbl_arr)
 {
 	size_t	idx;
 
 	idx = -1;
 	while (++idx < itbl_arr.len)
 	{
-		m_update_itbl_status(map, itbl_arr.arr[idx]);
+		update_itbl_status(map, itbl_arr.arr[idx]);
 	}
 }
 
 void	ft_map_update_all_status(t_map *map)
 {
-	m_update_itbl_status(map, map->player);
-	m_update_itbl_status(map, map->exit);
-	m_update_arr(map, map->coins);
-	m_update_arr(map, map->enemies);
+	update_itbl_status(map, map->player);
+	update_itbl_status(map, map->exit);
+	update_arr(map, map->coins);
+	update_arr(map, map->enemies);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/04 15:34:54 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/05 19:03:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,7 @@ void					ft_map_update_itbl(t_map *map);
 void					ft_map_update_itbl_pos(t_map *map);
 void					ft_map_check_reaction(t_map *map, t_vec2 cord);
 void					ft_map_update_all_status(t_map *map);
+void					ft_map_itbl_pos_add(t_map *map, t_itbl *itbl, t_tile val);
 void					ft_map_itbl_front_add(t_map *map, t_itbl *itbl,
 							t_tile val);
 void					ft_map_check_rel_cord(t_map *map, t_itbl *itbl);

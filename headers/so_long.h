@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 17:40:03 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/06 23:03:32 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef enum s_tile
 	TILE_HUMAN = (1 << 17),
 	TILE_SLIME = (1 << 18),
 	TILE_BEE = (1 << 19),
+	TILE_VISITED = (1 << 20)
 }						t_tile;
 
 typedef struct s_itbl
@@ -366,7 +367,7 @@ void					ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
 void					ft_map_check_velocity(t_map *map, t_itbl *itbl);
 void					ft_map_update_enemy_v(t_map *map);
 t_vec2					ft_map_dfs_target_tile(t_map *map, t_vec2 cord,
-							int depth, t_tile target);
+							int depth, t_tile target, t_tile blocking);
 t_vec2					ft_get_displayed_cord(t_vec2 tile_size, t_itbl *itbl);
 
 t_sprite				*ft_init_sprite(t_image *img, int x, int y,

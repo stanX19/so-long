@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:21:10 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/27 19:41:22 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 23:28:45 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_destory_assets(t_assets *assets)
 	itbl_n_tab_destory(assets->bee);
 	itbl_n_tab_destory(assets->wolf);
 	itbl_n_tab_destory(assets->goblin);
+	itbl_n_tab_destory(assets->portal);
 	sprite_arr_destory(assets->all_tile, assets->all_tile_len);
 	free(assets);
 }

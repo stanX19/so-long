@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_itbl_just_died.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 23:26:28 by stan              #+#    #+#             */
-/*   Updated: 2024/06/06 18:29:33 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/06 23:20:34 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static bool	really_died_from_atk(t_map *map, t_itbl *itbl, t_tile faction,
+static bool	check_died_from_atk(t_map *map, t_itbl *itbl, t_tile faction,
 		t_tile lethal_atk)
 {
 	if ((itbl->faction & faction)
@@ -29,14 +29,14 @@ static bool	died_from_atk(t_map *map, t_itbl *itbl)
 	const t_tile	all_atk = TILE_ALLY_ATK | TILE_WOLF_ATK
 		| TILE_ENEMY_ATK | TILE_GOBLIN_ATK;
 
-	if (really_died_from_atk(map, itbl, TILE_ENEMY, all_atk & ~TILE_ENEMY_ATK))
+	if (check_died_from_atk(map, itbl, TILE_ENEMY, all_atk & (~TILE_ENEMY_ATK)))
 		return (1);
-	if (really_died_from_atk(map, itbl, TILE_ALLY, all_atk & ~TILE_ALLY_ATK))
+	if (check_died_from_atk(map, itbl, TILE_ALLY, all_atk & (~TILE_ALLY_ATK)))
 		return (1);
-	if (really_died_from_atk(map, itbl, TILE_WOLF, all_atk & ~TILE_WOLF_ATK))
+	if (check_died_from_atk(map, itbl, TILE_WOLF, all_atk & (~TILE_WOLF_ATK)))
 		return (1);
-	if (really_died_from_atk(map, itbl, TILE_GOBLIN,
-			all_atk & ~TILE_GOBLIN_ATK))
+	if (check_died_from_atk(map, itbl, TILE_GOBLIN,
+			all_atk & (~TILE_GOBLIN_ATK)))
 		return (1);
 	return (0);
 }

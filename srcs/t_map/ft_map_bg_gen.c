@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_bg_gen.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:03:32 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/04 15:53:56 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/06 23:38:38 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		get_tile_size(int x);
 int		binary_4bit(int num4, int num3, int num2, int num1);
 void	map_equal_to(t_tile c[4], int val);
+void	map_not_equal_to(t_tile c[4], unsigned int val);
 
 static t_image	*init_base_image(t_assets *assets, t_vec2 map_size,
 		t_vec2 tile_size)
@@ -42,10 +43,10 @@ t_sprite	*get_corres_sprite(t_tile c[4], t_assets *assets)
 		type = assets->tiles.path_wall;
 		map_equal_to(c, TILE_WALL);
 	}
-	else if (val == (TILE_PATH | TILE_WATER) || val == TILE_WATER)
+	else if (val == (TILE_PATH | TILE_WATER) || (val & TILE_WATER))
 	{
 		type = assets->tiles.water_path;
-		map_equal_to(c, TILE_PATH);
+		map_not_equal_to(c, TILE_WATER);
 	}
 	val = binary_4bit(c[0], c[1], c[2], c[3]);
 	if ((type == assets->tiles.path_wall && val == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_update_all_status.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 18:28:20 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/06 22:07:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	update_itbl_status(t_map *map, t_itbl *itbl)
 	else if (itbl->can_atk && !(itbl->self & TILE_PLAYER)
 		&& target_in_front(map, itbl))
 	{
-		itbl->status = ATTACKING;
+		itbl->status |= ATTACKING;
 		itbl->velocity = (t_vec2){0, 0};
 	}
 }

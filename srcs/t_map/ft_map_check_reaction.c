@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_check_reaction.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:58:58 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 18:14:30 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/06 22:27:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ static void	check_atk_reaction(t_map *map, t_vec2 cord)
 	const t_tile	everyone = TILE_ENEMY | TILE_GOBLIN | TILE_WOLF | TILE_ALLY;
 
 	val = map->grid[cord.y][cord.x];
-	if ((val & (TILE_ENEMY_ATK | TILE_WOLF_ATK | TILE_GOBLIN_ATK))
+	if ((val & (TILE_ENEMY_ATK | TILE_ENEMY | TILE_WOLF_ATK | TILE_GOBLIN_ATK))
 		&& (val & TILE_PLAYER) && !(val & TILE_ALLY_ATK))
 		val &= ~TILE_PLAYER;
-	remove_attack_if_not_hit(&val, everyone & ~TILE_ALLY, TILE_ALLY_ATK);
-	remove_attack_if_not_hit(&val, TILE_ALLY, TILE_ENEMY_ATK);
-	remove_attack_if_not_hit(&val, everyone & ~TILE_WOLF, TILE_WOLF_ATK);
-	remove_attack_if_not_hit(&val, everyone & ~TILE_GOBLIN, TILE_GOBLIN_ATK);
+	remove_attack_if_not_hit(&val, everyone ^ TILE_ALLY, TILE_ALLY_ATK);
+	remove_attack_if_not_hit(&val, everyone ^ TILE_ENEMY, TILE_ENEMY_ATK);
+	remove_attack_if_not_hit(&val, everyone ^ TILE_WOLF, TILE_WOLF_ATK);
+	remove_attack_if_not_hit(&val, everyone ^ TILE_GOBLIN, TILE_GOBLIN_ATK);
 	map->grid[cord.y][cord.x] = val;
 }
 

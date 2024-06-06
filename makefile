@@ -36,7 +36,7 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= so_long
-ARGV		= assets/map/test.ber
+ARGV		= assets/map/map9.ber
 
 run: all
 	./$(NAME) $(ARGV)

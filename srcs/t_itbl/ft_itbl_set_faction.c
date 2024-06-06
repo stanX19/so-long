@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itbl_set_faction.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:51:13 by stan              #+#    #+#             */
-/*   Updated: 2024/06/05 22:53:21 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 17:53:02 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,15 @@ void	ft_itbl_set_faction(t_itbl *itbl, t_tile faction)
 	{
 		itbl->attack |= TILE_ALLY_ATK;
 		itbl->enemy |= TILE_ENEMY;
+	}
+	if (faction & TILE_WOLF)
+	{
+		itbl->attack |= TILE_WOLF_ATK;
+		itbl->enemy |= TILE_GOBLIN | TILE_ALLY | TILE_ENEMY;
+	}
+	if (faction & TILE_GOBLIN)
+	{
+		itbl->attack |= TILE_GOBLIN_ATK;
+		itbl->enemy |= TILE_WOLF | TILE_ALLY | TILE_ENEMY;
 	}
 }

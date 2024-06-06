@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_init_itbl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 00:35:16 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 18:28:37 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	{'C', TILE_COLLECTIBLE, TILE_PATH, assets->coin},
 	{'S', TILE_ENEMY, TILE_PATH, assets->slime},
 	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
-	{'W', TILE_ALLY, TILE_PATH, assets->wolf},
-	{'G', TILE_ENEMY, TILE_PATH, assets->goblin},
+	{'W', TILE_WOLF, TILE_PATH, assets->wolf},
+	{'G', TILE_GOBLIN, TILE_PATH, assets->goblin},
 	{'L', TILE_PLAYER, TILE_PATH, assets->human},
 	{'\0', 0, 0, NULL}};
 
@@ -106,7 +106,8 @@ void	ft_map_init_ibtl(t_map *map, char **raw_map, int width, int height)
 			if (d.hash[c].background)
 				map->grid[cord.y][cord.x] = d.hash[c].background;
 			if (d.hash[c].itbl)
-				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self | d.hash[c].faction;
+				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self
+					| d.hash[c].faction;
 			assign_itbl(&d, c, cord);
 			cord.x++;
 		}

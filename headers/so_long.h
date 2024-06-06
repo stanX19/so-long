@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/05 23:50:50 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 17:40:03 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,15 +147,16 @@ typedef enum s_tile
 	TILE_ENEMY_ATK = (1 << 7),
 	TILE_ALLY = (1 << 8),
 	TILE_ALLY_ATK = (1 << 9),
-	TILE_NEUTRAL = (1 << 10),
-	TILE_BEE = (1 << 11),
-	TILE_WOLF = (1 << 12),
-	TILE_GOBLIN = (1 << 13),
+	TILE_WOLF = (1 << 10),
+	TILE_WOLF_ATK = (1 << 11),
+	TILE_GOBLIN = (1 << 12),
+	TILE_GOBLIN_ATK = (1 << 13),
 	TILE_CAT = (1 << 14),
 	TILE_PORTAL = (1 << 15),
 	TILE_COIN = (1 << 16),
 	TILE_HUMAN = (1 << 17),
 	TILE_SLIME = (1 << 18),
+	TILE_BEE = (1 << 19),
 }						t_tile;
 
 typedef struct s_itbl
@@ -341,6 +342,7 @@ t_window				*ft_window_init(void *mlx, int width, int height,
 void					ft_window_destory(t_window *window);
 void					ft_mlx_clear_window(t_window *window);
 
+bool					ft_has_valid_path(char **map, int width, int height);
 bool					ft_is_valid_map(char **map, int width, int height);
 char					**ft_generate_raw_map(const char *path, size_t *width,
 							size_t *height);
@@ -363,6 +365,8 @@ void					ft_map_itbl_front_add(t_map *map, t_itbl *itbl,
 void					ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
 void					ft_map_check_velocity(t_map *map, t_itbl *itbl);
 void					ft_map_update_enemy_v(t_map *map);
+t_vec2					ft_map_dfs_target_tile(t_map *map, t_vec2 cord,
+							int depth, t_tile target);
 t_vec2					ft_get_displayed_cord(t_vec2 tile_size, t_itbl *itbl);
 
 t_sprite				*ft_init_sprite(t_image *img, int x, int y,

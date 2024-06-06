@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/03 22:20:38 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/06 00:35:16 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	{'0', 0, TILE_PATH, NULL},
 	{'1', 0, TILE_WALL, NULL},
 	{'2', 0, TILE_WATER, NULL},
-	{'P', TILE_PLAYER, TILE_PATH, assets->human},
+	{'P', TILE_PLAYER | TILE_ALLY, TILE_PATH, assets->human},
 	{'E', TILE_EXIT, TILE_PATH, assets->portal},
 	{'C', TILE_COLLECTIBLE, TILE_PATH, assets->coin},
 	{'S', TILE_ENEMY, TILE_PATH, assets->slime},
 	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
-	{'W', TILE_ENEMY, TILE_PATH, assets->wolf},
+	{'W', TILE_ALLY, TILE_PATH, assets->wolf},
 	{'G', TILE_ENEMY, TILE_PATH, assets->goblin},
 	{'L', TILE_PLAYER, TILE_PATH, assets->human},
-	{'\0', 0, 0, NULL}
-	};
+	{'\0', 0, 0, NULL}};
 
 	ft_memcpy(ret, itbl_dict, sizeof(itbl_dict));
 	return (ret);
@@ -57,15 +56,9 @@ static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
 	t_itbl	*ret;
 
 	ret = ft_itbl_copy(hash[c].itbl);
-	ret->faction = hash[c].faction;
+	ft_itbl_set_faction(ret, hash[c].faction);
 	ret->cord = cord;
 	ret->blocking |= ret->self;
-	if (ret->faction & TILE_ENEMY)
-		ret->attack = TILE_ENEMY_ATK;
-	else if (ret->faction & (TILE_ALLY | TILE_PLAYER))
-		ret->attack = TILE_ALLY_ATK;
-	else if (ret->faction & TILE_NEUTRAL)
-		ret->attack = TILE_ALLY_ATK | TILE_ENEMY_ATK;
 	return (ret);
 }
 
@@ -113,8 +106,7 @@ void	ft_map_init_ibtl(t_map *map, char **raw_map, int width, int height)
 			if (d.hash[c].background)
 				map->grid[cord.y][cord.x] = d.hash[c].background;
 			if (d.hash[c].itbl)
-				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self
-					| d.hash[c].faction;
+				map->grid[cord.y][cord.x] |= d.hash[c].itbl->self | d.hash[c].faction;
 			assign_itbl(&d, c, cord);
 			cord.x++;
 		}

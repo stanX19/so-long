@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/04 15:34:54 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/05 23:50:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ typedef enum s_tile
 	TILE_GOBLIN = (1 << 13),
 	TILE_CAT = (1 << 14),
 	TILE_PORTAL = (1 << 15),
-    TILE_COIN = (1 << 16),
+	TILE_COIN = (1 << 16),
 	TILE_HUMAN = (1 << 17),
 	TILE_SLIME = (1 << 18),
 }						t_tile;
@@ -172,9 +172,10 @@ typedef struct s_itbl
 	t_tile				self;
 	t_tile				blocking;
 	t_tile				faction;
+	t_tile				enemy;
+	t_tile				attack;
 	t_ani_sprite		***sprite_tab;
 	bool				can_atk;
-	t_tile				attack;
 	int					sprite_idx;
 	int					frame_tick;
 	t_stats				stats;
@@ -354,6 +355,9 @@ void					ft_map_update_itbl(t_map *map);
 void					ft_map_update_itbl_pos(t_map *map);
 void					ft_map_check_reaction(t_map *map, t_vec2 cord);
 void					ft_map_update_all_status(t_map *map);
+bool					ft_map_itbl_check_death(t_map *map, t_itbl *itbl);
+void					ft_map_itbl_pos_add(t_map *map, t_itbl *itbl,
+							t_tile val);
 void					ft_map_itbl_front_add(t_map *map, t_itbl *itbl,
 							t_tile val);
 void					ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
@@ -394,6 +398,7 @@ void					ft_itbl_reset_ani(t_itbl *itbl);
 void					ft_itbl_update_frame(t_itbl *itbl);
 void					ft_itbl_destory(t_itbl *itbl);
 void					ft_itbl_set_status(t_itbl *itbl, t_itbl_status status);
+void					ft_itbl_set_faction(t_itbl *itbl, t_tile faction);
 t_itbl					*ft_itbl_copy(t_itbl *src);
 void					ft_itbl_update_direction(t_itbl *itbl);
 void					ft_itbl_config(t_itbl *itbl, t_itbl_cfg params);

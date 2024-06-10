@@ -6,13 +6,13 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:48:21 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 18:29:11 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:40:59 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static bool	has_equ_width(char **map, size_t width, size_t height)
+static bool	has_equ_width(char *const*map, size_t width, size_t height)
 {
 	size_t	i;
 
@@ -27,7 +27,7 @@ static bool	has_equ_width(char **map, size_t width, size_t height)
 }
 
 // assuming that map is confirmed to have equ width
-static bool	has_solid_border(char **map, int width, int height)
+static bool	has_solid_border(char *const*map, int width, int height)
 {
 	const char	*wall = "12";
 	int			i;
@@ -46,14 +46,14 @@ static bool	has_solid_border(char **map, int width, int height)
 	return (true);
 }
 
-static bool	has_player_coin_exit(char **map, int width, int height)
+static bool	has_player_coin_exit(char *const*map, int width, int height)
 {
 	return (ft_2d_count_val(map, width, height, 'P') == 1
 		&& ft_2d_count_val(map, width, height, 'E') == 1 && ft_2d_count_val(map,
 			width, height, 'C') >= 1);
 }
 
-bool	ft_is_valid_map(char **map, int width, int height)
+bool	ft_is_valid_map(char * const*map, int width, int height)
 {
 	if (!has_equ_width(map, width, height))
 		return (false);

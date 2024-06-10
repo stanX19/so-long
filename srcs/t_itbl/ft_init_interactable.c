@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_interactable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:29:43 by stan              #+#    #+#             */
-/*   Updated: 2024/06/03 22:05:59 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/10 14:50:11 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_stats	ft_init_stats(void)
 	stats.speed = 5;
 	stats.base_speed = stats.speed;
 	stats.steps = 0;
+	stats.hp = 1;
 	return (stats);
 }
 

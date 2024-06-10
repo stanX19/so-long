@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 23:03:32 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/10 15:24:42 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_stats
 	int					speed;
 	int					base_speed;
 	int					steps;
+	int					hp;
 }						t_stats;
 
 typedef struct s_sp_data
@@ -189,6 +190,7 @@ typedef struct s_itbl_cfg
 	t_vec2				offset;
 	t_tile				self;
 	t_tile				blocking;
+	int					hp;
 }						t_itbl_cfg;
 
 typedef struct s_ani_assets
@@ -383,7 +385,8 @@ void					ft_mlx_put_sprite(t_image *image, t_sprite *sprite,
 void					ft_sprite_destory(t_sprite *sprite);
 void					ft_ani_sprite_destory(t_ani_sprite *animated);
 
-void					init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
+void					init_sp_data(
+							t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite			***ft_init_bee_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime2_ani_sprites(t_assets *assets);

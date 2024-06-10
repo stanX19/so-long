@@ -52,7 +52,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, char *rel_path,
 	img = ft_read_xpm(assets, rel_path);
 	sprites_arr = ft_generate_sprites_array_grid(img, (t_vec2){0, 0}, size,
 			size);
-	ret = ft_init_animated_sprite(assets, sprites_arr, size.x * size.y, 4);
+	ret = ft_init_animated_sprite(assets, sprites_arr, size.x * size.y, 2);
 	return (ret);
 }
 

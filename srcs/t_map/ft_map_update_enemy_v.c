@@ -6,12 +6,12 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:27 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 15:11:28 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:14:12 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#define DEPTH 3
+#define DEPTH 5
 
 static void	random_movement(t_itbl *itbl)
 {
@@ -22,12 +22,14 @@ static void	random_movement(t_itbl *itbl)
 	itbl->status |= MOVING;
 }
 
-static void	move_to_enemy(t_map *map, t_itbl *itbl)
+static void	move_to_target(t_map *map, t_itbl *itbl, t_tile target)
 {
 	t_vec2	direction;
+	t_tile	blocking;
 
-	direction = ft_map_dfs_target_tile(map, itbl->cord, DEPTH, itbl->enemy,
-			itbl->blocking ^ itbl->self);
+	blocking = itbl->blocking & ~(itbl->self | itbl->faction);
+	direction = ft_map_dfs_target_tile(map, itbl->cord, DEPTH, target,
+			blocking);
 	if (vec2_hypot(direction) < DEPTH)
 	{
 		itbl->velocity.x += direction.x;
@@ -50,7 +52,9 @@ void	ft_map_update_enemy_v(t_map *map)
 	{
 		itbl = map->enemies.arr[i];
 		if (itbl->self & (TILE_WOLF))
-			move_to_enemy(map, itbl);
+			move_to_target(map, itbl, itbl->enemy);
+		else if (itbl->faction & (TILE_PLAYER))
+			move_to_target(map, itbl, TILE_EXIT | TILE_COLLECTIBLE);
 		else
 			random_movement(itbl);
 		i++;

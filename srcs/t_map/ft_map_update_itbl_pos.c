@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 15:01:59 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:56:33 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 	if (itbl->status & ATTACKING)
 	{
 		if (itbl->self & TILE_HUMAN)
+		{
 			ft_map_itbl_front_add(map, itbl, itbl->attack);
-		else if (itbl->sprite_idx >= itbl->animation->length - 1)
+			ft_map_itbl_pos_add(map, itbl, itbl->attack);
+		}
+		if (itbl->sprite_idx >= itbl->animation->length - 1)
 			ft_map_itbl_pos_add(map, itbl, itbl->attack);
 	}
 	if (abs(itbl->rel_cord.x) > map->assets->tile_size.x)
@@ -71,7 +74,6 @@ static inline void	update_check_update(t_map *map, t_itbl *itbl)
 		return ;
 	update_rel_cord(itbl);
 	update_pos(map, itbl);
-	ft_map_update_all_status(map);
 }
 
 void	ft_map_update_itbl_pos(t_map *map)
@@ -92,4 +94,5 @@ void	ft_map_update_itbl_pos(t_map *map)
 	}
 	update_check_update(map, map->exit);
 	update_check_update(map, map->player);
+	ft_map_update_all_status(map);
 }

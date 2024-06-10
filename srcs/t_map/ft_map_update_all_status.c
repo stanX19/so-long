@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_update_all_status.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 22:07:28 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/10 16:06:25 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ static bool	target_in_front(t_map *map, t_itbl *itbl)
 {
 	const t_vec2	displacement[] = {[LEFT] = {-1, 0}, [RIGHT] = {1, 0},
 	[UP] = {0, 1}, [DOWN] = {0, -1}};
+	int dy;
+	int dx;
 
 	if (!(map->grid[itbl->cord.y][itbl->cord.x] & itbl->enemy))
 		return (false);
-	if (displacement[itbl->direction].x == -ft_sign(itbl->rel_cord.x)
-		|| displacement[itbl->direction].y == -ft_sign(itbl->rel_cord.y))
+	dy = displacement[itbl->direction].y;
+	dx = displacement[itbl->direction].x;
+	if (dx == -ft_sign(itbl->rel_cord.x)
+		||dy == -ft_sign(itbl->rel_cord.y))
 		return (true);
 	return (false);
 }

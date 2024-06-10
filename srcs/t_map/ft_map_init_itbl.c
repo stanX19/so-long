@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_init_itbl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/06 22:06:17 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/10 16:58:36 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
 	{'W', TILE_WOLF, TILE_PATH, assets->wolf},
 	{'G', TILE_GOBLIN, TILE_PATH, assets->goblin},
-	{'L', TILE_PLAYER, TILE_PATH, assets->human},
+	{'L', TILE_PLAYER | TILE_ALLY, TILE_PATH, assets->human},
 	{'\0', 0, 0, NULL}};
 
 	ft_memcpy(ret, itbl_dict, sizeof(itbl_dict));

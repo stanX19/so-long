@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:33:52 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/06 12:33:52 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/11 21:41:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int argc, char **argv)
 		ft_printf("Usage: %s <path1> <path2> <path3> ...\n", argv[0]);
 		return (1);
 	}
+	if (ft_check_argv_validity(argv, argc))
+		return (1);
 	vars = ft_init_vars(argc, argv);
 	if (!vars)
 		return (1);

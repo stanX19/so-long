@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_window_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:50:47 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:50:50 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_window	*ft_window_init(void *mlx, int width, int height, char *title)
 	window = malloc(sizeof(t_window));
 	if (!window)
 	{
-		ft_printf("ERROR: Window init: Failed to malloc");
+		ft_printf("Error\n\tWindow init: Failed to malloc");
 		return (0);
 	}
 	window->mlx = mlx;

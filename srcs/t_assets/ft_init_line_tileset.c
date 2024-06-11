@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_line_tileset.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:05:58 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:20:16 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/11 14:19:06 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_sprite	**ft_init_line_fmt_tileset(t_assets *assets, char *path)
 	img = ft_read_xpm(assets, path);
 	if (!img)
 	{
-		ft_printf("Assets missing: %s\nUsing default tilesets");
+		ft_printf("Assets missing: Using default tilesets\n");
 		img = ft_default_tileset_gen(assets,
 				(t_vec2){TILESET_SIZE_X, TILESET_SIZE_Y});
 	}

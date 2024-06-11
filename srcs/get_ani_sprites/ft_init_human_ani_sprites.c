@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_player_ani_sprites.c                       :+:      :+:    :+:   */
+/*   ft_init_human_ani_sprites.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:39:25 by stan              #+#    #+#             */
-/*   Updated: 2024/05/19 21:13:11 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, t_sp_data sp_data)
 		return (0);
 	if (sp_data.size.x * sp_data.size.y <= 0)
 	{
-		ft_printf("ERROR: human animated sprites: Invalid grid range for %s",
+		ft_printf("Error\n\thuman animated sprites: Invalid grid range for %s",
 			sp_data.rel_path);
 		return (0);
 	}

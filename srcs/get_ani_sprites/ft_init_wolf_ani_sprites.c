@@ -45,7 +45,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, char *rel_path,
 		return (0);
 	if (size.x * size.y <= 0)
 	{
-		ft_printf("ERROR: WOLF animated sprites: Invalid grid range for %s",
+		ft_printf("Error\n\tWOLF animated sprites: Invalid grid range for %s",
 			rel_path);
 		return (0);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_goblin_ani_sprites.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:44:40 by stan              #+#    #+#             */
-/*   Updated: 2024/06/10 12:59:55 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, char *rel_path,
 		return (0);
 	if (size.x * size.y <= 0)
 	{
-		ft_printf("ERROR: WOLF animated sprites: Invalid grid range for %s",
+		ft_printf("Error\n\tWOLF animated sprites: Invalid grid range for %s",
 			rel_path);
 		return (0);
 	}

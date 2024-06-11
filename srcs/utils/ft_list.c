@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:38:23 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 14:38:40 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_node	*new_node(void *ptr)
 	new = (t_node *)malloc(sizeof(t_node));
 	if (new == 0)
 	{
-		ft_printf("ERROR: New node: failed_to_malloc\n");
+		ft_printf("Error\n\tNew node: failed_to_malloc\n");
 		return (0);
 	}
 	new->ptr = ptr;

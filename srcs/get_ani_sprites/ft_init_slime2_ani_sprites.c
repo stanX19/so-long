@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:37:16 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:50:01 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, char *rel_path,
 		return (0);
 	if (size.x * size.y <= 0)
 	{
-		ft_printf("ERROR: Slime2 animated sprites: Invalid grid range for %s",
+		ft_printf("Error\n\tSlime2 animated sprites: Invalid grid range for %s",
 			rel_path);
 		return (0);
 	}

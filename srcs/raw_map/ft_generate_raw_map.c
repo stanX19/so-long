@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_raw_map.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:45:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 20:02:53 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/12 15:32:07 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static int	count_lines(t_stringstream *ss)
 	return (count);
 }
 
-static char	**failed(const char *msg, const char *path, size_t *width, size_t *height)
+static char	**failed(const char *msg, const char *path, size_t *width,
+		size_t *height)
 {
 	*width = 0;
 	*height = 0;

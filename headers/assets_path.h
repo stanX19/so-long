@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:23:36 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 15:23:39 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:34:27 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@
 # define PATH_UNUSED_GRASS_CONNECTED "assets/sprites/unused/grass_connected.xpm"
 # define PATH_UNUSED_GRASS_ORIGINAL "assets/sprites/unused/grass_original.xpm"
 # define PATH_UNUSED_GRASS_SEPERATED "assets/sprites/unused/grass_seperated.xpm"
-# define PATH_UNUSED_GRASS_SPRTD_LINE "assets/sprites/unused/grass_sprtd_line.xpm"
+# define PATH_UNUSED_GRASS_SPRTD_LINE "assets/\
+sprites/unused/grass_sprtd_line.xpm"
 # define PATH_WOLF_D_ATTACK "assets/sprites/wolf/D_Attack.xpm"
 # define PATH_WOLF_D_DEATH "assets/sprites/wolf/D_Death.xpm"
 # define PATH_WOLF_D_WALK "assets/sprites/wolf/D_Walk.xpm"

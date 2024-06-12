@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:27 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:14:12 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:29:52 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	move_to_target(t_map *map, t_itbl *itbl, t_tile target)
 	t_tile	blocking;
 
 	blocking = itbl->blocking & ~(itbl->self | itbl->faction);
-	direction = ft_map_dfs_target_tile(map, itbl->cord, DEPTH, target,
-			blocking);
+	direction = ft_map_dfs_target_tile((t_map_dfs_args){map, target, blocking},
+			itbl->cord, DEPTH);
 	if (vec2_hypot(direction) < DEPTH)
 	{
 		itbl->velocity.x += direction.x;

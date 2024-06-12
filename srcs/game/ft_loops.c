@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:50:54 by stan              #+#    #+#             */
-/*   Updated: 2024/06/12 14:33:25 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:31:59 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_wait_loop(t_vars *vars)
 		+ vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
 		ft_new_game(vars);
-		mlx_loop_hook  (vars->mlx, ft_update_loop, vars);
+		mlx_loop_hook(vars->mlx, ft_update_loop, vars);
 	}
 	return (0);
 }

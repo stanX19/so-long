@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_invalid_map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:01:47 by stan              #+#    #+#             */
-/*   Updated: 2024/06/11 21:36:50 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/12 15:31:24 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static bool	has_equ_width(char *const*map, size_t width, size_t height)
+static bool	has_equ_width(char *const *map, size_t width, size_t height)
 {
 	size_t	i;
 
@@ -27,7 +27,7 @@ static bool	has_equ_width(char *const*map, size_t width, size_t height)
 }
 
 // assuming that map is confirmed to have equ width
-static bool	has_solid_border(char *const*map, int width, int height)
+static bool	has_solid_border(char *const *map, int width, int height)
 {
 	const char	*wall = "12";
 	int			i;
@@ -50,14 +50,14 @@ static bool	has_solid_border(char *const*map, int width, int height)
 // str: error message, ko
 const char	*ft_is_invalid_map_file(const char *path)
 {
-	char			**map;
-	size_t			width;
-	size_t			height;
-	const char		*ret;
+	char		**map;
+	size_t		width;
+	size_t		height;
+	const char	*ret;
 
 	map = ft_generate_raw_map(path, &width, &height);
 	if (map == NULL)
-		return "Invalid path";
+		return ("Invalid path");
 	if (!has_equ_width(map, width, height))
 		ret = "Lines have unequal width";
 	else if (!has_solid_border(map, width, height))

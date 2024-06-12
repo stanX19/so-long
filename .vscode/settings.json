@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+		"*.h": "c",
 		"array": "c",
 		"iterator": "c",
 		"string": "c",
@@ -14,7 +15,9 @@
 		"unordered_map": "c",
 		"initializer_list": "c",
 		"configs.h": "c",
-		"assets_path.h": "c"
+		"assets_path.h": "c",
+		"__functional_03": "c",
+		"functional": "c"
 	},
 	"editor.tabSize": 4,
 	"editor.insertSpaces": false,

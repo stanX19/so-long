@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_xpm.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:52:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/12 15:30:58 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static inline t_image	*null_with_message(const char *message, const char *path)
+static inline t_image	*null_with_message(const char *message,
+	const char *path)
 {
 	ft_printf("Error\n\tRead xpm: %s: %s\n", message, path);
 	return (0);

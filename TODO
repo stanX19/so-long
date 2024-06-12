@@ -1,3 +1,3 @@
 Add mono color sprite generator
 Add map check for anything other than "01PCE", and add toggle for it
-BUG: after death, if close using cross button will seg fault
+Norme ft_generate_sprites_array.c

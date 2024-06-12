@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 23:26:28 by stan              #+#    #+#             */
-/*   Updated: 2024/06/10 15:41:17 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:21:30 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 static void	check_died_from_atk(t_map *map, t_itbl *itbl, t_tile faction,
 		t_tile lethal_atk)
 {
-	// if ((itbl->faction & faction)
-	// 	&& (map->grid[itbl->cord.y][itbl->cord.x] & lethal_atk))
-	// {
-	// 	map->grid[itbl->cord.y][itbl->cord.x] &= ~lethal_atk;
-	// 	itbl->stats.hp -= 1;
-	// }
 	if ((itbl->faction & faction)
 		&& !(map->grid[itbl->cord.y][itbl->cord.x] & faction))
 	{
+		map->grid[itbl->cord.y][itbl->cord.x] |= faction;
 		itbl->stats.hp -= 1;
 	}
 	(void)lethal_atk;

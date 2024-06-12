@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_update_itbl_pos.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:26:30 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 16:56:33 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 01:32:56 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void	update_pos(t_map *map, t_itbl *itbl)
 		if (itbl->self & TILE_HUMAN)
 		{
 			ft_map_itbl_front_add(map, itbl, itbl->attack);
-			ft_map_itbl_pos_add(map, itbl, itbl->attack);
 		}
 		if (itbl->sprite_idx >= itbl->animation->length - 1)
 			ft_map_itbl_pos_add(map, itbl, itbl->attack);

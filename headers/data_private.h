@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_private.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:24:05 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 15:24:05 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 01:27:27 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_map_init_data
 		int				enemy;
 		int				coin;
 	} idx;
-	t_itbl_dict			*dict;
-	t_itbl_dict			*hash;
+	const t_itbl_dict	*dict;
+	const t_itbl_dict	*hash;
 }						t_map_init_data;
 
 #endif  //DATA_PRIVATE

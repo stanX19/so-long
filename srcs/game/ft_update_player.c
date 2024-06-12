@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:50:30 by stan              #+#    #+#             */
-/*   Updated: 2024/02/14 17:50:31 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/13 00:28:26 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	update_atk(t_itbl *player, t_input *input)
 {
-	if (input->mouse_left)
+	if (input->mouse_left || input->keyboard[' '])
 	{
 		if (!(player->status & ATTACKING))
 		{

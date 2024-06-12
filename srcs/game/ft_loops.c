@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loops.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:50:54 by stan              #+#    #+#             */
-/*   Updated: 2024/06/12 15:31:59 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 00:56:02 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 int	ft_wait_loop(t_vars *vars)
 {
-	int	*kb;
-
 	ft_game_refresh(vars);
 	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF,
 		"GAME ENDED, RELEASE ALL KEYS");
-	kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb['\e'] + kb['\t']
-		+ vars->input->mouse_left + vars->input->mouse_right == 0)
+	if (!ft_has_input(vars->input))
 	{
 		ft_new_game(vars);
 		mlx_loop_hook(vars->mlx, ft_update_loop, vars);
@@ -31,14 +27,10 @@ int	ft_wait_loop(t_vars *vars)
 
 int	ft_ending_loop(t_vars *vars)
 {
-	int	*kb;
-
 	ft_game_refresh(vars);
 	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF,
 		"GAME ENDED, RELEASE ALL KEYS");
-	kb = vars->input->keyboard;
-	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb['\e'] + kb['\t']
-		+ vars->input->mouse_left + vars->input->mouse_right == 0)
+	if (!ft_has_input(vars->input))
 	{
 		ft_end_program(vars);
 	}
@@ -47,7 +39,7 @@ int	ft_ending_loop(t_vars *vars)
 
 void	choose_loop(t_vars *vars)
 {
-	if (vars->input->keyboard['\e'] || vars->input->destory)
+	if (vars->input->keyboard['\e'])
 	{
 		mlx_loop_hook(vars->window->mlx, ft_ending_loop, vars);
 	}

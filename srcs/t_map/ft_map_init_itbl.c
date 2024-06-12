@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_init_itbl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:55:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/10 16:58:36 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 01:28:41 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_private.h"
 
 // char, self, faction, on_path, animation resource
-t_itbl_dict	*get_itbl_dict(t_assets *assets)
+const t_itbl_dict	*get_itbl_dict(t_assets *assets)
 {
 	static t_itbl_dict	ret[100];
 	const t_itbl_dict	itbl_dict[] = {
@@ -34,11 +34,11 @@ t_itbl_dict	*get_itbl_dict(t_assets *assets)
 	return (ret);
 }
 
-t_itbl_dict	*get_itbl_hash(t_assets *assets)
+const t_itbl_dict	*get_itbl_hash(t_assets *assets)
 {
 	static t_itbl_dict	hash[256];
 	int					idx;
-	t_itbl_dict			*dict;
+	const t_itbl_dict	*dict;
 
 	ft_bzero(hash, sizeof(hash));
 	dict = get_itbl_dict(assets);
@@ -51,7 +51,7 @@ t_itbl_dict	*get_itbl_hash(t_assets *assets)
 	return (hash);
 }
 
-static t_itbl	*init_from_cfg(t_itbl_dict *hash, int c, t_vec2 cord)
+static t_itbl	*init_from_cfg(const t_itbl_dict *hash, int c, t_vec2 cord)
 {
 	t_itbl	*ret;
 

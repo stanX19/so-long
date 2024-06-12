@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 15:39:00 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 00:33:39 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,11 +271,8 @@ enum					e_x11_event_masks
 typedef struct s_input
 {
 	int					keyboard[128];
-	int					esc_code;
-	int					tab_code;
 	int					mouse_left;
 	int					mouse_right;
-	int					destory;
 }						t_input;
 
 typedef struct s_itbl_arr
@@ -424,6 +421,7 @@ void					ft_itbl_config(t_itbl *itbl, t_itbl_cfg params);
 
 t_input					*ft_init_input(void);
 void					ft_input_destory(t_input *input);
+int						ft_has_input(t_input *input);
 int						ft_on_key_press(int keycode, t_vars *vars);
 int						ft_on_key_release(int keycode, t_vars *vars);
 int						ft_on_mouse_click(int button, int x, int y,
@@ -432,7 +430,6 @@ int						ft_on_mouse_release(int button, int x, int y,
 							t_vars *vars);
 int						ft_on_destory(t_vars *vars);
 void					ft_hook_listeners(t_vars *vars);
-int						ft_has_input(t_input *input);
 
 t_image					*ft_default_tileset_gen(t_assets *assets, t_vec2 size);
 t_sprite				**ft_init_line_fmt_tileset(t_assets *assets,

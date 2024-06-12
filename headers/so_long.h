@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 15:36:35 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:39:00 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,7 +354,7 @@ void					ft_mlx_clear_window(t_window *window);
 
 char					**ft_raw_map_copy(char *const *map, int width,
 							int height);
-char					*ft_has_invalid_path(char **map, int width,
+char					*ft_has_invalid_pathway(char **map, int width,
 							int height);
 const char				*ft_is_invalid_map_file(const char *path);
 bool					ft_check_argv_validity(char *const*paths, int len);

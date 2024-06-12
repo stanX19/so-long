@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:01:47 by stan              #+#    #+#             */
-/*   Updated: 2024/06/12 15:31:24 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 16:09:57 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ static bool	has_solid_border(char *const *map, int width, int height)
 	return (true);
 }
 
+static bool	only_contains_charset(char *const *map, int width, int height,
+		const char *charset)
+{
+	if (charset == NULL)
+		return (true);
+	return (ft_2d_count_charset(map, width, height, charset) == width * height);
+}
+
 // NULL: ok
 // str: error message, ko
 const char	*ft_is_invalid_map_file(const char *path)
@@ -62,6 +70,8 @@ const char	*ft_is_invalid_map_file(const char *path)
 		ret = "Lines have unequal width";
 	else if (!has_solid_border(map, width, height))
 		ret = "No solid border";
+	else if (!only_contains_charset(map, width, height, " 012PCESBGWL"))
+		ret = "Contains unknown character";
 	else if (ft_2d_count_val(map, width, height, 'P') != 1)
 		ret = "Player count is not one";
 	else if (ft_2d_count_val(map, width, height, 'E') != 1)
@@ -69,7 +79,7 @@ const char	*ft_is_invalid_map_file(const char *path)
 	else if (ft_2d_count_val(map, width, height, 'C') < 1)
 		ret = "No collectibles";
 	else
-		ret = ft_has_invalid_path(map, width, height);
+		ret = ft_has_invalid_pathway(map, width, height);
 	ft_free_2d((void **)map, height);
 	return (ret);
 }

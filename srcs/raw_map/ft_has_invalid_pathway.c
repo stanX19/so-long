@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_has_invalid_path.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:25:17 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 21:43:19 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/12 15:39:00 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	flood_fill_from_player(char **map, int width, int height)
 }
 
 // extension of ft_is_invalid_map_file, do not use
-char	*ft_has_invalid_path(char **map, int width, int height)
+char	*ft_has_invalid_pathway(char **map, int width, int height)
 {
 	flood_fill_from_player(map, width, height);
 	if (ft_2d_count_charset(map, width, height, "E"))

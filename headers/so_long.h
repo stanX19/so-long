@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 21:35:16 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/12 14:16:23 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,6 +438,7 @@ void					ft_delete_game(t_vars *vars);
 void					ft_delete_vars(t_vars *vars);
 void					ft_new_game(t_vars *vars);
 void					ft_game_refresh(t_vars *vars);
+void					ft_end_program(t_vars *vars);
 int						ft_update_loop(t_vars *vars);
 int						ft_ending_loop(t_vars *vars);
 int						ft_wait_loop(t_vars *vars);

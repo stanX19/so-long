@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_window_destory.c                                :+:      :+:    :+:   */
+/*   ft_end_program.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 17:50:44 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 14:32:36 by shatan           ###   ########.fr       */
+/*   Created: 2024/06/12 14:16:06 by shatan            #+#    #+#             */
+/*   Updated: 2024/06/12 14:16:06 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_window_destory(t_window *window)
+void	ft_end_program(t_vars *vars)
 {
-	if (window == 0)
-	{
-		ft_printf("WARNING: mlx destory win: null pointer passed in");
-		return ;
-	}
-	mlx_destroy_window(window->mlx, window->mlx_win);
-	free(window);
+	ft_delete_game(vars);
+	ft_delete_vars(vars);
+	ft_printf("exited\n");
+	exit(0);
 }

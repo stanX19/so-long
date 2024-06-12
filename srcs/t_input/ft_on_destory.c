@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:40:56 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 16:41:57 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:31:58 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	ft_on_destory(t_vars *vars)
 {
-	vars->input->destory = 1;
+	ft_end_program(vars);
 	return (0);
 }

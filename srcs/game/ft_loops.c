@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:50:54 by stan              #+#    #+#             */
-/*   Updated: 2024/06/12 13:15:01 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:33:25 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	ft_ending_loop(t_vars *vars)
 	if (kb['w'] + kb['a'] + kb['s'] + kb['d'] + kb['\e'] + kb['\t']
 		+ vars->input->mouse_left + vars->input->mouse_right == 0)
 	{
-		ft_delete_game(vars);
-		ft_delete_vars(vars);
-		ft_printf("exited\n");
-		exit(0);
+		ft_end_program(vars);
 	}
 	return (1);
 }

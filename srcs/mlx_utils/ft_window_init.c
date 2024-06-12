@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_window_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:50:47 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/12 13:19:09 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_window	*ft_window_init(void *mlx, int width, int height, char *title)
 		return (0);
 	}
 	window->mlx = mlx;
+	printf("DEBUG: created\n");
 	window->mlx_win = mlx_new_window(mlx, width, height, title);
 	window->title = title;
 	window->width = width;

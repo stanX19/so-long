@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:43 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 15:30:47 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 18:12:21 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	update_itbl_status(t_map *map, t_itbl *itbl)
 		map->grid[itbl->cord.y][itbl->cord.x] &= ~(itbl->faction | itbl->self);
 		ft_itbl_set_status(itbl, DYING);
 	}
-	else if (itbl->can_atk && !(itbl->self & TILE_PLAYER)
+	else if (itbl->can_atk && itbl != map->player
 		&& target_in_front(map, itbl))
 	{
 		itbl->status |= ATTACKING;

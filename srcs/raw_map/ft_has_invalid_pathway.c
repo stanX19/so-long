@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_has_invalid_path.c                              :+:      :+:    :+:   */
+/*   ft_has_invalid_pathway.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:25:17 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 15:39:00 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 18:33:06 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,28 @@
 
 void	flood_fill_with_x(char **map, int width, int height, t_vec2 start)
 {
-	if (start.x < 0 || start.y < 0 || start.x >= width || start.y >= height)
+	t_vec2	*stack;
+	int		top;
+	t_vec2	curr;
+
+	stack = (t_vec2 *)malloc((width * 2) * (height * 2) * sizeof(t_vec2));
+	if (!stack)
 		return ;
-	if (map[start.y][start.x] == '1' || map[start.y][start.x] == 'X')
-		return ;
-	map[start.y][start.x] = 'X';
-	flood_fill_with_x(map, width, height, (t_vec2){start.x, start.y - 1});
-	flood_fill_with_x(map, width, height, (t_vec2){start.x, start.y + 1});
-	flood_fill_with_x(map, width, height, (t_vec2){start.x - 1, start.y});
-	flood_fill_with_x(map, width, height, (t_vec2){start.x + 1, start.y});
+	top = -1;
+	stack[++top] = start;
+	while (top >= 0)
+	{
+		curr = stack[top--];
+		if (curr.x < 0 || curr.y < 0 || curr.x >= width || curr.y >= height
+			|| map[curr.y][curr.x] == '1' || map[curr.y][curr.x] == 'X')
+			continue ;
+		map[curr.y][curr.x] = 'X';
+		stack[++top] = (t_vec2){curr.x, curr.y - 1};
+		stack[++top] = (t_vec2){curr.x, curr.y + 1};
+		stack[++top] = (t_vec2){curr.x - 1, curr.y};
+		stack[++top] = (t_vec2){curr.x + 1, curr.y};
+	}
+	free(stack);
 }
 
 static void	flood_fill_from_player(char **map, int width, int height)
@@ -36,7 +49,7 @@ static void	flood_fill_from_player(char **map, int width, int height)
 		y = 0;
 		while (y < height)
 		{
-			if (ft_strchr("P", map[y][x]))
+			if (strchr("P", map[y][x]))
 				flood_fill_with_x(map, width, height, (t_vec2){x, y});
 			y++;
 		}

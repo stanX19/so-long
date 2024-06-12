@@ -37,13 +37,6 @@ FLUSH		= \033[2K
 
 NAME		= so_long
 ARGV		= \
-assets/map/map0.ber\
-assets/map/map1.ber\
-assets/map/map2.ber\
-assets/map/map3.ber\
-assets/map/map4.ber\
-assets/map/map5.ber\
-assets/map/map6.ber\
 assets/map/map7.ber\
 assets/map/map8.ber\
 assets/map/map9.ber\

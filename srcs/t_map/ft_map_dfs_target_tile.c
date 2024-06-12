@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_dfs_target_tile.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:37:09 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 15:27:36 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/12 21:11:57 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_vec2	ft_map_dfs_target_tile(t_map_dfs_args args, t_vec2 cord, int depth)
 {
 	t_vec2	best_vec;
 
-	if (depth < 0 || invalid_cord(args.map, cord, args.blocking | TILE_VISITED))
+	if (--depth < 0 || invalid_cord(args.map, cord, args.blocking | TILE_VISITED))
 		return ((t_vec2){1000, 1000});
 	if (args.map->grid[cord.y][cord.x] & args.target)
 		return ((t_vec2){0, 0});

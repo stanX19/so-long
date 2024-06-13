@@ -1,4 +1,2 @@
-Add mono color sprite generator
 Add map check for anything other than "01PCE", and add toggle for it
-Norme ft_generate_sprites_array.c
-Implement bfs, with clear visited
+Norme ft_generate_sprites_array

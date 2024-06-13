@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_displayed_cord.c                            :+:      :+:    :+:   */
+/*   ft_gen_default_ani_sprite.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 15:03:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/13 20:04:38 by stan             ###   ########.fr       */
+/*   Created: 2024/06/13 18:35:40 by stan              #+#    #+#             */
+/*   Updated: 2024/06/13 19:47:19 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_vec2	ft_get_displayed_cord(t_vec2 tile_size, t_itbl *itbl)
+t_ani_sprite	*ft_gen_default_ani_sp(t_assets *assets,
+		unsigned int color)
 {
-	t_vec2	ret;
-	t_vec2	offset;
+	t_sprite		**sprites_arr;
+	t_image			*img;
+	t_ani_sprite	*ret;
 
-	offset = (t_vec2){0, 0};
-	if (itbl->animation)
-		offset = itbl->animation->offset;
-	ret.x = 2 * itbl->cord.x * tile_size.x + offset.x + itbl->rel_cord.x;
-	ret.y = 2 * itbl->cord.y * tile_size.y + offset.y + itbl->rel_cord.y;
+	img = ft_new_colored_image(assets, 16, 16, COLOR_BLACK);
+	ft_fill_image(img, color, (t_vec2){2, 2}, (t_vec2){14, 14});
+	sprites_arr = ft_generate_sprites_array_grid(img, (t_vec2){0, 0},
+			(t_vec2){1, 1}, (t_vec2){1, 1});
+	ret = ft_init_animated_sprite(assets, sprites_arr, 1, 10);
 	return (ret);
 }

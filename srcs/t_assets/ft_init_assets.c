@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:20:38 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 14:11:39 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/13 19:34:44 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,23 @@ static void	init_itbl(t_assets *assets)
 
 static void	config_itbl(t_assets *assets)
 {
-	ft_itbl_config(assets->coin, (t_itbl_cfg){SPEED_DEFAULT, {0, 0}, TILE_COIN,
+	ft_itbl_config(assets->coin, (t_itbl_cfg){SPEED_DEFAULT, TILE_COIN,
 		(TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->human, (t_itbl_cfg){SPEED_PLAYER, {-24, -32},
+	ft_itbl_config(assets->human, (t_itbl_cfg){SPEED_PLAYER,
 		TILE_HUMAN, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->cat, (t_itbl_cfg){SPEED_DEFAULT, {-4, -8}, TILE_CAT,
+	ft_itbl_config(assets->cat, (t_itbl_cfg){SPEED_DEFAULT, TILE_CAT,
 		(TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->slime, (t_itbl_cfg){SPEED_SLIME, {-16, -16},
+	ft_itbl_config(assets->slime, (t_itbl_cfg){SPEED_SLIME,
 		TILE_SLIME, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->slime2, (t_itbl_cfg){SPEED_SLIME, {-16, -16},
+	ft_itbl_config(assets->slime2, (t_itbl_cfg){SPEED_SLIME,
 		TILE_SLIME, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->bee, (t_itbl_cfg){SPEED_BEE, {-16, -16}, TILE_BEE,
+	ft_itbl_config(assets->bee, (t_itbl_cfg){SPEED_BEE, TILE_BEE,
 		(TILE_WALL), 1});
-	ft_itbl_config(assets->wolf, (t_itbl_cfg){SPEED_WOLF, {-16, -16}, TILE_WOLF,
+	ft_itbl_config(assets->wolf, (t_itbl_cfg){SPEED_WOLF, TILE_WOLF,
 		(TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->goblin, (t_itbl_cfg){SPEED_GOBLIN, {-16, -16},
+	ft_itbl_config(assets->goblin, (t_itbl_cfg){SPEED_GOBLIN,
 		TILE_GOBLIN, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->portal, (t_itbl_cfg){SPEED_DEFAULT, {-8, -16},
+	ft_itbl_config(assets->portal, (t_itbl_cfg){SPEED_DEFAULT,
 		TILE_PORTAL, (TILE_WALL | TILE_WATER), 1});
 }
 

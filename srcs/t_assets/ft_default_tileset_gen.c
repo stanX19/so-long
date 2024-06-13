@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_default_tileset_gen.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:21:32 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:23:56 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:00:38 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_image	*ft_default_tileset_gen(t_assets *assets, t_vec2 size)
 	t_image	*img;
 
 	img = ft_new_image(assets, size.x * 16, size.y * 16);
-	paint_tile((t_default_tileset_gen_vars){img, size, 0, 0, COLOR_FOREST_GREEN,
+	paint_tile((t_default_tileset_gen_vars){img, size, 0, 0, COLOR_GRASS,
 		COLOR_TREE_GREEN});
 	paint_tile((t_default_tileset_gen_vars){img, size, 1, 0,
 		COLOR_LIGHT_SEA_GREEN, COLOR_GRASS});

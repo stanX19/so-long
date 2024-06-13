@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_raw_map.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:45:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 15:32:07 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:57:38 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ static int	count_lines(t_stringstream *ss)
 	}
 	ss_reset(ss);
 	return (count);
-}
-
-static char	**failed(const char *msg, const char *path, size_t *width,
-		size_t *height)
-{
-	*width = 0;
-	*height = 0;
-	ft_printf("Error\n\t%s: %s\n", msg, path);
-	return (NULL);
 }
 
 static char	**generate_map(t_stringstream *ss, size_t *width, size_t *height)
@@ -62,12 +53,14 @@ char	**ft_generate_raw_map(const char *path, size_t *width, size_t *height)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (failed(strerror(errno), path, width, height));
+		return (NULL);
 	ss = ss_create_from_fd(fd);
-	ret = generate_map(ss, width, height);
-	if (ret == NULL)
-		return (failed("Not enough ram", path, width, height));
+	ret = NULL;
+	if (errno == 0)
+		ret = generate_map(ss, width, height);
 	ss_destroy(ss);
 	close(fd);
+	if (ret == NULL)
+		return (NULL);
 	return (ret);
 }

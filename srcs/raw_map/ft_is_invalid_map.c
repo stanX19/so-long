@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_invalid_map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:01:47 by stan              #+#    #+#             */
-/*   Updated: 2024/06/12 16:09:57 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:52:03 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ const char	*ft_is_invalid_map_file(const char *path)
 
 	map = ft_generate_raw_map(path, &width, &height);
 	if (map == NULL)
-		return ("Invalid path");
+		return (strerror(errno));
 	if (!has_equ_width(map, width, height))
 		ret = "Lines have unequal width";
 	else if (!has_solid_border(map, width, height))

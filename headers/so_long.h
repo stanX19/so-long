@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/13 00:33:39 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/13 19:31:14 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_animated_sprite
 	t_sprite			**sprites_arr;
 	int					length;
 	int					frame_interval;
+	t_vec2				offset;
 }						t_ani_sprite;
 
 typedef struct s_grouped_sp
@@ -164,7 +165,6 @@ typedef enum s_tile
 typedef struct s_itbl
 {
 	t_vec2				cord;
-	t_vec2				offset;
 	t_vec2				rel_cord;
 	t_vec2				velocity;
 	t_direction			direction;
@@ -187,7 +187,6 @@ typedef struct s_itbl
 typedef struct s_itbl_cfg
 {
 	int					base_spd;
-	t_vec2				offset;
 	t_tile				self;
 	t_tile				blocking;
 	int					hp;
@@ -331,6 +330,8 @@ void					ft_free_list(t_linked_list *list,
 
 t_image					*ft_read_xpm(t_assets *assets, char *relative_path);
 t_image					*ft_new_image(t_assets *assets, int width, int height);
+t_image					*ft_new_colored_image(t_assets *assets, int width, int height,
+							unsigned int color);
 void					ft_fill_image(t_image *img, unsigned int color,
 							t_vec2 start, t_vec2 end);
 void					ft_fill_image_whole(t_image *img, unsigned int color);
@@ -395,6 +396,8 @@ void					ft_ani_sprite_destory(t_ani_sprite *animated);
 
 void					init_sp_data(t_sp_data sp_data[
 							NUM_DIRECTIONS][NUM_ACTIONS]);
+t_ani_sprite			*ft_gen_default_ani_sp(t_assets *assets,
+							unsigned int color);
 t_ani_sprite			***ft_init_bee_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime_ani_sprites(t_assets *assets);
 t_ani_sprite			***ft_init_slime2_ani_sprites(t_assets *assets);

@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:42:59 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/04 14:46:11 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/14 13:55:49 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_map	*ft_map_init(const char *path, t_assets *assets)
 	size_t	width;
 	size_t	height;
 
-	raw_map = ft_generate_raw_map(path, &width, &height);
+	raw_map = ft_gen_raw_map_safe(path, &width, &height);
 	if (raw_map == NULL)
 		return (NULL);
 	map = init_memory(raw_map, width, height, assets);

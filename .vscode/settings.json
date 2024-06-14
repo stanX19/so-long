@@ -17,7 +17,8 @@
 		"configs.h": "c",
 		"assets_path.h": "c",
 		"__functional_03": "c",
-		"functional": "c"
+		"functional": "c",
+		"ios": "c"
 	},
 	"editor.tabSize": 4,
 	"editor.insertSpaces": false,

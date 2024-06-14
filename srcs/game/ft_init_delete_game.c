@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:02 by stan              #+#    #+#             */
-/*   Updated: 2024/06/12 13:28:31 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/14 13:44:56 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	ft_init_game(t_vars *vars)
 	vars->map = ft_map_init(vars->paths[vars->idx], vars->assets);
 	if (!vars->map)
 	{
-		ft_delete_vars(vars);
-		exit(1);
-		return ;
+		ft_end_program(vars);
 	}
 	vars->base_img = get_base_img(vars->assets, vars->map->bkg_img);
 	vars->window = ft_window_init(vars->mlx, vars->base_img->width,
@@ -43,7 +41,9 @@ void	ft_delete_game(t_vars *vars)
 	if (!vars)
 		return ;
 	if (vars->map)
+	{
 		ft_map_destory(vars->map);
+	}
 	if (vars->base_img)
 	{
 		ft_list_remove(&vars->assets->all_img, vars->base_img);
@@ -51,6 +51,9 @@ void	ft_delete_game(t_vars *vars)
 	}
 	if (vars->window)
 		ft_window_destory(vars->window);
+	vars->map = NULL;
+	vars->base_img = NULL;
+	vars->window = NULL;
 }
 
 void	ft_new_game(t_vars *vars)

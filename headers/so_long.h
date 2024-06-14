@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/13 19:31:14 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:53:12 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,6 +358,7 @@ const char				*ft_is_invalid_map_file(const char *path);
 bool					ft_check_argv_validity(char *const*paths, int len);
 char					**ft_generate_raw_map(const char *path, size_t *width,
 							size_t *height);
+char					**ft_gen_raw_map_safe(const char *path, size_t *width, size_t *height);
 void					ft_map_init_ibtl(t_map *map, char **raw_map, int width,
 							int height);
 t_image					*ft_map_bg_gen(t_map *map, t_assets *assets);

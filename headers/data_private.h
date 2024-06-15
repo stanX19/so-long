@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:24:05 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/15 12:39:04 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 16:36:48 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 typedef struct s_map_init_data
 {
 	t_map				*map;
-	char				**raw_map;
 	struct				s_idx_data
 	{
 		int				enemy;

@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   configs.h                                          :+:      :+:    :+:   */
+/*   ft_mlx_loop_hook.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 17:52:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/15 16:24:35 by stan             ###   ########.fr       */
+/*   Created: 2024/06/15 19:39:16 by stan              #+#    #+#             */
+/*   Updated: 2024/06/15 19:53:33 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIGS_H
-# define CONFIGS_H
-# define BORDER_RATIO 0.333
-# define DFS_DEPTH 3
+#include "so_long.h"
 
-typedef enum s_speed
+int	ft_mlx_loop_hook(t_vars *vars, int (*funct_ptr)())
 {
-	SPEED_DEFAULT = 4,
-	SPEED_PLAYER = 4,
-	SPEED_SLIME = 2,
-	SPEED_BEE = 16,
-	SPEED_WOLF = 16,
-	SPEED_GOBLIN = 1,
-}	t_speed;
-#endif
+	return (mlx_loop_hook(vars->mlx, funct_ptr, vars));
+}

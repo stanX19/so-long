@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_delete_game.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:02 by stan              #+#    #+#             */
-/*   Updated: 2024/06/14 13:44:56 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/15 20:13:32 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_init_game(t_vars *vars)
 	vars->window = ft_window_init(vars->mlx, vars->base_img->width,
 			vars->base_img->height, vars->title);
 	ft_hook_listeners(vars);
+	vars->state = STATE_RUNNING;
 }
 
 void	ft_delete_game(t_vars *vars)

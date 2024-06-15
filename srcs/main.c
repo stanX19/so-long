@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:33:52 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/11 21:41:17 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 20:05:26 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		return (1);
 	ft_init_game(vars);
 	ft_printf("running...\n");
-	mlx_loop_hook(vars->mlx, ft_update_loop, vars);
+	mlx_loop_hook(vars->mlx, ft_main_loop, vars);
 	mlx_loop(vars->mlx);
 	return (0);
 }

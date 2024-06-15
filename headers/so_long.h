@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/15 13:07:20 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 20:05:26 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,12 @@ typedef struct s_map
 	t_itbl_arr			coins;
 	t_itbl_arr			enemies;
 	t_assets			*assets;
+	struct s_raw
+	{
+		char			**grid;
+		int				width;
+		int				height;
+	}					raw;
 }						t_map;
 
 typedef struct s_map_dfs_args
@@ -317,6 +323,14 @@ typedef struct s_default_tileset_gen_vars
 	unsigned int		color_1;
 }						t_default_tileset_gen_vars;
 
+typedef enum e_game_status
+{
+	STATE_RUNNING,
+	STATE_QUIT,
+	STATE_RESET,
+	STATE_NEXT_GAME,
+}						t_game_status;
+
 typedef struct s_vars
 {
 	void				*mlx;
@@ -329,6 +343,7 @@ typedef struct s_vars
 	char				*title;
 	int					paths_len;
 	int					idx;
+	t_game_status		state;
 }						t_vars;
 
 void					ft_list_add(t_linked_list *list, void *ptr);
@@ -343,6 +358,7 @@ t_image					*ft_new_colored_image(t_assets *assets, int width,
 void					ft_fill_image(t_image *img, unsigned int color,
 							t_vec2 start, t_vec2 end);
 void					ft_fill_image_whole(t_image *img, unsigned int color);
+int						ft_mlx_loop_hook(t_vars *vars, int (*funct_ptr)());
 int						ft_mlx_put_image_to_win(t_window *window, t_image *img,
 							int x, int y);
 void					ft_mlx_put_img_to_img(t_image *dst, t_image *src,
@@ -373,11 +389,12 @@ void					ft_config_default_itbl(t_assets *assets);
 const t_itbl_dict		*ft_get_itbl_dict(t_assets *assets);
 const t_itbl_dict		*ft_get_itbl_hash(t_assets *assets);
 char					*ft_get_accepted_charset(void);
-void					ft_map_init_ibtl(t_map *map, char **raw_map, int width,
-							int height);
+char					*ft_get_enemy_charset(void);
+void					ft_map_init_ibtl(t_map *map);
 t_image					*ft_map_bg_gen(t_map *map, t_assets *assets);
 t_map					*ft_map_init(const char *path, t_assets *assets);
 void					ft_map_destory(t_map *map);
+void					ft_map_reset(t_map	*map);
 void					ft_map_put_itbl(t_image *img, t_map *map,
 							t_vec2 offset);
 void					ft_map_update_itbl(t_map *map);
@@ -459,10 +476,11 @@ void					ft_init_game(t_vars *vars);
 void					ft_delete_game(t_vars *vars);
 void					ft_delete_vars(t_vars *vars);
 void					ft_new_game(t_vars *vars);
+void					ft_reset_game(t_vars *vars);
+void					ft_next_game(t_vars *vars);
 void					ft_game_refresh(t_vars *vars);
-void					ft_end_program(t_vars *vars);
-int						ft_update_loop(t_vars *vars);
-int						ft_ending_loop(t_vars *vars);
+int						ft_end_program(t_vars *vars);
+int						ft_main_loop(t_vars *vars);
 int						ft_wait_loop(t_vars *vars);
 
 int						ft_get_dash_status(t_input *input);

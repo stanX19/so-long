@@ -6,13 +6,14 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 12:43:56 by stan              #+#    #+#             */
-/*   Updated: 2024/06/15 13:43:27 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 17:42:56 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// char, self, faction, on_path, animation resource
+// PCE are constants that cannot be changed
+// char, faction, on_path, animation
 const t_itbl_dict	*ft_get_itbl_dict(t_assets *assets)
 {
 	static t_itbl_dict	ret[100];
@@ -69,3 +70,27 @@ char	*ft_get_accepted_charset(void)
 	ret[i] = '\0';
 	return (ret);
 }
+
+char	*ft_get_enemy_charset(void)
+{
+	static char			ret[100];
+	const t_itbl_dict	*dict;
+	t_assets			dummy;
+	int					i;
+
+	dict = ft_get_itbl_dict(&dummy);
+	i = 0;
+	while (dict[i].key)
+	{
+		if (dict[i].faction && !ft_strchr("PCE", dict[i].key))
+		{
+			ret[i] = dict[i].key;
+			i++;
+		}
+		else
+			dict++;
+	}
+	ret[i] = '\0';
+	return (ret);
+}
+

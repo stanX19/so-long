@@ -1,1 +1,3 @@
 Norme ft_generate_sprites_array
+on death, reset itbl instead of reloading the entire game
+-> ft_map_reset()

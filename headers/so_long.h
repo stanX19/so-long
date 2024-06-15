@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/14 13:53:12 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/15 13:07:20 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,14 @@ typedef struct s_itbl
 	t_stats				stats;
 }						t_itbl;
 
+typedef struct s_itbl_dict
+{
+	char				key;
+	t_tile				faction;
+	t_tile				background;
+	t_itbl				*itbl;
+}						t_itbl_dict;
+
 typedef struct s_itbl_cfg
 {
 	int					base_spd;
@@ -294,10 +302,10 @@ typedef struct s_map
 
 typedef struct s_map_dfs_args
 {
-	t_map			*map;
-	t_tile			target;
-	t_tile			blocking;
-}					t_map_dfs_args;
+	t_map				*map;
+	t_tile				target;
+	t_tile				blocking;
+}						t_map_dfs_args;
 
 typedef struct s_default_tileset_gen_vars
 {
@@ -330,8 +338,8 @@ void					ft_free_list(t_linked_list *list,
 
 t_image					*ft_read_xpm(t_assets *assets, char *relative_path);
 t_image					*ft_new_image(t_assets *assets, int width, int height);
-t_image					*ft_new_colored_image(t_assets *assets, int width, int height,
-							unsigned int color);
+t_image					*ft_new_colored_image(t_assets *assets, int width,
+							int height, unsigned int color);
 void					ft_fill_image(t_image *img, unsigned int color,
 							t_vec2 start, t_vec2 end);
 void					ft_fill_image_whole(t_image *img, unsigned int color);
@@ -355,10 +363,16 @@ char					**ft_raw_map_copy(char *const *map, int width,
 char					*ft_has_invalid_pathway(char **map, int width,
 							int height);
 const char				*ft_is_invalid_map_file(const char *path);
-bool					ft_check_argv_validity(char *const*paths, int len);
+bool					ft_check_argv_validity(char *const *paths, int len);
 char					**ft_generate_raw_map(const char *path, size_t *width,
 							size_t *height);
-char					**ft_gen_raw_map_safe(const char *path, size_t *width, size_t *height);
+char					**ft_gen_raw_map_safe(const char *path, size_t *width,
+							size_t *height);
+
+void					ft_config_default_itbl(t_assets *assets);
+const t_itbl_dict		*ft_get_itbl_dict(t_assets *assets);
+const t_itbl_dict		*ft_get_itbl_hash(t_assets *assets);
+char					*ft_get_accepted_charset(void);
 void					ft_map_init_ibtl(t_map *map, char **raw_map, int width,
 							int height);
 t_image					*ft_map_bg_gen(t_map *map, t_assets *assets);
@@ -395,8 +409,7 @@ void					ft_mlx_put_sprite(t_image *image, t_sprite *sprite,
 void					ft_sprite_destory(t_sprite *sprite);
 void					ft_ani_sprite_destory(t_ani_sprite *animated);
 
-void					init_sp_data(t_sp_data sp_data[
-							NUM_DIRECTIONS][NUM_ACTIONS]);
+void					init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite			*ft_gen_default_ani_sp(t_assets *assets,
 							unsigned int color);
 t_ani_sprite			***ft_init_bee_ani_sprites(t_assets *assets);

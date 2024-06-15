@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:01:47 by stan              #+#    #+#             */
-/*   Updated: 2024/06/13 18:52:03 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 13:42:12 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@ static bool	only_contains_charset(char *const *map, int width, int height,
 	return (ft_2d_count_charset(map, width, height, charset) == width * height);
 }
 
+static const char	*get_ret(char **map, int width, int height)
+{
+	if (!has_equ_width(map, width, height))
+		return "Lines have unequal width";
+	else if (!has_solid_border(map, width, height))
+		return "No solid border";
+	else if (!only_contains_charset(map, width, height,
+		ft_get_accepted_charset()))
+		return "Contains unknown character";
+	else if (ft_2d_count_val(map, width, height, 'P') != 1)
+		return "Player count is not one";
+	else if (ft_2d_count_val(map, width, height, 'E') != 1)
+		return "Exit count is not one";
+	else if (ft_2d_count_val(map, width, height, 'C') < 1)
+		return "No collectibles";
+	else
+		return ft_has_invalid_pathway(map, width, height);
+}
+
 // NULL: ok
 // str: error message, ko
 const char	*ft_is_invalid_map_file(const char *path)
@@ -63,23 +82,12 @@ const char	*ft_is_invalid_map_file(const char *path)
 	size_t		height;
 	const char	*ret;
 
+	if (!ft_endswith(path, ".ber"))
+		return ("Is not a ber file");
 	map = ft_generate_raw_map(path, &width, &height);
 	if (map == NULL)
 		return (strerror(errno));
-	if (!has_equ_width(map, width, height))
-		ret = "Lines have unequal width";
-	else if (!has_solid_border(map, width, height))
-		ret = "No solid border";
-	else if (!only_contains_charset(map, width, height, " 012PCESBGWL"))
-		ret = "Contains unknown character";
-	else if (ft_2d_count_val(map, width, height, 'P') != 1)
-		ret = "Player count is not one";
-	else if (ft_2d_count_val(map, width, height, 'E') != 1)
-		ret = "Exit count is not one";
-	else if (ft_2d_count_val(map, width, height, 'C') < 1)
-		ret = "No collectibles";
-	else
-		ret = ft_has_invalid_pathway(map, width, height);
+	ret = get_ret(map, width, height);
 	ft_free_2d((void **)map, height);
 	return (ret);
 }

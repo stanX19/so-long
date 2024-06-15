@@ -6,21 +6,13 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:24:05 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/13 01:27:27 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 12:39:04 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_PRIVATE_H
 # define DATA_PRIVATE_H
 # include "so_long.h"
-
-typedef struct s_itbl_dict
-{
-	char		key;
-	t_tile		faction;
-	t_tile		background;
-	t_itbl		*itbl;
-}				t_itbl_dict;
 
 typedef struct s_map_init_data
 {

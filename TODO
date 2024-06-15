@@ -1,3 +1,1 @@
-Add map check for anything other than "01PCE", and add toggle for it
 Norme ft_generate_sprites_array
-BUG: no check for ber files

@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:20:38 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/13 19:34:44 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/15 12:48:13 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,6 @@ static void	init_itbl(t_assets *assets)
 	assets->portal = ft_init_interactable(ani_tabs->portal);
 }
 
-static void	config_itbl(t_assets *assets)
-{
-	ft_itbl_config(assets->coin, (t_itbl_cfg){SPEED_DEFAULT, TILE_COIN,
-		(TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->human, (t_itbl_cfg){SPEED_PLAYER,
-		TILE_HUMAN, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->cat, (t_itbl_cfg){SPEED_DEFAULT, TILE_CAT,
-		(TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->slime, (t_itbl_cfg){SPEED_SLIME,
-		TILE_SLIME, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->slime2, (t_itbl_cfg){SPEED_SLIME,
-		TILE_SLIME, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->bee, (t_itbl_cfg){SPEED_BEE, TILE_BEE,
-		(TILE_WALL), 1});
-	ft_itbl_config(assets->wolf, (t_itbl_cfg){SPEED_WOLF, TILE_WOLF,
-		(TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->goblin, (t_itbl_cfg){SPEED_GOBLIN,
-		TILE_GOBLIN, (TILE_WALL | TILE_WATER), 1});
-	ft_itbl_config(assets->portal, (t_itbl_cfg){SPEED_DEFAULT,
-		TILE_PORTAL, (TILE_WALL | TILE_WATER), 1});
-}
-
 t_assets	*ft_init_assets(void *mlx)
 {
 	t_assets	*assets;
@@ -79,7 +57,7 @@ t_assets	*ft_init_assets(void *mlx)
 	assets->mlx = mlx;
 	assets->ani_tabs = init_ani_assets(assets);
 	init_itbl(assets);
-	config_itbl(assets);
+	ft_config_default_itbl(assets);
 	assets->all_tile = ft_init_line_fmt_tileset(assets,
 			PATH_TILESET_BACKGROUND);
 	return (assets);

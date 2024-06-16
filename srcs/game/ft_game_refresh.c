@@ -6,12 +6,15 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:10 by stan              #+#    #+#             */
-/*   Updated: 2024/06/02 13:41:55 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 23:00:44 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// usual: smooth transition with factor of 0.1
+// player out of screen:
+//     quick transition: abs(diff.x) - bkg->width / 2 + 100
 static t_vec2	get_offset(t_map *map, t_image *bkg, t_itbl *subject)
 {
 	static t_vec2	ofst;
@@ -23,9 +26,9 @@ static t_vec2	get_offset(t_map *map, t_image *bkg, t_itbl *subject)
 	new_ofst.y = bkg->height / 2 - new_ofst.y;
 	diff.x = new_ofst.x - ofst.x;
 	diff.y = new_ofst.y - ofst.y;
-	diff.x = ft_sign(diff.x) * ft_max(abs(diff.x) / 2, abs(diff.x) - bkg->width
+	diff.x = ft_sign(diff.x) * ft_max(abs(diff.x) * 0.1, abs(diff.x) - bkg->width
 			/ 2 + 100);
-	diff.y = ft_sign(diff.y) * ft_max(abs(diff.y) / 2, abs(diff.y) - bkg->height
+	diff.y = ft_sign(diff.y) * ft_max(abs(diff.y) * 0.1, abs(diff.y) - bkg->height
 			/ 2 + 100);
 	ofst.x += diff.x;
 	ofst.y += diff.y;
@@ -36,7 +39,7 @@ static t_vec2	get_offset(t_map *map, t_image *bkg, t_itbl *subject)
 	return (ofst);
 }
 
-void	ft_game_refresh(t_vars *vars)
+void	ft_game_display(t_vars *vars)
 {
 	t_vec2	offset;
 

@@ -6,20 +6,19 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:51:02 by stan              #+#    #+#             */
-/*   Updated: 2024/06/15 20:13:32 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 23:07:16 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// ft_printf("%i %i\n", size.x, size.y);
 // base image that all sprites will be printed on, then put on window
 static t_image	*get_base_img(t_assets *assets, t_image *bkg_img)
 {
 	t_vec2	size;
 
-	size.x = ft_min(1800, bkg_img->width);
-	size.y = ft_min(900, bkg_img->height);
+	size.x = ft_min(1600, bkg_img->width);
+	size.y = ft_min(600, bkg_img->height);
 	return (ft_new_image(assets, size.x, size.y));
 }
 

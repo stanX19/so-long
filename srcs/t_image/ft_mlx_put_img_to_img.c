@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:54:11 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 22:20:43 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 22:38:04 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,25 @@ int	get_img_pixel_color(t_image *img, int x, int y)
 void	ft_mlx_put_img_to_img(t_image *dst, t_image *src, int img_x, int img_y)
 {
 	unsigned int	color;
-	int				x;
-	int				y;
+	t_vec2			curr;
+	t_vec2			start;
+	t_vec2			end;
 
 	if (!dst || !src)
 		return ;
-	x = (img_x <= 0) * -img_x;
-	while (x < ft_min(src->width, dst->width - img_x))
+	start = (t_vec2){(img_x <= 0) * -img_x, (img_y <= 0) * -img_y};
+	end = (t_vec2){ft_min(src->width, dst->width - img_x),
+	ft_min(src->height, dst->height - img_y)};
+	curr.x = start.x;
+	while (curr.x < end.x)
 	{
-		y = (img_y <= 0) * -img_y;
-		while (y < ft_min(src->height, dst->height - img_y))
+		curr.y = start.y;
+		while (curr.y < end.y)
 		{
-			color = get_img_pixel_color(src, x, y);
-			ft_mlx_pixel_put(dst, img_x + x, img_y + y, color);
-			++y;
+			color = get_img_pixel_color(src, curr.x, curr.y);
+			ft_mlx_pixel_put(dst, img_x + curr.x, img_y + curr.y, color);
+			++curr.y;
 		}
-		++x;
+		++curr.x;
 	}
 }

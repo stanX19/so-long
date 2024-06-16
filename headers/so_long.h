@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/15 20:05:26 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 22:19:20 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,10 +478,9 @@ void					ft_delete_vars(t_vars *vars);
 void					ft_new_game(t_vars *vars);
 void					ft_reset_game(t_vars *vars);
 void					ft_next_game(t_vars *vars);
-void					ft_game_refresh(t_vars *vars);
+void					ft_game_display(t_vars *vars);
 int						ft_end_program(t_vars *vars);
 int						ft_main_loop(t_vars *vars);
-int						ft_wait_loop(t_vars *vars);
 
 int						ft_get_dash_status(t_input *input);
 void					ft_update_player(t_vars *vars);

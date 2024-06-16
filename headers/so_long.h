@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/16 22:19:20 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 23:37:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,7 +418,7 @@ t_sprite				*ft_init_sprite(t_image *img, int x, int y,
 t_sprite				**ft_generate_sprites_array_grid(t_image *image,
 							t_vec2 start, t_vec2 end, t_vec2 grid_size);
 t_sprite				**ft_generate_sprites_array_rows(t_image *image,
-							t_vec2 start, t_vec2 end, t_vec2 grid_size);
+							t_vec2 end, t_vec2 grid_size);
 t_ani_sprite			*ft_init_animated_sprite(t_assets *assets,
 							t_sprite **sprites, int length, int frame_interval);
 void					ft_mlx_put_sprite(t_image *image, t_sprite *sprite,

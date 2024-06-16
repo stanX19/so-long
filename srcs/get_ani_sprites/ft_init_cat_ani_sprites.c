@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:45:51 by stan              #+#    #+#             */
-/*   Updated: 2024/06/13 20:24:47 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 23:39:20 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_ani_sprite	*get_animated_sprite(t_assets *assets, t_sp_data sp_data)
 	img = ft_read_xpm(assets, sp_data.rel_path);
 	if (img == NULL)
 		return (ft_gen_default_ani_sp(assets, COLOR_WHITE));
-	sprites_arr = ft_generate_sprites_array_rows(img, sp_data.start,
+	sprites_arr = ft_generate_sprites_array_rows(img,
 			sp_data.end, sp_data.size);
 	ret = ft_init_animated_sprite(assets, sprites_arr, 32, 120);
 	ret->offset = (t_vec2){-4, -8};

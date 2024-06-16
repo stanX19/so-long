@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_sprites_array.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:29:58 by shatan            #+#    #+#             */
-/*   Updated: 2024/02/02 17:45:23 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/16 23:32:18 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_valid_range(t_vec2 start, t_vec2 end, t_vec2 grid_size)
 	return (1);
 }
 
-t_sprite	**ft_generate_sprites_array_rows(t_image *image, t_vec2 start,
+t_sprite	**ft_generate_sprites_array_rows(t_image *image,
 		t_vec2 end, t_vec2 grid_size)
 {
 	int			total_length;
@@ -31,15 +31,12 @@ t_sprite	**ft_generate_sprites_array_rows(t_image *image, t_vec2 start,
 	int			y;
 	t_sprite	**ret;
 
-	if (image == NULL || !is_valid_range(start, end, grid_size))
+	if (image == NULL || !is_valid_range((t_vec2){0, 0}, end, grid_size))
 		return (0);
-	total_length = start.x + end.x + (end.y - start.y - 1) * grid_size.x;
+	total_length = end.x + (end.y - 1) * grid_size.x;
 	ret = malloc(sizeof(t_sprite *) * total_length);
 	idx = 0;
-	x = start.x;
-	while (x < grid_size.x)
-		ret[idx++] = ft_init_sprite(image, x++, start.y, grid_size);
-	y = start.y + 1;
+	y = 0;
 	while (y < end.y - 1)
 	{
 		x = 0;

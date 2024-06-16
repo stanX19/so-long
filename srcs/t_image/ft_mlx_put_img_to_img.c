@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:54:11 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/16 22:38:04 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 23:49:06 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_mlx_put_img_to_img(t_image *dst, t_image *src, int img_x, int img_y)
 		return ;
 	start = (t_vec2){(img_x <= 0) * -img_x, (img_y <= 0) * -img_y};
 	end = (t_vec2){ft_min(src->width, dst->width - img_x),
-	ft_min(src->height, dst->height - img_y)};
+		ft_min(src->height, dst->height - img_y)};
 	curr.x = start.x;
 	while (curr.x < end.x)
 	{

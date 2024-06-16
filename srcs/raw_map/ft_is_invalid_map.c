@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:01:47 by stan              #+#    #+#             */
-/*   Updated: 2024/06/15 17:26:31 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/16 23:49:15 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,20 @@ static bool	only_contains_charset(char *const *map, int width, int height,
 static const char	*get_ret(char **map, int width, int height)
 {
 	if (!has_equ_width(map, width, height))
-		return "Lines have unequal width";
+		return ("Lines have unequal width");
 	else if (!has_solid_border(map, width, height))
-		return "No solid border";
+		return ("No solid border");
 	else if (!only_contains_charset(map, width, height,
-		ft_get_accepted_charset()))
-		return "Contains unknown character";
+			ft_get_accepted_charset()))
+		return ("Contains unknown character");
 	else if (ft_2d_count_val(map, width, height, 'P') != 1)
-		return "Player count is not one";
+		return ("Player count is not one");
 	else if (ft_2d_count_val(map, width, height, 'E') != 1)
-		return "Exit count is not one";
+		return ("Exit count is not one");
 	else if (ft_2d_count_val(map, width, height, 'C') < 1)
-		return "No collectibles";
+		return ("No collectibles");
 	else
-		return ft_has_invalid_pathway(map, width, height);
+		return (ft_has_invalid_pathway(map, width, height));
 }
 
 // NULL: ok

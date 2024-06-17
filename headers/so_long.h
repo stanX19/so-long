@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/16 23:37:50 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/17 13:13:22 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,7 +426,8 @@ void					ft_mlx_put_sprite(t_image *image, t_sprite *sprite,
 void					ft_sprite_destory(t_sprite *sprite);
 void					ft_ani_sprite_destory(t_ani_sprite *animated);
 
-void					init_sp_data(t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
+void					init_sp_data(
+							t_sp_data sp_data[NUM_DIRECTIONS][NUM_ACTIONS]);
 t_ani_sprite			*ft_gen_default_ani_sp(t_assets *assets,
 							unsigned int color);
 t_ani_sprite			***ft_init_bee_ani_sprites(t_assets *assets);

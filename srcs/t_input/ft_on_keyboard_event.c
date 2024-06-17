@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_on_keyboard_event.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:40:49 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/15 19:57:36 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/17 12:49:37 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	match_key_to_input(int keycode)
 		return ('\t');
 	else if (keycode == 49)
 		return (' ');
+	else if (keycode == 15)
+		return ('r');
 	else if (keycode == 13)
 		return ('w');
 	else if (keycode == 0)

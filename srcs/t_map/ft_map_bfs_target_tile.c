@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:46:28 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/17 17:14:49 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/17 18:48:35 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,35 @@ static t_vec2	process_queue(t_map_bfs_args args, t_vec2 *queue, int *front,
 			continue ;
 		if (args.map->grid[curr.y][curr.x] & args.target)
 		{
-			return ((t_vec2){curr.x - queue[0].x, curr.y - queue[0].y});
+			return (curr);
 		}
 		propagate(args, queue, curr, rear);
 	}
-	return ((t_vec2){1000, 1000});
+	return ((t_vec2){args.depth, args.depth});
 }
 
+// 1 + 2 * args.depth * (args.depth + 1);
+// is formula of
+// 1 + 4 * (1 + 2 + 3 + ... + n)
 t_vec2	ft_map_bfs_target_tile(t_map_bfs_args args, t_vec2 start)
 {
 	t_vec2	*queue;
 	int		front;
 	int		rear;
-	t_vec2	result;
+	t_vec2	target_loc;
 
 	args.depth = 1 + 2 * args.depth * (args.depth + 1);
-	queue = (t_vec2 *)ft_calloc(sizeof(t_vec2), args.depth);
+	queue = (t_vec2 *)ft_calloc(sizeof(t_vec2), args.depth * 2);
 	if (!queue)
-		return ((t_vec2){1000, 1000});
+		return ((t_vec2){args.depth, args.depth});
 	front = 1;
 	rear = 1;
 	queue[0] = start;
 	propagate(args, queue, start, &rear);
-	result = process_queue(args, queue, &front, &rear);
+	target_loc = process_queue(args, queue, &front, &rear);
 	front = -1;
 	while (++front < rear)
 		args.map->grid[queue[front].y][queue[front].x] &= ~TILE_VISITED;
 	free(queue);
-	return (result);
+	return (vec2_sub(target_loc, start));
 }

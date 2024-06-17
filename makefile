@@ -29,7 +29,7 @@ LIBS		= $(LIBFT)
 IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
 AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A
@@ -47,6 +47,7 @@ assets/map/map6.ber\
 assets/map/map7.ber\
 assets/map/map8.ber\
 assets/map/map9.ber\
+assets/map/map10.ber\
 
 run: all
 	./$(NAME) $(ARGV)

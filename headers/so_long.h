@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:30:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/17 13:13:22 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/17 15:46:21 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,7 +311,8 @@ typedef struct s_map_dfs_args
 	t_map				*map;
 	t_tile				target;
 	t_tile				blocking;
-}						t_map_dfs_args;
+	int					depth;
+}						t_map_bfs_args;
 
 typedef struct s_default_tileset_gen_vars
 {
@@ -409,8 +410,8 @@ void					ft_map_itbl_front_add(t_map *map, t_itbl *itbl,
 void					ft_map_check_rel_cord(t_map *map, t_itbl *itbl);
 void					ft_map_check_velocity(t_map *map, t_itbl *itbl);
 void					ft_map_update_enemy_v(t_map *map);
-t_vec2					ft_map_dfs_target_tile(t_map_dfs_args args, t_vec2 cord,
-							int depth);
+t_vec2					ft_map_bfs_target_tile(t_map_bfs_args args,
+							t_vec2 start);
 t_vec2					ft_get_displayed_cord(t_vec2 tile_size, t_itbl *itbl);
 
 t_sprite				*ft_init_sprite(t_image *img, int x, int y,

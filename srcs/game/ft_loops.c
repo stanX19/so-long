@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loops.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:50:54 by stan              #+#    #+#             */
-/*   Updated: 2024/06/16 22:28:14 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/17 16:01:46 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_wait_loop(t_vars *vars)
 {
 	ft_game_display(vars);
-	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 20, 0xFFFFFFFF,
+	mlx_string_put(vars->mlx, vars->window->mlx_win, 10, 0, 0xFFFFFFFF,
 		"GAME ENDED, RELEASE ALL KEYS");
 	if (!ft_has_input(vars->input))
 	{
@@ -53,11 +53,11 @@ static void	update_state(t_vars *vars)
 
 int	ft_main_loop(t_vars *vars)
 {
+	ft_game_display(vars);
 	ft_update_player(vars);
 	ft_map_update_enemy_v(vars->map);
 	ft_map_update_itbl(vars->map);
 	ft_show_steps(vars);
-	ft_game_display(vars);
 	update_state(vars);
 	return (0);
 }

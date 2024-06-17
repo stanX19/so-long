@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_update_enemy_v.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:27:27 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/16 22:25:55 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/17 17:25:55 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#define DEPTH 5
+#define DEPTH 4
 
 static void	random_movement(t_itbl *itbl)
 {
@@ -28,8 +28,8 @@ static void	move_to_target(t_map *map, t_itbl *itbl, t_tile target)
 	t_tile	blocking;
 
 	blocking = itbl->blocking & ~(itbl->self | itbl->faction);
-	direction = ft_map_dfs_target_tile((t_map_dfs_args){map, target, blocking},
-			itbl->cord, DEPTH);
+	direction = ft_map_bfs_target_tile(
+			(t_map_bfs_args){map, target, blocking, DEPTH}, itbl->cord);
 	if (vec2_hypot(direction) < DEPTH)
 	{
 		itbl->velocity.x += direction.x;
@@ -51,10 +51,10 @@ void	ft_map_update_enemy_v(t_map *map)
 	while (i < map->enemies.len)
 	{
 		itbl = map->enemies.arr[i];
-		if (itbl->self & (TILE_WOLF))
-			move_to_target(map, itbl, itbl->enemy);
-		else if (itbl->faction & (TILE_PLAYER))
+		if (itbl->faction & (TILE_PLAYER))
 			move_to_target(map, itbl, TILE_EXIT | TILE_COLLECTIBLE);
+		else if (itbl->self & (TILE_WOLF))
+			move_to_target(map, itbl, itbl->enemy);
 		else
 			random_movement(itbl);
 		i++;

@@ -19,12 +19,6 @@
 # include <unistd.h>
 # define F_COUNT 25
 
-# ifdef __APPLE__
-#  define IS_APPLE 1
-# else
-#  define IS_APPLE 0
-# endif
-
 typedef struct s_format
 {
 	char	*prefix;

@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:49:04 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/12 12:59:49 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:46:42 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	ft_mlx_destory(void *mlx)
 		ft_printf("WARNING: mlx destory: null pointer passed in");
 		return ;
 	}
-	free(mlx);
+	if (!IS_APPLE)
+		free(mlx);
 }

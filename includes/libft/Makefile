@@ -15,7 +15,7 @@ LIBS		= $(PRINTFLIB)
 IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS		= -Wall -Wextra -Werror -g3 #-fsanitize=address
 AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A

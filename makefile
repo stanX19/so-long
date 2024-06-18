@@ -29,7 +29,7 @@ LIBS		= $(LIBFT)
 IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g3
 AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A
@@ -37,23 +37,25 @@ FLUSH		= \033[2K
 
 NAME		= so_long
 ARGV		= \
-assets/map/map0.ber\
-assets/map/map1.ber\
-assets/map/map2.ber\
-assets/map/map3.ber\
-assets/map/map4.ber\
-assets/map/map5.ber\
-assets/map/map6.ber\
-assets/map/map7.ber\
-assets/map/map8.ber\
-assets/map/map9.ber\
-assets/map/map10.ber\
+map/map0.ber\
+map/map1.ber\
+map/map2.ber\
+map/map3.ber\
+map/map4.ber\
+map/map5.ber\
+map/map6.ber\
+map/map7.ber\
+map/map8.ber\
+map/map9.ber\
+map/map10.ber\
 
 run: all
 	./$(NAME) $(ARGV)
 
 $(NAME): $(LIBS) $(OBJDIRS) $(OBJS) $(LIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) $(MLX) -o $(NAME)
+
+bonus: $(NAME)
 
 all: $(NAME)
 

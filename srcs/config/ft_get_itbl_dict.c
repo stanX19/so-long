@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_itbl_dict.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 12:43:56 by stan              #+#    #+#             */
-/*   Updated: 2024/06/16 23:52:04 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/18 13:10:36 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,11 @@ const t_itbl_dict	*ft_get_itbl_dict(t_assets *assets)
 {
 	static t_itbl_dict	ret[100];
 	const t_itbl_dict	itbl_dict[] = {
-	{' ', 0, TILE_PATH, NULL},
 	{'0', 0, TILE_PATH, NULL},
 	{'1', 0, TILE_WALL, NULL},
-	{'2', 0, TILE_WATER, NULL},
 	{'P', TILE_PLAYER | TILE_ALLY, TILE_PATH, assets->human},
 	{'E', TILE_EXIT, TILE_PATH, assets->portal},
 	{'C', TILE_COLLECTIBLE, TILE_PATH, assets->coin},
-	{'S', TILE_ENEMY, TILE_PATH, assets->slime},
-	{'B', TILE_ENEMY, TILE_PATH, assets->bee},
-	{'W', TILE_WOLF, TILE_PATH, assets->wolf},
-	{'G', TILE_GOBLIN, TILE_PATH, assets->goblin},
-	{'L', TILE_PLAYER | TILE_ALLY, TILE_PATH, assets->human},
 	{'\0', 0, 0, NULL}};
 
 	ft_memcpy(ret, itbl_dict, sizeof(itbl_dict));

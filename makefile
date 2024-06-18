@@ -40,14 +40,6 @@ ARGV		= \
 map/map0.ber\
 map/map1.ber\
 map/map2.ber\
-map/map3.ber\
-map/map4.ber\
-map/map5.ber\
-map/map6.ber\
-map/map7.ber\
-map/map8.ber\
-map/map9.ber\
-map/map10.ber\
 
 run: all
 	./$(NAME) $(ARGV)

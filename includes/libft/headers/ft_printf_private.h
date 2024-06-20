@@ -12,7 +12,7 @@
 
 #ifndef FT_PRINTF_PRIVATE_H
 # define FT_PRINTF_PRIVATE_H
-# include "../libft/libft.h"
+# include "libft.h"
 # include "ft_printf.h"
 # include <stdarg.h>
 # include <stdlib.h>

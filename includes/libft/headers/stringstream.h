@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:32:50 by shatan            #+#    #+#             */
-/*   Updated: 2024/06/02 14:11:08 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/18 23:47:23 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char			*ss_get_prev_str(t_stringstream *ss);
 char			ss_peek(t_stringstream *ss);
 t_stringstream	*ss_read_line(t_stringstream *ss, char **line,
 					const char *seps);
+t_stringstream	*ss_read_argv(t_stringstream *ss, char **line);
 t_stringstream	*ss_read_char(t_stringstream *ss, char *cptr);
 t_stringstream	*ss_read_int(t_stringstream *ss, int *val);
 t_stringstream	*ss_read_long(t_stringstream *ss, long int *val);

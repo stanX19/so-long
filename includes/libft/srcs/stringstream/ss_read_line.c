@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ss_read_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:50:48 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/10 14:01:23 by stan             ###   ########.fr       */
+/*   Updated: 2024/06/18 18:00:36 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_stringstream	*ss_read_line(t_stringstream *ss, char **line, const char *seps)
 	if (*start == '\0')
 		return (NULL);
 	newpos = find_end_of_line(start + 1, seps);
-	while (*newpos != '\0' && !ft_strchr(seps, *newpos))
-		newpos++;
 	if (line != NULL)
 		*line = ft_strndup(start, newpos - start);
 	return (ss_read_get_return(ss, newpos));

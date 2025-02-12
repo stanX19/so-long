@@ -1,4 +1,6 @@
 */.vs/*
+mlx_linux/
+mlx_macos/
 */mlx_linux/*
 */mlx_macos/*
 */objs/*

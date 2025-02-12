@@ -59,5 +59,6 @@ int	ft_main_loop(t_vars *vars)
 	ft_map_update_itbl(vars->map);
 	ft_show_steps(vars);
 	update_state(vars);
+	usleep(10000);
 	return (0);
 }

@@ -12,7 +12,7 @@ HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h') $(shell find $(INCLUDE_DIR) 
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
 UNAME_S		:= $(shell uname -s)
-MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+MLX_LINUX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11
 MLX_MACOS	= -lmlx -framework OpenGL -framework AppKit
 ifeq ($(UNAME_S), Darwin)
 	MLX		= $(MLX_MACOS)

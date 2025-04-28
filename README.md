@@ -120,15 +120,15 @@ Produces:
 
 ## Snapshots
 
-Here are some samples from the gameplay:
+### Sample gameplay:
 
-Player killing slimes while collecting gold
+Collecting gold while battling slimes
 ![Snapshot 1](assets/snapshots/img.png)
 
 Beautiful maps from simple .ber files
 ![Snapshot 2](assets/snapshots/img_1.png)
 
-Enemies fighting each other as a part of the ecosystem
+Boundless ecosystem with enemies fighting each other
 ![Snapshot 4](assets/snapshots/img_3.png)
 
 ---

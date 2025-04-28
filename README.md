@@ -3,7 +3,7 @@
 **so_long** is a small 2D game developed in C using the MiniLibX (MLX) graphics library.
 The player navigates through dynamically generated tile-based maps, collecting items and reaching the exit — while avoiding (or fighting) autonomous enemies that can interact with each other.
 
-This project was developed as part of the 42 school curriculum.
+This project was developed as part of the 42 school curriculum, but I decided to take it further and implemented lots of features!
 
 ---
 
@@ -25,16 +25,17 @@ This project was developed as part of the 42 school curriculum.
 - Linux or macOS
 - GCC compiler
 
-### Build Instructions
+### Setup
 
-Clone the repository:
+#### Clone the repository
 
 ```bash
 git clone https://github.com/stanX19/so-long.git so_long
 cd so_long
 ```
 
-Clone MinilibX (only if you don't already have it):
+#### Clone MinilibX
+only if you don't already have it. Ignore the make error when running
 
 ```bash
 git clone git@github.com:42Paris/minilibx-linux.git mlx_linux
@@ -43,7 +44,7 @@ make
 cd ..
 ```
 
-Then build the project:
+#### Build and run
 
 ```bash
 make
@@ -103,7 +104,7 @@ Invalid maps are rejected at startup.
 
 ### Example Map
 
-This simple example:
+This simple .ber file example:
 
 ```
 11111
@@ -121,9 +122,13 @@ Produces:
 
 Here are some samples from the gameplay:
 
+Player killing slimes while collecting gold
 ![Snapshot 1](assets/snapshots/img.png)
+
+Beautiful maps from simple .ber files
 ![Snapshot 2](assets/snapshots/img_1.png)
-![Snapshot 3](assets/snapshots/img_2.png)
+
+Enemies fighting each other as a part of the ecosystem
 ![Snapshot 4](assets/snapshots/img_3.png)
 
 ---
@@ -131,7 +136,7 @@ Here are some samples from the gameplay:
 ## Notes
 
 - Built for the 42 school's **so_long** project.
-- Focused on gameplay mechanics, dynamic map generation, and basic enemy AI.
+- Focused on gameplay mechanics, dynamic map generation, and enemy ecosystem.
 - Some details (such as MLX setup) may vary depending on your system configuration.
 
 ---

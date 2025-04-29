@@ -72,7 +72,7 @@ The game will load the first map, and automatically continue to the next map aft
 |:--------------------|:------------------------------|
 | W / A / S / D        | Move the player               |
 | Space / Left Mouse   | Attack                        |
-| Tab                  | Dash (temporary speed boost)  |
+| Tab                  | Toggle Dash Mode              |
 | R                    | Restart the current map       |
 | Esc                  | Quit the game immediately     |
 
@@ -101,7 +101,7 @@ Maps must include:
 - At least one collectible (`C`)
 - A solid wall (`1`) completely surrounding the map
 
-Invalid maps are rejected at startup.
+Invalid maps are rejected upon execution.
 
 ### Example Map
 

@@ -72,6 +72,7 @@ The game will load the first map, and automatically continue to the next map aft
 |:--------------------|:------------------------------|
 | W / A / S / D        | Move the player               |
 | Space / Left Mouse   | Attack                        |
+| Right Mouse + Move   | Dash                          |
 | Tab                  | Toggle Dash Mode              |
 | R                    | Restart the current map       |
 | Esc                  | Quit the game immediately     |

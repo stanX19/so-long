@@ -1,9 +1,10 @@
 # so_long
 
 **so_long** is a small 2D game developed in C using the MiniLibX (MLX) graphics library.
-The player navigates through the map, collecting coins and reaching the exit — while avoiding (or fighting) enemies that can interact with each other.
 
-This project was developed as part of the 42 school curriculum, but I decided to take it further and implemented lots of features!
+The player navigates through the map, collects coins and finds the exit, while avoiding (or fighting) enemies that can interact with each other.
+
+This project was developed as part of the 42 school curriculum, but I decided to take it further and implement many features!
 
 ---
 

@@ -19,24 +19,38 @@ This project was developed as part of the 42 school curriculum, but I decided to
 
 ---
 
-## Installation
+## Snapshots
+
+Collecting gold while battling slimes
+![Snapshot 1](assets/snapshots/img.png)
+
+Beautiful maps from simple .ber files
+![Snapshot 2](assets/snapshots/img_1.png)
+
+Boundless ecosystem with enemies fighting each other
+![Snapshot 4](assets/snapshots/img_3.png)
+
+---
+
+## Getting Started
 
 ### Requirements
 
 - Linux or macOS
 - GCC compiler
 
-### Setup
-
-#### Clone the repository
+### Installation
 
 ```bash
 git clone https://github.com/stanX19/so-long.git so_long
 cd so_long
 ```
 
-#### Clone MinilibX
-only if you don't already have it. Ignore the make error when running
+### Install dependencies (Minilibx)
+
+#### Linux
+
+Only if you don't already have Minilibx installed. Ignore the make error when running.
 
 ```bash
 git clone git@github.com:42Paris/minilibx-linux.git mlx_linux
@@ -45,7 +59,7 @@ make
 cd ..
 ```
 
-#### Build and run
+### Build and run
 
 ```bash
 make
@@ -117,21 +131,6 @@ This simple .ber file example:
 Produces:
 
 ![Simple map](assets/snapshots/img_4.png)
-
----
-
-## Snapshots
-
-### Sample gameplay:
-
-Collecting gold while battling slimes
-![Snapshot 1](assets/snapshots/img.png)
-
-Beautiful maps from simple .ber files
-![Snapshot 2](assets/snapshots/img_1.png)
-
-Boundless ecosystem with enemies fighting each other
-![Snapshot 4](assets/snapshots/img_3.png)
 
 ---
 
